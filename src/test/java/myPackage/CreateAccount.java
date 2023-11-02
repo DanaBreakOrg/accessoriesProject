@@ -41,7 +41,7 @@ public class CreateAccount {
         }
         @Then("a customer whose username {string} , password {string}  , Address {string} , Phone {string} , email {string} was added")
         public void aCustomerWhoseUsernamePasswordAddressPhoneEmailWasAdded(String user, String pass, String address, String phone, String email) {
-            c=new Customer(user,pass,address,phone,email);
+            c=new Customer(user,pass,address,phone,email,2);
             create=Operations.createC(c);
             assertTrue(create);
         }
