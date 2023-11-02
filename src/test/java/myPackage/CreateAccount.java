@@ -1,3 +1,5 @@
+package myPackage;
+
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
@@ -35,6 +37,7 @@ public class CreateAccount {
             phone=phoneNumber;
             email=mail;
             password=pass;
+            
         }
         @Then("a customer whose username {string} , password {string}  , Address {string} , Phone {string} , email {string} was added")
         public void aCustomerWhoseUsernamePasswordAddressPhoneEmailWasAdded(String user, String pass, String address, String phone, String email) {
