@@ -13,11 +13,6 @@ import org.example.Customer;
 public class CreateAccount {
 
 
-
-
-
-
-
         String username,address,phone,email,password;
         Customer c;
         boolean create=true;
