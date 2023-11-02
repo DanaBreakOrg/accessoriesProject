@@ -1,19 +1,74 @@
 package org.example;
 
-// Press Shift twice to open the Search Everywhere dialog and type `show whitespaces`,
-// then press Enter. You can now see whitespace characters in your code.
+import java.util.logging.Logger;
+import java.util.Scanner;
+
+
 public class Main {
+
+
+    protected static Logger logger;
+    protected static Scanner input = new Scanner (System.in);
     public static void main(String[] args) {
-        // Press Alt+Enter with your caret at the highlighted text to see how
-        // IntelliJ IDEA suggests fixing it.
-        System.out.printf("Hello and welcome!");
+        logger = Logger.getLogger(Main.class.getName());
 
-        // Press Shift+F10 or click the green arrow button in the gutter to run the code.
-        for (int i = 1; i <= 5; i++) {
+        HomePage();
 
-            // Press Shift+F9 to start debugging your code. We have set one breakpoint
-            // for you, but you can always add more by pressing Ctrl+F8.
-            System.out.println("i = " + i);
+
+
+
+
+
+
+
+
+
+
+    }
+
+
+    public static void HomePage()
+    {
+        logger.info("\n Welcome to the Car accessories Company\r\n"
+                +"Do you have an account?\r\n"
+                +"1. Create account\r\n"
+                +"2. Log-in\r\n");
+
+
+        int accountChoice = input.nextInt();
+        input.nextLine();
+
+        switch(accountChoice){
+            case 1:
+                createAccountPage();
+                break;
+            case 2:
+                //log-in page kinda same as createaccountpage()
+
         }
+    }
+
+    public static void createAccountPage()
+    {
+
+        logger.info("Enter your Username:");
+        String username = input.nextLine();
+        logger.info("Enter your Password:");
+        String password = input.nextLine();
+        logger.info("Enter your Address:");
+        String address = input.nextLine();
+        logger.info("Enter your Phone number:");
+        String phnum = input.nextLine();
+        logger.info("Enter your email:");
+        String email = input.nextLine();
+
+        Customer r = new Customer(username, password, address, phnum, email);
+        boolean create = Operations.createC(r);
+        if (create)
+            logger.info("A new account was created successfully");
+        else
+            logger.info("This account already exists");
+
+        HomePage();
     }
 }
