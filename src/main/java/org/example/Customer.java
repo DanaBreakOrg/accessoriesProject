@@ -13,6 +13,7 @@ public class Customer {
         private String address;
         private String phone;
         private String email;
+        private int type;
 
         boolean addstate;
 
@@ -35,13 +36,14 @@ public class Customer {
         }
 
 
-        public Customer(String username,String password, String address, String phone, String email) {
+        public Customer(String username,String password, String address, String phone, String email,int type) {
             super();
             this.pass = password;
             this.username = username;
             this.address = address;
             this.phone = phone;
             this.email = email;
+            this.type= type;
 
 
         }
