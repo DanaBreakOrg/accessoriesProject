@@ -5,7 +5,7 @@ import java.util.logging.Logger;
 public class Customer {
 
 
-    public static class Customer {
+
         boolean logState;
         String pass;
         final Logger logger = Logger.getLogger(Customer.class.getName());
@@ -92,6 +92,6 @@ public class Customer {
 
 
 
-    }
+
 
 }

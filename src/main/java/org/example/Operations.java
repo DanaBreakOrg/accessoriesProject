@@ -3,7 +3,7 @@ package org.example;
 public class Operations {
 
 
-    public class Operations {
+
         private Operations() {
 
         }
@@ -49,4 +49,4 @@ public class Operations {
 
     }
 
-}
+

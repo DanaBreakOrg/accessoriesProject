@@ -16,7 +16,7 @@ public class CreateAccount {
 
 
 
-    public class CreateAccount {
+
 
         String username,address,phone,email,password;
         Customer c;
@@ -109,4 +109,4 @@ public class CreateAccount {
 
     }
 
-}
+
