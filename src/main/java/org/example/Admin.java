@@ -105,17 +105,19 @@ public class Admin {
                     Scanner nn2 = new Scanner(System.in);
 
 
-                    logger.info("Enter customer Email : ");
-                    String s = pass.next();
                     logger.info("Enter customer username : ");
                     String n = pp.nextLine();
-                    logger.info("Enter customer password : ");
-                    String d = nn2.nextLine();
+                    logger.info("Enter customer Email : ");
+                    String s = pass.next();
+                    logger.info("Enter customer Gender : ");
+                    String k = nn2.nextLine();
                     logger.info("Enter customer Phone number : ");
                     String j = nn.nextLine();
                     logger.info("Enter customer address : ");
                     String h = nn.nextLine();
-                    Customer customer = new Customer(n, d, h, j, s, 1);
+                    logger.info("Enter customer password : ");
+                    String d = nn2.nextLine();
+                    Customer customer = new Customer(n, d, h, j, s,k, 1);
                     boolean add = Operations.addCustomer(customer);
                     if (add)
                         logger.info("A new Customer added");

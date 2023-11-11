@@ -100,16 +100,18 @@ public class Main {
 
         logger.info("Enter your Username:");
         String username = input.nextLine();
-        logger.info("Enter your Password:");
-        String password = input.nextLine();
-        logger.info("Enter your Address:");
-        String address = input.nextLine();
-        logger.info("Enter your Phone number:");
-        String phnum = input.nextLine();
         logger.info("Enter your email:");
         String email = input.nextLine();
+        logger.info("Enter your Gender : ");
+        String gen = input.nextLine();
+        logger.info("Enter your Phone number:");
+        String phnum = input.nextLine();
+        logger.info("Enter your Address:");
+        String address = input.nextLine();
+        logger.info("Enter your Password:");
+        String password = input.nextLine();
 
-        Customer r = new Customer(username, password, address, phnum, email,2);
+        Customer r = new Customer(username, password, address, phnum, email, gen,1);
         boolean create = Operations.createC(r);
         if (create)
             logger.info("A new account was created successfully");
