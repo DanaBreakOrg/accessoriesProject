@@ -7,7 +7,7 @@ public class Customer {
 
 
         boolean logState;
-        String pass;
+        private String pass;
         final Logger logger = Logger.getLogger(Customer.class.getName());
         private String username;
         private String address;
@@ -92,7 +92,14 @@ public class Customer {
             this.email = email;
         }
 
+        public String getPassword() {
+        return pass;
+    }
 
+
+        public void setPassword(String password) {
+        this.pass = password;
+    }
 
 
 
