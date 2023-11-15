@@ -18,7 +18,12 @@ public class Main {
         Admin t= new Admin("talah","123456",0);
         Logging.q.put("nasser", "12345");
         Logging.q.put("talah", "123");
-
+        Customer i=new Customer("ahmad tone","222","QAM","02872228","98","Male",1);
+        Customer i1=new Customer("zeina sam","111","KIM","028725510","97","Female",1);
+        Customer i2=new Customer("emad sam","555","DAM","028725323","99","Male",1);
+        Customer.getC().add(i);
+        Customer.getC().add(i1);
+        Customer.getC().add(i2);
         Admin.getAdmin().add(a);
         Admin.getAdmin().add(t);
 
@@ -31,85 +36,100 @@ public class Main {
     }
 
 
-    public static void HomePage()
-    {
-        logger.info("\n Welcome to the Car Accessories Company\r\n"
-                +"Do you have an account?\r\n"
-                +"1. Create account\r\n"
-                +"2. Log-in\r\n");
+    public static void HomePage() {
+
+        while (true) {
+            logger.info("\n Welcome to the Car Accessories Company\r\n"
+                    + "Do you have an account?\r\n"
+                    + "1. Create account\r\n"
+                    + "2. Log-in\r\n"
+                    + "3. Exit.\r\n");
 
 
-        int accountChoice = input.nextInt();
-        input.nextLine();
+            int accountChoice = input.nextInt();
+            input.nextLine();
 
-        switch(accountChoice){
-            case 1:{
-                createAccountPage();
-                break;}
-
-            case 2: {
-                int u , y;
-
-                Logging user = new Logging();
-                logger.info("Please enter your username : ");
-                String username = input.nextLine();
-                u = user.searchUsername(username);
-
-                while (u < 0) {
-
-                    logger.info("Please enter your username again : ");
-                    username = input.nextLine();
-                    u = user.searchUsername(username);
+            switch (accountChoice) {
+                case 1: {
+                    createAccountPage();
+                    break;
                 }
 
-                logger.info("Please enter your password : ");
-                String password = input.nextLine();
-                y = user.searchPassword(password);
+                case 2: {
+                    int u, y;
 
-                while (y == -33) {
+                    Logging user = new Logging();
+                    logger.info("Please enter your username : ");
+                    String username = input.nextLine();
+                    u = user.searchUsername(username);
 
-                    logger.info("Please enter your password again : ");
-                    password = input.nextLine();
+                    while (u < 0) {
+
+                        logger.info("Please enter your username again : ");
+                        username = input.nextLine();
+                        u = user.searchUsername(username);
+                    }
+
+                    logger.info("Please enter your password : ");
+                    String password = input.nextLine();
                     y = user.searchPassword(password);
 
-                }
+                    while (y == -33) {
 
-                switch (y) {
-
-                    case 0: {//admin
-                        logger.info("\n" + " Welcome Admin " + user.username + "\n");
-                        Admin.adminActivities();
+                        logger.info("Please enter your password again : ");
+                        password = input.nextLine();
+                        y = user.searchPassword(password);
 
                     }
-                    case 1:
-                        logger.info("\n" + " Welcome Customer " + user.username + "\n");
 
-                    case 2:
-                        logger.info("\n" + " Welcome Installer " + user.username + "\n");
+                    switch (y) {
 
+                        case 0: {//admin
+                            logger.info("\n" + " Welcome Admin " + user.username + "\n");
+                            Admin.adminActivities();
+                            break;
+
+                        }
+                        case 1:
+                            logger.info("\n" + " Welcome Customer " + user.username + "\n");
+                            Customer.customerActivities();
+                            break;
+
+
+
+                        case 2:
+                            logger.info("\n" + " Welcome Installer " + user.username + "\n");
+                            break;
+
+                    }
+                    break;
                 }
+
+                case 3: System.exit(0);
 
             }
 
         }
 
-    }
 
+    }
     public static void createAccountPage()
     {
 
         logger.info("Enter your Username:");
         String username = input.nextLine();
-        logger.info("Enter your Password:");
-        String password = input.nextLine();
-        logger.info("Enter your Address:");
-        String address = input.nextLine();
-        logger.info("Enter your Phone number:");
-        String phnum = input.nextLine();
         logger.info("Enter your email:");
         String email = input.nextLine();
+        logger.info("Enter your Gender : ");
+        String gen = input.nextLine();
+        logger.info("Enter your Phone number:");
+        String phnum = input.nextLine();
+        logger.info("Enter your Address:");
+        String address = input.nextLine();
+        logger.info("Enter your Password:");
+        String password = input.nextLine();
 
-        Customer r = new Customer(username, password, address, phnum, email,2);
+        Customer r = new Customer(username, password, address, phnum, email, gen,1);
         boolean create = Operations.createC(r);
         if (create)
             logger.info("A new account was created successfully");
