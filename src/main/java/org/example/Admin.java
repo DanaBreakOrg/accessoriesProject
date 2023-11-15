@@ -73,32 +73,32 @@ public class Admin {
     public static void adminActivities() {
         boolean running = true;
         while (running) {
-            logger.info("\n Welcome , to the Cleaning services for carpets and covers.\r\n"
+            logger.info("\n Welcome , to the Car accessories company.\r\n"
                     +"------------------------------------------------------------.\r\n"
                     +"Select an option:.\r\n"//add update delete view customers
                     +"1. Show all customers.\r\n"
                     +"2. Add a new customer.\r\n"
                     +"3. Update a customer.\r\n"
                     +"4. Delete a customer.\r\n"
-
+                    +"5. Back.\r\n"
                     +"Enter the number of the activity you want to perform: ");
             int choice = input.nextInt();
 
             switch (choice) {
 
 
-                case 1://show all customers done
+                case 1: {//show all customers done
                     for (int i = 0; i < Customer.getC().size(); i++) {
-                        String ff=String.format("%d-" ,i + 1);
-                        logger.info (ff);
+                        String ff = String.format("%d-", i + 1);
+                        logger.info(ff);
 
                         logger.info(Customer.getC().get(i).getUsername() + "   " + Customer.getC().get(i).getAddress() + "   " + Customer.getC().get(i).getPhone() + "\r\n");
 
                     }
                     break;
+                }
 
-
-                case 2: //add a new customer done
+                case 2: {//add a new customer done
                     Scanner pass = new Scanner(System.in);
                     Scanner pp = new Scanner(System.in);
                     Scanner nn = new Scanner(System.in);
@@ -117,14 +117,14 @@ public class Admin {
                     String h = nn.nextLine();
                     logger.info("Enter customer password : ");
                     String d = nn2.nextLine();
-                    Customer customer = new Customer(n, d, h, j, s,k, 1);
+                    Customer customer = new Customer(n, d, h, j, s, k, 1);
                     boolean add = Operations.addCustomer(customer);
                     if (add)
                         logger.info("A new Customer added");
                     else
                         logger.info("A Customer is already exist");
                     break;
-
+                }
 
                 case 3: {//update customer done
                     Scanner pass1 = new Scanner(System.in);
@@ -142,6 +142,7 @@ public class Admin {
                                     + "3. Update customer Email.\r\n"
                                     + "4. Update customer phone number.\r\n"
                                     + "5. Update customer address.\r\n"
+                                    + "6. Back.\r\n"
                             //update type?????????????????????????????
                     );
                     int updateChoice = input.nextInt();
@@ -179,6 +180,9 @@ public class Admin {
                             update = Operations.updateAddress(z, h1);
                             break;
 
+
+                        case 6: break;
+
                         default:
                             logger.info(INVALID);
                             break;
@@ -191,7 +195,8 @@ public class Admin {
                         logger.info("Customer doesn't exist");
                     break;
                 }
-                case 4: //delete customer
+
+                case 4: {//delete customer
                     int index = -1;
                     Scanner pass2 = new Scanner(System.in);
                     logger.info("Enter the customer username you want to delete:");//username or smth else??
@@ -209,10 +214,12 @@ public class Admin {
                             logger.info("A customer was deleted");
                     }
                     break;
+                }
 
 
 
-                case 5:
+                case 5: running=false;
+                    break;
 
 
 
