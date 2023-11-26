@@ -22,7 +22,20 @@ public class productManagment {
 
     @Given("a list of product with their state.")
     public void aListOfProductWithTheirState(DataTable dataTable) {
+        String ID , Name , Description ,Category ,Price;
 
+        for(int i=0; i< dataTable.height() ; i++){
+            ID = dataTable.cell(i,0);
+            Name = dataTable.cell(i,1);
+            Description = dataTable.cell(i,2);
+            Category = dataTable.cell(i,3);
+            Price = dataTable.cell(i,4);
+            double value = Double.parseDouble(Price);
+
+
+            p= new Product (ID,Name,Description,Category,value);
+            Product.getP().add(i, p);
+        }
     }
     @Given("the admin is logged in")
     public void theAdminIsLoggedIn() {
@@ -40,7 +53,7 @@ public class productManagment {
     @Then("a product whose ID {string} , Name {string} , description {string},Category {string}, price {string} NIS was added")
     public void aProductWhoseIDNameDescriptionCategoryPriceNISWasAdded(String id, String name, String description, String category, String price) {
         Price = Double.parseDouble(price);
-        p= new Product (ID,Name,Description,Category,Price);
+        p= new Product (id,name,description,category,Price);
         add=Operations.addP(p);
         assertTrue(add);
     }
@@ -85,7 +98,6 @@ public class productManagment {
     public void theInformationForAProductWasUpdated() {
 
         update=Operations.updateP(IDUpdate,ID,Name,Description,Price,Category);
-
         assertFalse(update);
     }
 
