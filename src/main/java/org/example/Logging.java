@@ -122,6 +122,26 @@ public class Logging {
 
     }*/
 
+
+    public void logState(boolean t) {
+
+        logState=t;
+    }
+
+    public boolean login(String password) {
+
+        if(this.password.equals(password)) {
+            logger.info("successfull log in");
+            logState=true;
+            return true;
+
+        }
+        else {
+            logger.info("wrong password");
+            return false;
+        }
+    }
+
     public void setLogState(boolean t) {
 
         logState=t;

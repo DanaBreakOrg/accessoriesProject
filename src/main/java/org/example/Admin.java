@@ -80,7 +80,10 @@ public class Admin {
                     +"2. Add a new customer.\r\n"
                     +"3. Update a customer.\r\n"
                     +"4. Delete a customer.\r\n"
-                    +"5. Back.\r\n"
+                    +"5. Add a product.\r\n"
+                    +"6. Delete a product.\r\n"
+                    +"7. Update a product.\r\n"
+                    +"8. Back.\r\n"
                     +"Enter the number of the activity you want to perform: ");
             int choice = input.nextInt();
 
@@ -117,7 +120,7 @@ public class Admin {
                     String h = nn.nextLine();
                     logger.info("Enter customer password : ");
                     String d = nn2.nextLine();
-                    Customer customer = new Customer(n, d, h, j, s, k, 1);
+                    Customer customer = new Customer(n, d, h, j, s, k,0.0, 1);
                     boolean add = Operations.addCustomer(customer);
                     if (add)
                         logger.info("A new Customer added");
@@ -216,9 +219,87 @@ public class Admin {
                     break;
                 }
 
+                case 5: //add a product
+                    Customer.showAllProducts();
+
+                    Scanner pId=new Scanner(System.in);
+                    Scanner pName=new Scanner(System.in);
+                    Scanner pDescription=new Scanner(System.in);
+                    Scanner pCategory=new Scanner(System.in);
+                    Scanner pPrice=new Scanner(System.in);
+
+                    logger.info("Enter product ID : ");
+                    String id = pName.nextLine();
+                    logger.info("Enter product name : ");
+                    String name = pName.nextLine();
+                    logger.info("Enter product description : ");
+                    String description = pDescription.nextLine();
+                    logger.info("Enter product category (interor/exterior/electronics) : ");
+                    String category = pCategory.nextLine();
+                    logger.info("Enter product price : ");
+                    String price = pPrice.nextLine();
+                    double value = Double.parseDouble(price);;
+                    Product prod = new Product(id,name, description, category, value);
+                    boolean add = Operations.addP(prod);
+                    if (add)
+                        logger.info("A new product is added");
+                    else
+                        logger.info("This product already exists");
+
+                    break;
+
+                case 6:
+                    Customer.showAllProducts();
+                    int index = -1;
+                    Scanner pid = new Scanner(System.in);
+                    logger.info("Enter the product name you want to delete:");
+                    String z1 = pid.next();
+                    for (int i = 0; i < Customer.getC().size(); i++) {
+                        if (Product.getP().get(i).getName().equals(z1)) {
+                            index = i;
+                        }
+                    }
+                    if (index == -1) {
+                        logger.info("The product you want to delete doesn't exist");
+                    } else {
+                        boolean delete = Operations.deleteP(Product.getP().get(index));
+                        if (!delete)
+                            logger.info("The product was deleted");
+                    }
+                    break;
+
+                case 7:
+
+                    Customer.showAllProducts();
+                    Scanner pId1=new Scanner(System.in);
+                    Scanner pName1=new Scanner(System.in);
+                    Scanner pDescription1=new Scanner(System.in);
+                    Scanner pCategory1=new Scanner(System.in);
+                    Scanner pPrice1=new Scanner(System.in);
+
+                    logger.info("Enter the product id you want to update:");
+                    String z = pId1.next();
+
+                    logger.info("Enter a new name:");
+                    String pnamenew = pName1.next();
+                    logger.info("Enter a new description:");
+                    String pdescnew = pDescription1.nextLine();
+                    logger.info("Enter a new category:");
+                    String pcatnew = pCategory1.nextLine();
+                    logger.info("Enter a new price:");
+                    String ppricenew = pPrice1.nextLine();
+                    double v = Double.parseDouble(ppricenew);
+                    boolean update1 =Operations.updateP(z,z,pnamenew,pdescnew,v,pcatnew);
+                    if(!update1) {
+                        logger.info("A Product was updated");
+                    } else {
+                        logger.info("Your message was sent successfully");
+                    }
+
+                    break;
 
 
-                case 5: running=false;
+                case 8: running=false;
                     break;
 
 

@@ -10,17 +10,17 @@ Feature: product management (add,delete,update)
 
   Scenario: A product was added succefully
     Given the admin is logged in
-    And there is a product with ID "2" , Name "Car mats" ,Category "black rubber car mats",Type "interior", price "70" NIS
-    Then a product whose ID "2" , Name "Car mats" ,Category "black rubber car mats",Type "interior", price "70" NIS was added
+    And there is a product with ID "5" , Name "Car blinds" , description "black car blinds",Category "interior", price "80" NIS
+    Then a product whose ID "5" , Name "Car blinds" , description "black car blinds",Category "interior", price "80" NIS was added
 
   Scenario: delete a product
-    Given that you want to delete a product whose ID "2" , Name "Car mats" ,Category "black rubber car mats",Type "interior", price "70" NIS
-    And admin is logged in
-    Then product whose ID "2" , Name "Car mats" ,Category "black rubber car mats",Type "interior", price "70" NIS was deleted
+    Given that you want to delete a product whose ID "2" , Name "Car mats" , description "black rubber car mats",Category "interior", price "70" NIS
+    And the admin is logged in
+    Then product whose ID "2" , Name "Car mats" , description "black rubber car mats",Category "interior", price "70" NIS was deleted
 
 
   Scenario: Update a product information
-    Given that you want to update a name to  ID "2" , Name "Car mats" ,Category "black rubber car mats",Type "interior", price "70" NIS
-    And admin is logged in
-    When its ID "2"
+    Given that you want to update a name to  ID "3" , Name "Roof racks" , description "pack of 2 car roof rack",Category "exterior", price "100" NIS
+    And the admin is logged in
+    When its ID "3"
     Then the information for a product was updated
