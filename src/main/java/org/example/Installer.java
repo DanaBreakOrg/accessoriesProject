@@ -1,13 +1,15 @@
 package org.example;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.logging.Handler;
+import java.util.logging.LogRecord;
 import java.util.logging.Logger;
+import java.util.logging.SimpleFormatter;
 
 public class Installer {
-    boolean logState;
-    String pass;
-    final Logger logger = Logger.getLogger(Installer.class.getName());
+
     private String name;
     private String address;
     private String phone;
@@ -18,9 +20,29 @@ public class Installer {
     boolean updatestate;
     @SuppressWarnings("unused")
     private int type;
+    boolean logState;
+    String pass;
+
+
+
+    final Logger logger = Logger.getLogger(Installer.class.getName());
+
+    static {
+
+        Logger rootLogger = Logger.getLogger("");
+        Handler[] handlers = rootLogger.getHandlers();
+        for (Handler handler : handlers) {
+            handler.setFormatter(new SimpleFormatter() {
+                @Override
+                public String format(LogRecord logRecord) {
+                    return logRecord.getMessage() + "\n";
+                }
+            });
+        }
+    }
+
     protected static final List<Installer> installer = new ArrayList<>() ;
-
-
+    public HashMap<String,String> reservaedDates= new HashMap<>();
 
     public Installer() {
         logState=false;
@@ -51,9 +73,15 @@ public class Installer {
 
     }
 
-    public static List<Installer> getW() {
+
+    public static List<Installer> getInstaller() {
         return installer;
     }
+    public HashMap<String,String> getReservaeddates() {
+        return reservaedDates;
+    }
+
+
 
     public String getName() {
         return name;

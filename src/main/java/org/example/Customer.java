@@ -1,58 +1,70 @@
 package org.example;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Scanner;
+import java.util.logging.Handler;
+import java.util.logging.LogRecord;
 import java.util.logging.Logger;
+import java.util.logging.SimpleFormatter;
 
 import static org.example.Logging.y;
 
 public class Customer {
 
 
+    private String username;
+    private String address;
+    private String phone;
+    private String email;
+    private String gender;
+    private int type;
+    private static int productsCounter;
 
-        boolean logState;
-        public static final  String DEC="%d - ";
-        private String pass;
-        final static Logger logger = Logger.getLogger(Customer.class.getName());
-        private String username;
-        private String address;
-        private String phone;
-        private String email;
-        private String gender;
-        private int type;
-        private static int productsCounter;
+    boolean addstate; // where do we use it?
+    private double cost;
 
-        boolean addstate;
-        private double cost;
-
-        private List<Product> card = new ArrayList<>() ;
-
-    public double getCost() {
-        return cost;
-    }
-
-    public void setCost(double cost) {
-        this.cost = cost;
-    }
+    boolean logState;
+    boolean request=false;
+    String date;
+    public static final  String DEC="%d - ";
+    private String pass;
 
 
-    protected static final List<Customer> C = new ArrayList<>() ;
-        protected static Scanner input = new Scanner (System.in);
 
-    public List<Product> getCard() {
-        return card;
-    }
+    protected static Scanner input = new Scanner (System.in);
+    final static Logger logger = Logger.getLogger(Customer.class.getName());
 
+    static {
 
-        public Customer() {
-            logState=false;
-            //pass="worker123";
-
+        Logger rootLogger = Logger.getLogger("");
+        Handler[] handlers = rootLogger.getHandlers();
+        for (Handler handler : handlers) {
+            handler.setFormatter(new SimpleFormatter() {
+                @Override
+                public String format(LogRecord logRecord) {
+                    return logRecord.getMessage() + "\n";
+                }
+            });
         }
+    }
+
+
+    //lists
+    private List<Product> card = new ArrayList<>() ;
+    private List<Customer> customersWaiting = new ArrayList<>() ;
+    protected static final List<Customer> C = new ArrayList<>() ;
+    public List<Customer> getCustomersWaiting() {
+        return customersWaiting;
+    }
 
 
 
+    public Customer() {
+        logState=false;
+        //pass="worker123";
 
+    }
 
 
     public static void customerActivities() {
@@ -66,9 +78,10 @@ public class Customer {
                     + "2. Show all products.\r\n"
                     + "3. Filter by category.\r\n"
                     + "4. Filter by price.\r\n"
-                    + "5. Make an order.\r\n"
-                    + "6. Show cart.\r\n"
-                    + "7. Search a product. \r"
+                    + "5. Make an order.\r\n"//not done
+                    + "6. Show cart.\r\n"//done
+                    + "7. Search a product.\r\n"//done
+                    + "8. Back.\r\n"//not done
                     
             );
             int choice = input.nextInt();
@@ -222,8 +235,9 @@ public class Customer {
                 + "1. Change address.\r\n"
                 + "2. Change phone number.\r\n"
                 + "3. Change Email.\r\n"
-                + "4. Change Password\r\n"
-                + "5. View order history\r\n"
+                + "4. Change Password.\r\n"
+                + "5. View order history.\r\n"//not done
+                + "6. Back.\r\n"///not done yet
         );
         int p= input.nextInt();
         switch(p){
@@ -303,8 +317,7 @@ public class Customer {
         for (int i = 0; i < Product.getP().size(); i++) {
 
             if (Product.getP().get(i).getCategory().equals("electronics")) {
-                String format = String.format(DEC, i + 1);
-                logger.info("\n"+ format + " | "+Product.getP().get(i).getId()+" | "+Product.getP().get(i).getName() + " | " + Product.getP().get(i).getDescription() + " | " + Product.getP().get(i).getPrice() +" | "+ "\r\n");
+                logger.info("\n" + " | "+Product.getP().get(i).getId()+" | "+Product.getP().get(i).getName() + " | " + Product.getP().get(i).getDescription() + " | " + Product.getP().get(i).getPrice() +" | "+ "\r\n");
 
 
             }
@@ -315,8 +328,7 @@ public class Customer {
     private static void showInteriorAccessories() {
         for (int i = 0; i < Product.getP().size(); i++) {
             if (Product.getP().get(i).getCategory().equals("interior")) {
-                String format = String.format(DEC, i + 1);
-                logger.info("\n"+ format + " | "+Product.getP().get(i).getId()+" | "+Product.getP().get(i).getName() + " | " + Product.getP().get(i).getDescription() + " | " + Product.getP().get(i).getPrice() +" | "+ "\r\n");
+                logger.info("\n" + " | "+Product.getP().get(i).getId()+" | "+Product.getP().get(i).getName() + " | " + Product.getP().get(i).getDescription() + " | " + Product.getP().get(i).getPrice() +" | "+ "\r\n");
 
             }
         }
@@ -325,8 +337,8 @@ public class Customer {
     private static void showExteriorAccessories() {
         for (int i = 0; i < Product.getP().size(); i++) {
             if (Product.getP().get(i).getCategory().equals("exterior")) {
-                String format = String.format(DEC, i + 1);
-                logger.info("\n"+ format + " | "+Product.getP().get(i).getId()+" | "+Product.getP().get(i).getName() + " | " + Product.getP().get(i).getDescription() + " | " + Product.getP().get(i).getPrice() +" | "+ "\r\n");
+
+                logger.info("\n"+ " | "+Product.getP().get(i).getId()+" | "+Product.getP().get(i).getName() + " | " + Product.getP().get(i).getDescription() + " | " + Product.getP().get(i).getPrice() +" | "+ "\r\n");
                 productsCounter++;
             }
         }
@@ -355,16 +367,38 @@ public class Customer {
 
         }
 
+
+
+
+        //lists functions , must be static or not?
         public static List<Customer> getC() {
             return C;
         }
+        public List<Product> getCard() {
+        return card;
+    }
 
 
+
+
+
+
+    // request functions
+
+    public boolean getRequest() {return request;}
+    public void setRequest(String datte) {
+        this.request=true;
+        this.date=datte;
+    }
+
+
+
+
+
+    //fields functions
         public String getUsername() {
-            return username;
-        }
-
-
+        return username;
+    }
         public void setUsername(String username) {
             this.username = username;
         }
@@ -373,8 +407,6 @@ public class Customer {
         public String getAddress() {
             return address;
         }
-
-
         public void setAddress(String address) {
             this.address = address;
         }
@@ -383,29 +415,24 @@ public class Customer {
         public String getPhone() {
             return phone;
         }
-
-
         public void setPhone(String phone) {
             this.phone = phone;
         }
 
 
-        public String getEmail() {
-            return email;
-        }
+        public String getEmail() { return email; }
+        public void setEmail(String email) { this.email = email; }
 
 
-        public void setEmail(String email) {
-            this.email = email;
-        }
+        public String getPassword() { return pass; }
+        public void setPassword(String password) { this.pass = password; }
 
-        public String getPassword() {
-        return pass;
+
+        public double getCost() {
+        return cost;
     }
-
-
-        public void setPassword(String password) {
-        this.pass = password;
+        public void setCost(double cost) {
+        this.cost = cost;
     }
 
 

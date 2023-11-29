@@ -1,36 +1,49 @@
 package org.example;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Scanner;
+import java.util.*;
+import java.util.logging.Handler;
+import java.util.logging.LogRecord;
 import java.util.logging.Logger;
+import java.util.logging.SimpleFormatter;
 
 public class Admin {
 
     public static final  String ENAME="Enter a new username:";
-    public static final  String NEWID="Enter new ID: ";
-    public static final  String DEC="%d - ";
-
-    public static final  String Email="Enter Email : ";
-    public static final  String LOGOUT="You are logged out.";
     public static final  String INVALID="Invalid choice. Please try again.";
-
-
-    public static final String NOTE="The Username doesn't exist, please enter your Username again";
     boolean logState;
-
     private String password;
-
     private int type;
     private String username;
-    public static final List<Admin> admin = new ArrayList<>() ;
-    final static Logger logger = Logger.getLogger(Admin.class.getName());
+
+
+
+
+
     protected static Scanner input = new Scanner (System.in);
+    final static Logger logger = Logger.getLogger(Admin.class.getName());
+
+    static {
+
+        Logger rootLogger = Logger.getLogger("");
+        Handler[] handlers = rootLogger.getHandlers();
+        for (Handler handler : handlers) {
+            handler.setFormatter(new SimpleFormatter() {
+                @Override
+                public String format(LogRecord logRecord) {
+                    return logRecord.getMessage() + "\n";
+                }
+            });
+        }
+    }
 
 
+    // lists
+    public static final List<Admin> admin = new ArrayList<>() ;
     public static List<Admin> getAdmin() {
         return admin;
     }
+
+
 
     public Admin() {
         logState=false;
@@ -44,21 +57,10 @@ public class Admin {
         this.username = name;
     }
 
-    public void logging(boolean t) {
 
-        logState=t;
-    }
-    public boolean getLogState() {
-
-        return logState;
-    }
-
-    public String getName() {
-        return username;
-    }
 
     //check if the installer is available or not
-    public static void listw ( List<Installer> list,String name) {
+    public static void listw ( List<Installer> list,String name) {// I think we need to delete this function
         for(int i=0;i<list.size();i++)
         {   if(list.get(i).getName().equalsIgnoreCase(name)) {
             if(list.get(i).available)
@@ -76,14 +78,16 @@ public class Admin {
             logger.info("\n Welcome , to the Car accessories company.\r\n"
                     +"------------------------------------------------------------.\r\n"
                     +"Select an option:.\r\n"//add update delete view customers
-                    +"1. Show all customers.\r\n"
-                    +"2. Add a new customer.\r\n"
-                    +"3. Update a customer.\r\n"
-                    +"4. Delete a customer.\r\n"
-                    +"5. Add a product.\r\n"
-                    +"6. Delete a product.\r\n"
-                    +"7. Update a product.\r\n"
-                    +"8. Back.\r\n"
+                    +"1.  Show all customers.\r\n"
+                    +"2.  Add a new customer.\r\n"
+                    +"3.  Update a customer.\r\n"
+                    +"4.  Delete a customer.\r\n"
+                    +"5.  Schedule and manage installation appointments.\r\n"//not done
+                    +"6.  Add a product.\r\n"
+                    +"7.  Delete a product.\r\n"
+                    +"8.  Update a product.\r\n"
+                    +"9.  Back.\r\n"
+                    +"10. Quit.\r\n"
                     +"Enter the number of the activity you want to perform: ");
             int choice = input.nextInt();
 
@@ -219,7 +223,108 @@ public class Admin {
                     break;
                 }
 
-                case 5: //add a product
+                case 5:
+                    Scanner customerEmail = new Scanner(System.in);
+                    logger.info("Enter the customer email you want to schedule installation appointment for :");
+                    String ce = customerEmail.next();
+
+                    for (int k = 0; k < Customer.getC().size(); k++) {
+                        if (Customer.getC().get(k).getEmail().equals(ce)) {
+               //////////////////////////////////////////////////////////       //      searchAvailable
+                            break;
+                        }
+                    }
+/*
+                    for (Customer temp : Customer.getC()) {
+
+                        if (.contains(temp)) {
+
+                            // Since present, add it to list3
+                            list3.add(temp);
+                        }
+                    }*/
+                    Customer.getC();
+                    Installer mn=new Installer("woroud","123123","RAM","0568725598","122",true,2);
+                    //Installer n1=new Installer("ahmad","123","nablus","0568665598","123",true,2);
+                    //Installer n2=new Installer("leen","321","SAM","0568722198","124",false,2);
+
+                    Installer.getInstaller().add(mn);
+                    //Installer.getInstaller().add(n1);
+                    //Installer.getInstaller().add(n2);
+
+
+                    Customer ii=new Customer("shahod","222","QAM","02872228","shahdslajhst@gmail.com","Male",0.0,1);
+                    //Customer i2=new Customer("dana","555","DAM","028725323","99","Male",0.0,1);
+
+                    Customer.getC().add(ii);
+                    //Customer.getC().add(i2);
+
+                   mn.getReservaeddates().put("dana@","24/10/2002");
+                    mn.getReservaeddates().put("shahd@","10/12/2002");
+                    mn.getReservaeddates().put("leen@","1/1/2002");
+                    searchAvailable(mn,ii,"28/1/2002");
+
+                    ///n1.getReservaeddates().put(1,"1/11/2023");
+                    //n2.getReservaeddates().put(1,"24/10/2021");
+                    //n2.getReservaeddates().put(2,"4/3/2021");
+                    //printAllDates(mn);
+                    //printAllDates(n1);
+                    //printAllDates(n2);
+
+
+                    break;
+
+/*
+                    String state;
+                    String namee;
+
+                    for(int i = 0; i < Customer.customerDates.size(); i++){
+                        //String date=Customer.customerDates.get();
+                        System.out.println(Customer.customerDates);
+
+
+
+                    }
+                    for (int j = 0; i < Installer.getInstaller().size(); j++) {
+
+                        printAllDates(Installer.getInstaller().get(i));
+                        String xx=String.format(DEC, i + 1);
+                        logger.info(xx);
+                        if(Installer.getInstaller().get(i).available)state="Available";
+                        else state="Not Available";
+                        String fw=String.format(" %s         %s  \r%n" ,Installer.getInstaller().get(i).getName(),state);
+
+                        logger.info(fw);
+                    }
+
+
+                    logger.info("Write a name of Installer you want to give him a job");
+
+
+                    distributeTasks(HashMap<String,String> q,Installer.getInstaller())
+                    Scanner ppp = new Scanner(System.in);
+                    namee= ppp.nextLine();
+
+
+                    boolean xx=Operations.listInstaller(Installer.getInstaller(), namee);
+                    if(xx==true) {
+                    //operation
+                        logger.info("Reservation Done");
+                        break;
+                    }
+
+
+
+
+
+
+                    }*/
+
+
+
+
+
+                case 6: //add a product
                     Customer.showAllProducts();
 
                     Scanner pId=new Scanner(System.in);
@@ -248,7 +353,7 @@ public class Admin {
 
                     break;
 
-                case 6:
+                case 7:
                     Customer.showAllProducts();
                     int index = -1;
                     Scanner pid = new Scanner(System.in);
@@ -268,7 +373,7 @@ public class Admin {
                     }
                     break;
 
-                case 7:
+                case 8:
 
                     Customer.showAllProducts();
                     Scanner pId1=new Scanner(System.in);
@@ -299,13 +404,13 @@ public class Admin {
                     break;
 
 
-                case 8: running=false;
+                case 9: running=false;
                     break;
 
 
 
 
-                case 9:
+                case 10:
                     System.exit(0);
                     break;
 
@@ -319,5 +424,34 @@ public class Admin {
 
     }
 
+
+    public void logging(boolean t) { logState=t; }
+    public boolean getLogState() { return logState; }
+    public String getName() {
+        return username;
+    }
+
+
+
+    private static void printAllDates(Installer installer) {
+        logger.info(installer.getName()+" \t ");
+
+        for (Map.Entry<String, String> entry : installer.getReservaeddates().entrySet()) {
+
+            logger.info(entry.getKey() + ": " + entry.getValue());
+        }
+    }
+    private static void searchAvailable(Installer installer,Customer customer,String date) {
+        installer.available=true;
+        printAllDates(installer);
+        if(!installer.getReservaeddates().containsValue(date)){
+            installer.available=false;
+            installer.getReservaeddates().put(customer.getEmail(),date);
+        }
+
+        printAllDates(installer);
+        System.out.println("availablity state : "+installer.available);
+
+    }
 
 }
