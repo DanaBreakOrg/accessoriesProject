@@ -6,9 +6,7 @@ import java.util.logging.Logger;
 
 public class Logging {
 
-    protected static Scanner input = new Scanner (System.in);
 
-    public static HashMap<String,String> q= new HashMap<>();//how to make it protected
 
     public boolean successfulusername= false;
     public boolean successfulpassword= false;
@@ -19,7 +17,11 @@ public class Logging {
     public boolean logState = false;
     protected static int y;
     int index = -3;
+
+    protected static Scanner input = new Scanner (System.in);
+    public static HashMap<String,String> q= new HashMap<>();//how to make it protected
     final Logger logger = Logger.getLogger(Logging.class.getName());
+
 
     public int searchUsername(String username1){
 
@@ -48,8 +50,8 @@ public class Logging {
         }
 
         if (flag) {
-            for (int k = 0; k < Installer.getW().size(); k++) {
-                if (username.equals(Installer.getW().get(k).getName())) {
+            for (int k = 0; k < Installer.getInstaller().size(); k++) {
+                if (username.equals(Installer.getInstaller().get(k).getName())) {
                     flag = false;
                     successfulusername=true;
                     index = 2;

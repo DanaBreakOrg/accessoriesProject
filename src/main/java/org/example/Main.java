@@ -1,30 +1,54 @@
 package org.example;
 
+import java.util.logging.Handler;
+import java.util.logging.LogRecord;
 import java.util.logging.Logger;
 import java.util.Scanner;
+import java.util.logging.SimpleFormatter;
 
 
 public class Main {
 
-
-    protected static Logger logger;
     protected static Scanner input = new Scanner (System.in);
+    protected static Logger logger;
+
+    static {
+
+        Logger rootLogger = Logger.getLogger("");
+        Handler[] handlers = rootLogger.getHandlers();
+        for (Handler handler : handlers) {
+            handler.setFormatter(new SimpleFormatter() {
+                @Override
+                public String format(LogRecord logRecord) {
+                    return logRecord.getMessage() + "\n";
+                }
+            });
+        }
+    }
+
     public static void main(String[] args) {
 
 
         logger = Logger.getLogger(Main.class.getName());
+
+
         Admin a= new Admin("nasser","12345",0);
         Admin t= new Admin("talah","123456",0);
+        Admin.getAdmin().add(a);
+        Admin.getAdmin().add(t);
+
         Logging.q.put("nasser", "12345");
         Logging.q.put("talah", "123");
+
         Customer i=new Customer("shahod","222","QAM","02872228","shahdslajhst@gmail.com","Male",0.0,1);
         Customer i2=new Customer("dana","555","DAM","028725323","99","Male",0.0,1);
         Customer.getC().add(i);
         Customer.getC().add(i2);
-        Admin.getAdmin().add(a);
-        Admin.getAdmin().add(t);
+
         Logging.q.put("shahod", "222");
         Logging.q.put("dana", "555");
+
+
         Product product1 = new Product("1","car seat" ,"waterproof car seats", "interior",50);
         Product product2 = new Product("2","Car mats" ,"black rubber car mats", "exterior",70);
         Product product3 = new Product("3","Roof racks" ,"pack of 2 car roof rack", "electronics",100);
@@ -32,6 +56,19 @@ public class Main {
         Product product5 = new Product("5","Roof racks1" ,"pack of 2 car roof racksac,m", "electronics",200);
         Product product6 = new Product("6","Roof racks2" ,"pack of 2 car roof rackkmvkl", "electronics",130);
         Product product7 = new Product("7","Roof racks3" ,"pack of 2 car roof rackkvkv", "electronics",300);
+
+        Installer n=new Installer("woroud","123123","RAM","0568725598","122",true,2);
+        Installer n1=new Installer("ahmad","123","nablus","0568665598","123",true,2);
+        Installer n2=new Installer("leen","321","SAM","0568722198","124",false,2);
+        Installer.getInstaller().add(n);
+        Installer.getInstaller().add(n1);
+        Installer.getInstaller().add(n2);
+
+
+        n.getReservaeddates().put(i2.getEmail(),"24/10/2023");
+        n.getReservaeddates().put(i.getEmail(),"25/10/2023");
+        n1.getReservaeddates().put("leen@","10/12/2023");
+        n1.getReservaeddates().put("ahmad@","1/10/2023");
 
 
         Operations.addP(product6);
@@ -43,10 +80,6 @@ public class Main {
         Operations.addP(product1);
 
         HomePage();
-
-
-
-
 
     }
 
@@ -133,8 +166,8 @@ public class Main {
                         case 2:
                             logger.info("\n" + " Welcome Installer " + user.username + "\n");
 
-                                for (int i = 0; i < Installer.getW().size(); i++) {
-                                    if (username.equals(Installer.getW().get(i).getName())) {
+                                for (int i = 0; i < Installer.getInstaller().size(); i++) {
+                                    if (username.equals(Installer.getInstaller().get(i).getName())) {
 
                                         index = 1;
                                         //y=i;

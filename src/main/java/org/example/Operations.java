@@ -1,5 +1,7 @@
 package org.example;
 
+import java.util.List;
+
 public class Operations {
 
 
@@ -148,6 +150,10 @@ public class Operations {
         return delete;
     }
 
+
+
+
+    // products operations
     public static boolean addP(Product p) {
         boolean add=true;
         for(int i=0; i< Product.getP().size() ; i++) {
@@ -190,7 +196,7 @@ public class Operations {
             if((Product.getP().get(i).getId().equals(idupdate)))
             {
                 index=i;
-                update = false;//product exists i will update
+                update = false;//product exists I will update
                 break;
             }
         }
@@ -203,12 +209,26 @@ public class Operations {
 
         }
 
-
-
         return update;
     }
 
 
+    /* I think we need to delete this
+    public static boolean listInstaller (List<Installer> list, String name) {
+
+            boolean x=false;
+        for(int i=0;i<list.size();i++)
+        {   if(list.get(i).getName().equalsIgnoreCase(name)) {
+
+            if(list.get(i).available) {
+                x=true;
+                list.get(i).available = false;
+                return x;
+            }
+        }
+        }
+        return x;
+    }*/
 
 
 }
