@@ -1,4 +1,6 @@
 package org.example;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
@@ -66,9 +68,10 @@ public class Customer {
                     + "2. Show all products.\r\n"
                     + "3. Filter by category.\r\n"
                     + "4. Filter by price.\r\n"
-                    + "5. Make an order.\r\n"
-                    + "6. Show cart.\r\n"
-                    + "7. Search a product. \r"
+                    + "5. Request an installation service.\r\n"
+                    + "6. make installation requests.\r\n"
+                    + "7. Search a product.\r"
+
                     
             );
             int choice = input.nextInt();
@@ -161,17 +164,31 @@ public class Customer {
                 case 5:
                     showAllProducts();
                     boolean done =false;
+                    Scanner carmodell=new Scanner(System.in);
+                    logger.info("Enter your car model\r");
+                    String carmodel=carmodell.nextLine();
+                    Scanner datePreferred = new Scanner(System.in);
+                    String date;
+                    DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+                    LocalDate date1;
+
+
                     while(!done) {
-                        logger.info("Please enter the accessory number you want to add to cart :)\r\n Press 0 when you're done shopping");
+
+                        logger.info("Enter the accessory number you want to install :)\r\n Press 0 when you're done shopping");
                         int addToCart = input.nextInt();
                         if (addToCart == 0) done = true;
                         else {
+                            logger.info("Enter a preferred date for installation(dd/mm/yyyy).\r");
+                            date = datePreferred.next();
+                            date1 = LocalDate.parse(date, formatter);
+
                             addToCart--;
                             Customer.getC().get(y).getCard().add(Product.getP().get(addToCart));
                             double total = Customer.getC().get(y).getCost();
                             total += Product.getP().get(addToCart).getPrice();
                             Customer.getC().get(y).setCost(total);
-                            logger.info("added to cart successfully !");
+                            logger.info("your request was submitted successfully :) \r\n");
                         }
 
                     }
@@ -189,6 +206,8 @@ public class Customer {
                     String searchP= search.nextLine();
                     SearchAProduct(searchP);
                     break;
+
+
 
 
 
