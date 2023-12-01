@@ -25,9 +25,9 @@ public class Login {
 
     public Login() {
         user = new Logging();
-        a= new Admin("nasser","12345",0);
+        a= new Admin("nass@gmail.com","nasser","12345",0);
         Admin.getAdmin().add(a);
-        user.q.put("nasser", "12345");
+        user.q.put("nass@gmail.com", "12345");
 
     }
 
@@ -42,7 +42,7 @@ public class Login {
 
       username = string;
       password = string2;
-      int x = user.searchUsername(username);
+      int x = user.searchEmail(username);
       int z = user.searchPassword(password);
 
       System.out.println(x+"   "+z);
@@ -69,7 +69,7 @@ public class Login {
 
         username = string;
         password = string2;
-        int x = user.searchUsername(username);
+        int x = user.searchEmail(username);
         int z = user.searchPassword(password);
         System.out.println(x+"   "+z);
     }
@@ -96,7 +96,7 @@ public class Login {
 
         username = string;
         password = "1";
-        int x = user.searchUsername(username);
+        int x = user.searchEmail(username);
         int z = user.searchPassword(password);
         System.out.println(x+"   "+z);
 
@@ -113,13 +113,11 @@ public class Login {
 
     @Given("that the User is logged in")
     public void that_the_user_is_logged_in() {
-
         user.setLogState(true);
     }
 
     @When("the User logs out")
     public void the_user_logs_out() {
-
         user.logout();
     }
 
