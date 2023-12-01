@@ -11,6 +11,7 @@ import java.util.logging.SimpleFormatter;
 public class Installer {
 
     private String name;
+    private String email;
     private String address;
     private String phone;
     private String idd;
@@ -61,7 +62,7 @@ public class Installer {
     }
 
 
-    public Installer(String name,String password, String address, String phone, String iD, boolean available, int type) {
+    public Installer(String email,String name,String password, String address, String phone, String iD, boolean available, int type) {
         super();
         this.pass = password;
         this.name = name;
@@ -70,9 +71,17 @@ public class Installer {
         this.idd = iD;
         this.available = available;
         this.type= type;
+        this.email=email;
 
     }
 
+    public String getPass() {
+        return pass;
+    }
+
+    public String getEmail() {
+        return email;
+    }
 
     public static List<Installer> getInstaller() {
         return installer;

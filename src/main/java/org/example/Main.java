@@ -1,10 +1,7 @@
 package org.example;
 
-import java.util.logging.Handler;
-import java.util.logging.LogRecord;
-import java.util.logging.Logger;
+import java.util.logging.*;
 import java.util.Scanner;
-import java.util.logging.SimpleFormatter;
 
 
 public class Main {
@@ -32,21 +29,21 @@ public class Main {
         logger = Logger.getLogger(Main.class.getName());
 
 
-        Admin a= new Admin("nasser","12345",0);
-        Admin t= new Admin("talah","123456",0);
+        Admin a= new Admin("nasser@gmail.com","nasser","12345",0);
+        Admin t= new Admin("talah@gmail.com","talah","123456",0);
         Admin.getAdmin().add(a);
         Admin.getAdmin().add(t);
 
-        Logging.q.put("nasser", "12345");
-        Logging.q.put("talah", "123");
+        Logging.q.put(a.getEmail(), a.getPassword());
+        Logging.q.put(t.getEmail(), t.getPassword());
 
-        Customer i=new Customer("shahod","222","QAM","02872228","shahdslajhst@gmail.com","Male",0.0,1);
-        Customer i2=new Customer("dana","555","DAM","028725323","99","Male",0.0,1);
+        Customer i=new Customer("shahod","222","QAM","02872228","shahd@gmail.com","Male",0.0,1);
+        Customer i2=new Customer("dana","555","DAM","028725323","dana@gmail.com","Male",0.0,1);
         Customer.getC().add(i);
         Customer.getC().add(i2);
 
-        Logging.q.put("shahod", "222");
-        Logging.q.put("dana", "555");
+        Logging.q.put(i.getEmail(), i.getPassword());
+        Logging.q.put(i2.getEmail(), i2.getPassword());
 
 
         Product product1 = new Product("1","car seat" ,"waterproof car seats", "interior",50);
@@ -57,13 +54,16 @@ public class Main {
         Product product6 = new Product("6","Roof racks2" ,"pack of 2 car roof rackkmvkl", "electronics",130);
         Product product7 = new Product("7","Roof racks3" ,"pack of 2 car roof rackkvkv", "electronics",300);
 
-        Installer n=new Installer("woroud","123123","RAM","0568725598","122",true,2);
-        Installer n1=new Installer("ahmad","123","nablus","0568665598","123",true,2);
-        Installer n2=new Installer("leen","321","SAM","0568722198","124",false,2);
+        Installer n=new Installer("woroud@gmail.com","woroud","123123","RAM","0568725598","122",true,2);
+        Installer n1=new Installer("ahmad@gmail.com","ahmad","123","nablus","0568665598","123",true,2);
+        Installer n2=new Installer("leen@gmail.com","leen","321","SAM","0568722198","124",false,2);
         Installer.getInstaller().add(n);
         Installer.getInstaller().add(n1);
         Installer.getInstaller().add(n2);
 
+
+        Logging.q.put(n.getEmail(), n.getPass());
+        Logging.q.put(n2.getEmail(), n2.getPass());
 
         n.getReservaeddates().put(i2.getEmail(),"24/10/2023");
         n.getReservaeddates().put(i.getEmail(),"25/10/2023");
@@ -74,7 +74,6 @@ public class Main {
         Operations.addP(product6);
         Operations.addP(product5);
         Operations.addP(product4);
-
         Operations.addP(product3);
         Operations.addP(product2);
         Operations.addP(product1);
@@ -82,6 +81,22 @@ public class Main {
         HomePage();
 
     }
+
+    public static int scanner() {
+        int c;
+        while (true) {
+            try {
+                c = input.nextInt();
+                break; // Exit the loop if integer input is successfully read
+            } catch (java.util.NoSuchElementException e) {
+                logger.log(Level.SEVERE, "Invalid input. Please enter a valid integer.", e);
+                input.nextLine();
+            }
+        }
+         input.nextLine();// Clear the input buffer
+        return c;
+    }
+
 
 
     public static void HomePage() {
@@ -91,10 +106,12 @@ public class Main {
                     + "Do you have an account?\r\n"
                     + "1. Create account\r\n"
                     + "2. Log-in\r\n"
-                    + "3. Exit.\r\n");
+                    + "3. Exit.\r\n"
+                    + "Enter your choice: ");
 
-            int accountChoice = input.nextInt();
-            input.nextLine();
+
+            int accountChoice = scanner(); // only integer input
+
 
             switch (accountChoice) {
                 case 1: {
@@ -103,18 +120,18 @@ public class Main {
                 }
 
                 case 2: {
-                    int u, y;
+                    int utype, y;
 
                     Logging user = new Logging();
-                    logger.info("Please enter your username : ");
-                    String username = input.nextLine();
-                    u = user.searchUsername(username);
+                    logger.info("Please enter your email : ");
+                    String email = input.nextLine();
+                    utype = user.searchEmail(email);
 
-                    while (u < 0) {
+                    while (utype < 0) {
 
-                        logger.info("Please enter your username again : ");
-                        username = input.nextLine();
-                        u = user.searchUsername(username);
+                        logger.info("Please enter your email again : ");
+                        email = input.nextLine();
+                        utype = user.searchEmail(email);
                     }
 
                     logger.info("Please enter your password : ");
@@ -130,33 +147,16 @@ public class Main {
                     }
 
                     int index=0;
-                    switch (y) {
+                    switch (utype) {
 
 
                         case 0: {//admin
-                            logger.info("\n" + " Welcome Admin " + user.username + "\n");
-                            for (int i = 0; i < Admin.getAdmin().size(); i++) {
-                                if (username.equals(Admin.getAdmin().get(i).getName())) {
 
-                                    index = 0;
-                                    break;
-                                }
-                            }
                             Admin.adminActivities();
                             break;
 
                         }
                         case 1:
-                            logger.info("\n" + " Welcome Customer " + user.username + "\n");
-
-                                for (int i = 0; i < Customer.getC().size(); i++) {
-                                    if (username.equals(Customer.getC().get(i).getUsername())) {
-
-                                        index = 1;
-                                        y=i;
-                                        break;
-                                    }
-                                }
 
                             Customer.customerActivities();
                             break;
@@ -164,18 +164,9 @@ public class Main {
 
 
                         case 2:
-                            logger.info("\n" + " Welcome Installer " + user.username + "\n");
+                            logger.info("\n" + " Welcome Installer " + Installer.getInstaller().get(y).getName() + "\n");
 
-                                for (int i = 0; i < Installer.getInstaller().size(); i++) {
-                                    if (username.equals(Installer.getInstaller().get(i).getName())) {
-
-                                        index = 1;
-                                        //y=i;
-
-                                        break;
-                                    }
-                                }
-
+                            //installer activities
                             break;
 
                     }
@@ -193,10 +184,10 @@ public class Main {
     public static void createAccountPage()
     {
 
-        logger.info("Enter your Username:");
-        String username = input.nextLine();
-        logger.info("Enter your email:");
+        logger.info("Enter your Email:");
         String email = input.nextLine();
+        logger.info("Enter your username:");
+        String username = input.nextLine();
         logger.info("Enter your Gender : ");
         String gen = input.nextLine();
         logger.info("Enter your Phone number:");
@@ -210,7 +201,7 @@ public class Main {
         boolean create = Operations.createC(r);
         if (create) {
             logger.info("A new account was created successfully");
-            Logging.q.put(username, password);
+            Logging.q.put(email, password);
         }
         else
             logger.info("This account already exists");

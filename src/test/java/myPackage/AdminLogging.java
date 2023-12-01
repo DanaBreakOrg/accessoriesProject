@@ -12,6 +12,7 @@ import static org.junit.Assert.assertTrue;
 public class AdminLogging {
 
 
+    String email;
     String name;
     Logging log;
     Admin admin;
@@ -20,7 +21,7 @@ public class AdminLogging {
     public AdminLogging() {
         log=new Logging();
         log.password="123456";
-        admin= new Admin(name,"123456",0);
+        admin= new Admin(email,name,"123456",0);
         Admin.getAdmin().add(admin);
 
     }

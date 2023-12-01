@@ -38,7 +38,7 @@ public class Operations {
     public static boolean createC(Customer c) {
             boolean add=true;
             for(int i=0; i< Customer.getC().size() ; i++) {
-                if((Customer.getC().get(i).getUsername().equals(c.getUsername()))||((Customer.getC().get(i).getEmail().equals(c.getEmail())) && (Customer.getC().get(i).getUsername().equals(c.getUsername())) && (Customer.getC().get(i).getAddress().equals(c.getAddress()))&& (Customer.getC().get(i).getPhone().equals(c.getPhone()))))
+                if((Customer.getC().get(i).getEmail().equals(c.getEmail()))||((Customer.getC().get(i).getEmail().equals(c.getEmail())) && (Customer.getC().get(i).getUsername().equals(c.getUsername())) && (Customer.getC().get(i).getAddress().equals(c.getAddress()))&& (Customer.getC().get(i).getPhone().equals(c.getPhone()))))
                 {
                     add = false;//exists
                     break;
@@ -55,7 +55,7 @@ public class Operations {
     public static boolean addCustomer(Customer c) {
         boolean add=true;
         for(int i=0; i< Customer.getC().size() ; i++) {
-            if((Customer.getC().get(i).getUsername().equals(c.getUsername()))||((Customer.getC().get(i).getEmail().equals(c.getEmail())) && (Customer.getC().get(i).getUsername().equals(c.getUsername())) && (Customer.getC().get(i).getAddress().equals(c.getAddress()))&& (Customer.getC().get(i).getPhone().equals(c.getPhone()))))
+            if((Customer.getC().get(i).getEmail().equals(c.getEmail()))||((Customer.getC().get(i).getEmail().equals(c.getEmail())) && (Customer.getC().get(i).getUsername().equals(c.getUsername())) && (Customer.getC().get(i).getAddress().equals(c.getAddress()))&& (Customer.getC().get(i).getPhone().equals(c.getPhone()))))
             {
                 add = false;
                 break;
@@ -136,7 +136,7 @@ public class Operations {
 
         int index=-1;
         for(int i=0; i< Customer.getC().size() ; i++) {
-            if((Customer.getC().get(i).getUsername().equals(c.getUsername()))||((Customer.getC().get(i).getEmail().equals(c.getEmail())) && (Customer.getC().get(i).getUsername().equals(c.getUsername())) && (Customer.getC().get(i).getAddress().equals(c.getAddress()))&& (Customer.getC().get(i).getPhone().equals(c.getPhone()))))
+            if((Customer.getC().get(i).getEmail().equals(c.getEmail()))||((Customer.getC().get(i).getEmail().equals(c.getEmail())) && (Customer.getC().get(i).getUsername().equals(c.getUsername())) && (Customer.getC().get(i).getAddress().equals(c.getAddress()))&& (Customer.getC().get(i).getPhone().equals(c.getPhone()))))
             {
                 index=i;
                 delete = false;

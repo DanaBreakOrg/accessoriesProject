@@ -6,6 +6,8 @@ import java.util.logging.LogRecord;
 import java.util.logging.Logger;
 import java.util.logging.SimpleFormatter;
 
+import static org.example.Logging.y;
+
 public class Admin {
 
     public static final  String ENAME="Enter a new username:";
@@ -14,6 +16,7 @@ public class Admin {
     private String password;
     private int type;
     private String username;
+    private String email;
 
 
 
@@ -43,18 +46,20 @@ public class Admin {
         return admin;
     }
 
-
+    public String getPassword() {
+        return password;
+    }
 
     public Admin() {
         logState=false;
-
     }
 
-    public Admin(String name,String password, int type) {
+    public Admin(String email, String name,String password, int type) {
        // super();
         this.password= password;
         this.type = type;
         this.username = name;
+        this.email = email;
     }
 
 
@@ -75,7 +80,7 @@ public class Admin {
     public static void adminActivities() {
         boolean running = true;
         while (running) {
-            logger.info("\n Welcome , to the Car accessories company.\r\n"
+            logger.info("\n Welcome Admin "+ Admin.getAdmin().get(y).getName() +" , to the Car accessories company.\r\n"
                     +"------------------------------------------------------------.\r\n"
                     +"Select an option:.\r\n"//add update delete view customers
                     +"1.  Show all customers.\r\n"
@@ -86,19 +91,15 @@ public class Admin {
                     +"6.  Add a product.\r\n"
                     +"7.  Delete a product.\r\n"
                     +"8.  Update a product.\r\n"
-                    +"9.  Back.\r\n"
-                    +"10. Quit.\r\n"
-                    +"Enter the number of the activity you want to perform: ");
-            int choice = input.nextInt();
+                    +"9.  Logout.\r\n"
+                    +"Enter your choice : ");
+            int choice = Main.scanner();
 
             switch (choice) {
-
-
                 case 1: {//show all customers done
                     for (int i = 0; i < Customer.getC().size(); i++) {
                         String ff = String.format("%d-", i + 1);
                         logger.info(ff);
-
                         logger.info(Customer.getC().get(i).getUsername() + "   " + Customer.getC().get(i).getAddress() + "   " + Customer.getC().get(i).getPhone() + "\r\n");
 
                     }
@@ -192,6 +193,7 @@ public class Admin {
 
                         default:
                             logger.info(INVALID);
+                            input.nextLine();
                             break;
 
                     }
@@ -244,7 +246,7 @@ public class Admin {
                         }
                     }*/
                     Customer.getC();
-                    Installer mn=new Installer("woroud","123123","RAM","0568725598","122",true,2);
+                    Installer mn=new Installer("woroud@gmail.com","woroud","123123","RAM","0568725598","122",true,2);
                     //Installer n1=new Installer("ahmad","123","nablus","0568665598","123",true,2);
                     //Installer n2=new Installer("leen","321","SAM","0568722198","124",false,2);
 
@@ -253,13 +255,13 @@ public class Admin {
                     //Installer.getInstaller().add(n2);
 
 
-                    Customer ii=new Customer("shahod","222","QAM","02872228","shahdslajhst@gmail.com","Male",0.0,1);
+                    Customer ii=new Customer("shahod","222","QAM","02872228","shahd@gmail.com","Male",0.0,1);
                     //Customer i2=new Customer("dana","555","DAM","028725323","99","Male",0.0,1);
 
                     Customer.getC().add(ii);
                     //Customer.getC().add(i2);
 
-                   mn.getReservaeddates().put("dana@","24/10/2002");
+                    mn.getReservaeddates().put("dana@","24/10/2002");
                     mn.getReservaeddates().put("shahd@","10/12/2002");
                     mn.getReservaeddates().put("leen@","1/1/2002");
                     searchAvailable(mn,ii,"28/1/2002");
@@ -430,6 +432,7 @@ public class Admin {
     public String getName() {
         return username;
     }
+    public String getEmail(){return email;}
 
 
 

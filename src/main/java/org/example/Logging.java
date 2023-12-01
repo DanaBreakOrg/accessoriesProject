@@ -12,38 +12,39 @@ public class Logging {
     public boolean successfulpassword= false;
 
 
-    public String username;
+    public String email;
     public String password;
     public boolean logState = false;
     protected static int y;
-    int index = -3;
+    int type = -3;
 
     protected static Scanner input = new Scanner (System.in);
     public static HashMap<String,String> q= new HashMap<>();//how to make it protected
     final Logger logger = Logger.getLogger(Logging.class.getName());
 
 
-    public int searchUsername(String username1){
+    public int searchEmail(String email1){
 
         boolean flag = true;
 
-        username = username1;
+        email = email1;
 
         for (int i = 0; i < Admin.getAdmin().size(); i++) {
-            if (username.equals(Admin.getAdmin().get(i).getName())) {
+            if (email.equals(Admin.getAdmin().get(i).getEmail())) {
                 flag = false;
                 successfulusername=true;
-                index = 0;
+                type = 0;
+                y=i;
                 break;
             }}
 
         if (flag) {
             for (int j = 0; j < Customer.getC().size(); j++) {
-                if (username.equals(Customer.getC().get(j).getUsername())) {
+                if (email.equals(Customer.getC().get(j).getEmail())) {
                     flag = false;
                     successfulusername=true;
-                    index = 1;
-                    y=j;//////what is the usage????????
+                    type = 1;//////////////////////
+                    y=j;
                     break;
                 }
             }
@@ -51,17 +52,18 @@ public class Logging {
 
         if (flag) {
             for (int k = 0; k < Installer.getInstaller().size(); k++) {
-                if (username.equals(Installer.getInstaller().get(k).getName())) {
+                if (email.equals(Installer.getInstaller().get(k).getEmail())) {
                     flag = false;
                     successfulusername=true;
-                    index = 2;
+                    type = 2;
+                    y=k;
                     break;
                 }
             }
         }
 
 
-        return index;
+        return type;
 
     }
 
@@ -71,14 +73,14 @@ public class Logging {
         password = password2;
 
         String passw = password;
-        String value = q.get(username);
+        String value = q.get(email);
 
             if (passw.equals(value)) {
                 successfulpassword = true;
-                String f=String.format("Welcome:: %s",username);
-                logger.info(f);
+                //String f=String.format("Welcome:: %s",Customer.getC().get(y).getUsername());
+                //logger.info(f);
                 logState = true;
-                return index;
+                return y;
             }
             else {
                 successfulpassword = false;
@@ -133,7 +135,7 @@ public class Logging {
     public boolean login(String password) {
 
         if(this.password.equals(password)) {
-            logger.info("successfull log in");
+            logger.info("successfully logged in");
             logState=true;
             return true;
 
