@@ -19,8 +19,9 @@ public class Admin {
     private String email;
 
 
-
-
+    public static HashMap<Customer,Installer> req= new HashMap<>();
+    public static HashMap<Customer,Request> cusReq= new HashMap<>();
+    protected static final List<Customer> newCustomers = new ArrayList<>() ;
 
     protected static Scanner input = new Scanner (System.in);
     final static Logger logger = Logger.getLogger(Admin.class.getName());
@@ -236,7 +237,10 @@ public class Admin {
                             break;
                         }
                     }
-/*
+/*Customer c=new Customer()
+c.createrequest(make obj from request...parameters)
+
+
                     for (Customer temp : Customer.getC()) {
 
                         if (.contains(temp)) {
@@ -257,15 +261,31 @@ public class Admin {
 
                     Customer ii=new Customer("shahod","222","QAM","02872228","shahd@gmail.com","Male",0.0,1);
                     //Customer i2=new Customer("dana","555","DAM","028725323","99","Male",0.0,1);
+                    Customer k=new Customer("dana","222","QAM","02872228","dana@gmail.com","Male",0.0,1);
 
                     Customer.getC().add(ii);
-                    //Customer.getC().add(i2);
+                    Customer.getC().add(k);
 
+                    k.setRequest("24/10/2023","kia");
+                    cusReq.put(k,k.setRequest("24/10/2023","kia"));
+
+                    //Customer.getC().add(i2);
+                  /*  for (int i = 0; i < Customer.getC().size(); i++) {
+
+                        if(Customer.getC().get(i).onHold){
+                            //cusReq.put(Customer.getC().get(i),Request.);
+                        }
+
+                    }*/
                     mn.getReservaeddates().put("dana@","24/10/2002");
                     mn.getReservaeddates().put("shahd@","10/12/2002");
                     mn.getReservaeddates().put("leen@","1/1/2002");
                     searchAvailable(mn,ii,"28/1/2002");
+                    req.put(ii,mn);
+                    req.put(k,mn);
 
+
+System.out.println(toString(ii,mn));
                     ///n1.getReservaeddates().put(1,"1/11/2023");
                     //n2.getReservaeddates().put(1,"24/10/2021");
                     //n2.getReservaeddates().put(2,"4/3/2021");
@@ -456,5 +476,14 @@ public class Admin {
         System.out.println("availablity state : "+installer.available);
 
     }
-
+    public HashMap<Customer,Installer> getReq() {
+        return req;
+    }
+    public static List<Customer> getNewCus() {
+        return newCustomers;
+    }
+    //@Override
+    public static String toString(Customer c, Installer i) {
+        return c.getEmail() + "   +    " + i.getName() ;
+    }
 }

@@ -4,7 +4,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Scanner;
 import java.util.logging.*;
-
+import org.example.Request;
 import static org.example.Logging.y;
 
 public class Customer {
@@ -22,11 +22,12 @@ public class Customer {
     private double cost;
 
     boolean logState;
-    boolean request=false;
+
     String date;
     public static final  String DEC="%d - ";
     private String pass;
 
+    boolean onHold=true;
 
 
     protected static Scanner input = new Scanner (System.in);
@@ -441,10 +442,15 @@ public class Customer {
 
     // request functions
 
-    public boolean getRequest() {return request;}
-    public void setRequest(String datte) {
-        this.request=true;
-        this.date=datte;
+    public boolean getRequest() {return onHold;}
+
+    public Request setRequest(String datte,String carModel) {
+        Request r=new Request();
+        this.onHold=true;
+        r.preferredDate=datte;
+        r.carModel=carModel;
+
+        return r;
     }
 
 
