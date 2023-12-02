@@ -50,11 +50,7 @@ public class Customer {
 
     //lists
     private List<Product> card = new ArrayList<>() ;
-    private List<Customer> customersWaiting = new ArrayList<>() ;
     protected static final List<Customer> C = new ArrayList<>() ;
-    public List<Customer> getCustomersWaiting() {
-        return customersWaiting;
-    }
 
 
 
@@ -220,6 +216,8 @@ public class Customer {
                     String searchP= search.nextLine();
                     SearchAProduct(searchP);
                     break;
+
+
                 case 8://make an installation request not done yet
                     Scanner req = new Scanner(System.in);
                     logger.info("Enter your car model\r");
