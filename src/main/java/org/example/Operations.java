@@ -1,7 +1,5 @@
 package org.example;
 
-import io.cucumber.java.be.I;
-
 import java.util.List;
 
 public class Operations {
@@ -70,37 +68,10 @@ public class Operations {
         return add;
     }
 
-    public static boolean addInstaller(Installer ins) {
-        boolean add=true;
-        for(int k=0; k< Installer.getInstaller().size() ; k++) {
-            if((Installer.getInstaller().get(k).getEmail().equals(ins.getEmail()))||((Installer.getInstaller().get(k).getEmail().equals(ins.getEmail())) && (Installer.getInstaller().get(k).getName().equals(ins.getName())) && (Installer.getInstaller().get(k).getAddress().equals(ins.getAddress()))&& (Installer.getInstaller().get(k).getPhone().equals(ins.getPhone()))))
-            {
-                add = false;
-                break;
-            }
-        }
-        if(add) {
-            Installer.getInstaller().add(ins);
-            // Statistics.totalw();///////////////////
-        }
-        return add;
-    }
-
-
     public static int searchCustomer(String name) {
         int index=-1;
         for(int i=0; i< Customer.getC().size() ; i++) {
             if(name.equals(Customer.getC().get(i).getUsername())) {
-                index=i;
-                break;
-            }
-        }
-        return index;
-    }
-    public static int searchInstaller(String name) {
-        int index=-1;
-        for(int i=0; i< Installer.getInstaller().size() ; i++) {
-            if(name.equals(Installer.getInstaller().get(i).getEmail())) {
                 index=i;
                 break;
             }
@@ -118,16 +89,6 @@ public class Operations {
                 Customer.getC().get(index).setUsername(name);}
             return update;
     }
-    public static boolean updateInsName(String oldname,String name) {
-
-        boolean update=true;
-        int index;
-        index=searchInstaller(oldname);
-        if(index>=0) {
-            update = false;
-            Installer.getInstaller().get(index).setName(name);}
-        return update;
-    }
     public static boolean updateAddress(String oldname,String address) {
 
         boolean update=true;
@@ -138,16 +99,6 @@ public class Operations {
             Customer.getC().get(index).setAddress(address);}
         return update;
     }
-    public static boolean updateInsAddress(String oldname,String address) {
-
-        boolean update=true;
-        int index;
-        index=searchInstaller(oldname);
-        if(index>=0) {
-            update = false;
-            Installer.getInstaller().get(index).setAddress(address);}
-        return update;
-    }
     public static boolean updatePhone(String oldname,String phone) {
         boolean update=true;
         int index;
@@ -155,16 +106,6 @@ public class Operations {
         if(index>=0) {
             update = false;
             Customer.getC().get(index).setPhone(phone);}
-        return update;
-
-    }
-    public static boolean updateInsPhone(String oldname,String phone) {
-        boolean update=true;
-        int index;
-        index=searchInstaller(oldname);
-        if(index>=0) {
-            update = false;
-            Installer.getInstaller().get(index).setPhone(phone);}
         return update;
 
     }
@@ -178,16 +119,6 @@ public class Operations {
         return update;
 
     }
-    public static boolean updateInsPassword(String oldname,String password) {
-        boolean update=true;
-        int index;
-        index=searchInstaller(oldname);
-        if(index>=0) {
-            update = false;
-            Installer.getInstaller().get(index).setPass(password);}
-        return update;
-
-    }
 
     public static boolean updateEmail(String oldname,String email) {
         boolean update=true;
@@ -198,15 +129,7 @@ public class Operations {
             Customer.getC().get(index).setEmail(email);}
         return update;
     }
-    public static boolean updateInsEmail(String oldname,String email) {
-        boolean update=true;
-        int index;
-        index=searchInstaller(oldname);
-        if(index>=0) {
-            update = false;
-            Installer.getInstaller().get(index).setEmail(email);}
-        return update;
-    }
+
 
     public static boolean deleteCustomer(Customer c) {
         boolean delete =true;
@@ -227,24 +150,7 @@ public class Operations {
         return delete;
     }
 
-    public static boolean deleteInstaller(Installer ins) {
-        boolean delete =true;
 
-        int index=-1;
-        for(int i=0; i< Installer.getInstaller().size() ; i++) {
-            if((Installer.getInstaller().get(i).getEmail().equals(ins.getEmail()))||((Installer.getInstaller().get(i).getEmail().equals(ins.getEmail())) && (Installer.getInstaller().get(i).getName().equals(ins.getName())) && (Installer.getInstaller().get(i).getAddress().equals(ins.getAddress()))&& (Installer.getInstaller().get(i).getPhone().equals(ins.getPhone()))))
-            {
-                index=i;
-                delete = false;
-                break;
-            }
-        }
-        if(!delete) {
-            Installer.getInstaller().remove(index);
-            //Statistics.totalwo();
-        }
-        return delete;
-    }
 
 
     // products operations
