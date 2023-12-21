@@ -6,6 +6,7 @@ import java.util.logging.LogRecord;
 import java.util.logging.Logger;
 import java.util.logging.SimpleFormatter;
 
+import static org.example.Installer.installer;
 import static org.example.Logging.y;
 
 public class Admin {
@@ -20,7 +21,7 @@ public class Admin {
 
 
     public static HashMap<Customer,Installer> req= new HashMap<>();
-    public static HashMap<Customer,Request> cusReq= new HashMap<>();
+    protected static final List<Request> cusReq= new ArrayList<>() ;
     protected static final List<Customer> newCustomers = new ArrayList<>() ;
 
     protected static Scanner input = new Scanner (System.in);
@@ -65,16 +66,6 @@ public class Admin {
 
 
 
-    //check if the installer is available or not
-    public static void listw ( List<Installer> list,String name) {// I think we need to delete this function
-        for(int i=0;i<list.size();i++)
-        {   if(list.get(i).getName().equalsIgnoreCase(name)) {
-            if(list.get(i).available)
-                list.get(i).available=false;
-            break;
-        }
-        }
-    }
 
     //admin features
 
@@ -151,7 +142,7 @@ public class Admin {
                                     + "3. Update customer Email.\r\n"
                                     + "4. Update customer phone number.\r\n"
                                     + "5. Update customer address.\r\n"
-                                    + "6. Back.\r\n"
+                                    + "6. Back.\r\n"/////////////////////////
                             //update type?????????????????????????????
                     );
                     int updateChoice = input.nextInt();
@@ -227,28 +218,26 @@ public class Admin {
                 }
 
                 case 5:
+
+
                     Scanner customerEmail = new Scanner(System.in);
                     logger.info("Enter the customer email you want to schedule installation appointment for :");
                     String ce = customerEmail.next();
+                    printAllDatesList(installer);
 
-                    for (int k = 0; k < Customer.getC().size(); k++) {
-                        if (Customer.getC().get(k).getEmail().equals(ce)) {
-               //////////////////////////////////////////////////////////       //      searchAvailable
-                            break;
+                    outer:
+                    for (int k = 0; k < cusReq.size(); k++) {
+                        if ((cusReq.get(k).custEmail).equals(ce)) {
+                            for (int j = 0; j < installer.size(); j++) {
+                                boolean avail=searchAvailable(cusReq.get(k), installer.get(j), cusReq.get(k).preferredDate);
+                                logger.info("Reservation Done");
+                                if(!avail) break outer;
+                            }
+
                         }
+
                     }
-/*Customer c=new Customer()
-c.createrequest(make obj from request...parameters)
 
-
-                    for (Customer temp : Customer.getC()) {
-
-                        if (.contains(temp)) {
-
-                            // Since present, add it to list3
-                            list3.add(temp);
-                        }
-                    }*/
                     Customer.getC();
                     Installer mn=new Installer("woroud@gmail.com","woroud","123123","RAM","0568725598","122",true,2);
                     //Installer n1=new Installer("ahmad","123","nablus","0568665598","123",true,2);
@@ -266,8 +255,8 @@ c.createrequest(make obj from request...parameters)
                     Customer.getC().add(ii);
                     Customer.getC().add(k);
 
-                    k.setRequest("24/10/2023","kia");
-                    cusReq.put(k,k.setRequest("24/10/2023","kia"));
+                  //  k.setRequest("24/10/2023","kia");
+                   // cusReq.put(k,k.setRequest("24/10/2023","kia"));
 
                     //Customer.getC().add(i2);
                   /*  for (int i = 0; i < Customer.getC().size(); i++) {
@@ -280,12 +269,10 @@ c.createrequest(make obj from request...parameters)
                     mn.getReservaeddates().put("dana@","24/10/2002");
                     mn.getReservaeddates().put("shahd@","10/12/2002");
                     mn.getReservaeddates().put("leen@","1/1/2002");
-                    searchAvailable(mn,ii,"28/1/2002");
+                    //searchAvailable(mn,ii,"28/1/2002");
                     req.put(ii,mn);
                     req.put(k,mn);
 
-
-System.out.println(toString(ii,mn));
                     ///n1.getReservaeddates().put(1,"1/11/2023");
                     //n2.getReservaeddates().put(1,"24/10/2021");
                     //n2.getReservaeddates().put(2,"4/3/2021");
@@ -456,25 +443,40 @@ System.out.println(toString(ii,mn));
 
 
 
-    private static void printAllDates(Installer installer) {
-        logger.info(installer.getName()+" \t ");
+    private static void printAllDatesList(List<Installer> installer) {
 
-        for (Map.Entry<String, String> entry : installer.getReservaeddates().entrySet()) {
+        for(int i = 0; i < installer.size(); i++){
+            System.out.println();
+        logger.info(installer.get(i).getName()+" \t ");
+
+        for (Map.Entry<String, String> entry : installer.get(i).getReservaeddates().entrySet()) {
 
             logger.info(entry.getKey() + ": " + entry.getValue());
         }
-    }
-    private static void searchAvailable(Installer installer,Customer customer,String date) {
+    }}
+    private static void printAllDatesIndividual(Installer installer) {
+
+
+            logger.info(installer.getName()+" \t ");
+
+            for (Map.Entry<String, String> entry : installer.getReservaeddates().entrySet()) {
+
+                logger.info(entry.getKey() + ": " + entry.getValue());
+            }
+        }
+    private static boolean searchAvailable(Request request,Installer installer,String date) {
         installer.available=true;
-        printAllDates(installer);
+        //printAllDatesIndividual(installer);
+        System.out.println();
         if(!installer.getReservaeddates().containsValue(date)){
             installer.available=false;
-            installer.getReservaeddates().put(customer.getEmail(),date);
+            installer.getReservaeddates().put(request.custEmail, date);
+            printAllDatesIndividual(installer);
         }
 
-        printAllDates(installer);
-        System.out.println("availablity state : "+installer.available);
 
+        System.out.println("availablity state : "+installer.available);
+        return installer.available;
     }
     public HashMap<Customer,Installer> getReq() {
         return req;
@@ -483,7 +485,7 @@ System.out.println(toString(ii,mn));
         return newCustomers;
     }
     //@Override
-    public static String toString(Customer c, Installer i) {
-        return c.getEmail() + "   +    " + i.getName() ;
+    public static String toString(Request r) {
+        return r.custEmail +"\t"+r.custUsername+"\t" + r.custPhone+"\t"+r.carModel+"\t"+r.location ;
     }
 }

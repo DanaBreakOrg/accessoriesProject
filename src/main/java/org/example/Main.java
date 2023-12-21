@@ -46,13 +46,13 @@ public class Main {
         Logging.q.put(i2.getEmail(), i2.getPassword());
 
 
-        Product product1 = new Product("1","car seat" ,"waterproof car seats", "interior",50);
-        Product product2 = new Product("2","Car mats" ,"black rubber car mats", "exterior",70);
-        Product product3 = new Product("3","Roof racks" ,"pack of 2 car roof rack", "electronics",100);
-        Product product4 = new Product("4","Roof racksrfs" ,"pack of 2 car roof racklkmfvm", "electronics",100);
-        Product product5 = new Product("5","Roof racks1" ,"pack of 2 car roof racksac,m", "electronics",200);
-        Product product6 = new Product("6","Roof racks2" ,"pack of 2 car roof rackkmvkl", "electronics",130);
-        Product product7 = new Product("7","Roof racks3" ,"pack of 2 car roof rackkvkv", "electronics",300);
+        Product product1 = new Product("1200","car seat" ,"waterproof car seats", "interior",50);
+        Product product2 = new Product("1","Car mats" ,"black rubber car mats", "exterior",70);
+        Product product3 = new Product("1400","Roof racks" ,"pack of 2 car roof rack", "electronics",100);
+        Product product4 = new Product("2200","Roof racksrfs" ,"pack of 2 car roof racklkmfvm", "electronics",100);
+        Product product5 = new Product("3000","Roof racks1" ,"pack of 2 car roof racksac,m", "electronics",200);
+        Product product6 = new Product("3576","Roof racks2" ,"pack of 2 car roof rackkmvkl", "electronics",130);
+        Product product7 = new Product("3100","Roof racks3" ,"pack of 2 car roof rackkvkv", "electronics",300);
 
         Installer n=new Installer("woroud@gmail.com","woroud","123123","RAM","0568725598","122",true,2);
         Installer n1=new Installer("ahmad@gmail.com","ahmad","123","nablus","0568665598","123",true,2);

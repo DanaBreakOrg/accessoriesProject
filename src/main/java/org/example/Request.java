@@ -4,6 +4,13 @@ public class Request {
 
      String carModel;
      String preferredDate;
+     String location;
+      String custUsername;
+      String custAddress;
+      String custPhone;
+      String custEmail;
+      String custGender;
+
 
 
 /*
