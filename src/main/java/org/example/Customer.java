@@ -5,6 +5,8 @@ import java.util.List;
 import java.util.Scanner;
 import java.util.logging.*;
 import org.example.Request;
+
+import static org.example.Admin.cusReq;
 import static org.example.Logging.y;
 
 public class Customer {
@@ -220,11 +222,28 @@ public class Customer {
 
                 case 8://make an installation request not done yet
                     Scanner req = new Scanner(System.in);
+                    Scanner c = new Scanner(System.in);
                     logger.info("Enter your car model\r");
                     String cmodel= req.nextLine();
                     logger.info("Enter your preferred date (DD/MM/YYYY)\r");
                     String predate= req.next();
-                    //make a request
+                    showCart();
+                    logger.info("Enter the product ID you want to install\r");
+                    String pchoice = c.next();
+                    boolean flag=false;
+
+                    for(int i=0;i<Customer.getC().get(y).getCard().size();i++) {
+                        if(pchoice.equals(Customer.getC().get(y).getCard().get(i).getId())){
+                            //make a request
+                            cusReq.put(Customer.getC().get(y),Customer.getC().get(y).setRequest(predate,cmodel,Customer.getC().get(y).getCard().get(i)));
+                            logger.info("Your installation request is submitted and waiting for the admin to schedule it. \r");
+                            flag=true;
+                            break;
+                        }
+                    }
+                    if(!flag){
+                        logger.info("Invalid input\r");
+                    }
 
                     break;
 
@@ -442,11 +461,13 @@ public class Customer {
 
     public boolean getRequest() {return onHold;}
 
-    public Request setRequest(String datte,String carModel) {
+    public Request setRequest(String datte,String carModel,Product pr) {
         Request r=new Request();
         this.onHold=true;
         r.preferredDate=datte;
         r.carModel=carModel;
+        r.product=pr;
+        r.setStatus("waiting");
 
         return r;
     }
