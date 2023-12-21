@@ -79,10 +79,6 @@ public class Installer {
         return pass;
     }
 
-    public void setPass(String pass) {
-        this.pass = pass;
-    }
-
     public String getEmail() {
         return email;
     }
@@ -94,9 +90,7 @@ public class Installer {
         return reservaedDates;
     }
 
-    public void setEmail(String email) {
-        this.email = email;
-    }
+
 
     public String getName() {
         return name;

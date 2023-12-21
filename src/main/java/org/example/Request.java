@@ -12,20 +12,6 @@ public class Request {
       String custGender;
 
 
-     Product product;
-
-     public String getStatus() {
-          return status;
-     }
-
-     public void setStatus(String status) {
-          this.status = status;
-     }
-
-     private String status;
-
-
-
 
 /*
     public static void showTable() {
