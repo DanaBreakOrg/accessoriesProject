@@ -423,7 +423,8 @@ System.out.println(toString(ii,mn));
                         logger.info("Your message was sent successfully");
                     }
 
-                    break;
+                    break;*/
+
 
 
                 case 9: running=false;
