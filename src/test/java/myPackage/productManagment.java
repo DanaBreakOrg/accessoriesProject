@@ -57,6 +57,10 @@ public class productManagment {
         add=Operations.addP(p);
         assertTrue(add);
     }
+
+
+
+
     @Given("that you want to delete a product whose ID {string} , Name {string} , description {string},Category {string}, price {string} NIS")
     public void thatYouWantToDeleteAProductWhoseIDNameDescriptionCategoryPriceNIS(String id, String name, String description, String category, String price) {
         ID = id;
