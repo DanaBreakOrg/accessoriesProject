@@ -1,33 +1,31 @@
 package org.example;
 
-import java.util.List;
-
 public class Operations {
-
+// line 190 + 171 need to be checked
 
 
         private Operations() {
 
         }
 
-        public static void errorMsg(String errormsgg)
+        public static void errorMsg(String errorMessage)
         {
-            if(errormsgg=="1") {
+            if(errorMessage=="1") {
                 System.out.println("Username can't be empty");
             }
-            else if(errormsgg=="2") {
+            else if(errorMessage=="2") {
                 System.out.println("Password can't be empty");
             }
-            else if(errormsgg=="3") {
+            else if(errorMessage=="3") {
                 System.out.println("this user already exists");
             }
-            else if(errormsgg=="invalid email") {
+            else if(errorMessage=="invalid email") {
                 System.out.println("Invalid email");
             }
-            else if(errormsgg=="invalid phone number") {
+            else if(errorMessage=="invalid phone number") {
                 System.out.println("Invalid phone number , should be 10 numbers");
             }
-            else if(errormsgg=="invalid address") {
+            else if(errorMessage=="invalid address") {
                 System.out.println("Invalid address, should be only letters");
             }
         }
@@ -35,7 +33,7 @@ public class Operations {
 
     //customer operations
 
-    public static boolean createC(Customer c) {
+    public static boolean createCustomer(Customer c) {
             boolean add=true;
             for(int i=0; i< Customer.getC().size() ; i++) {
                 if((Customer.getC().get(i).getEmail().equals(c.getEmail()))||((Customer.getC().get(i).getEmail().equals(c.getEmail())) && (Customer.getC().get(i).getUsername().equals(c.getUsername())) && (Customer.getC().get(i).getAddress().equals(c.getAddress()))&& (Customer.getC().get(i).getPhone().equals(c.getPhone()))))
@@ -51,6 +49,24 @@ public class Operations {
             return add;
         }
 
+    public static boolean deleteCustomer(Customer c) {
+        boolean delete =true;
+
+        int index=-1;
+        for(int i=0; i< Customer.getC().size() ; i++) {
+            if((Customer.getC().get(i).getEmail().equals(c.getEmail()))||((Customer.getC().get(i).getEmail().equals(c.getEmail())) && (Customer.getC().get(i).getUsername().equals(c.getUsername())) && (Customer.getC().get(i).getAddress().equals(c.getAddress()))&& (Customer.getC().get(i).getPhone().equals(c.getPhone()))))
+            {
+                index=i;
+                delete = false;
+                break;
+            }
+        }
+        if(!delete) {
+            Customer.getC().remove(index);
+            //Statistics.totalwo();
+        }
+        return delete;
+    }
 
     public static boolean addCustomer(Customer c) {
         boolean add=true;
@@ -78,6 +94,10 @@ public class Operations {
         }
         return index;
     }
+
+
+
+    // update functions
 
     public static boolean updateName(String oldname,String name) {
 
@@ -131,30 +151,13 @@ public class Operations {
     }
 
 
-    public static boolean deleteCustomer(Customer c) {
-        boolean delete =true;
 
-        int index=-1;
-        for(int i=0; i< Customer.getC().size() ; i++) {
-            if((Customer.getC().get(i).getEmail().equals(c.getEmail()))||((Customer.getC().get(i).getEmail().equals(c.getEmail())) && (Customer.getC().get(i).getUsername().equals(c.getUsername())) && (Customer.getC().get(i).getAddress().equals(c.getAddress()))&& (Customer.getC().get(i).getPhone().equals(c.getPhone()))))
-            {
-                index=i;
-                delete = false;
-                break;
-            }
-        }
-        if(!delete) {
-            Customer.getC().remove(index);
-            //Statistics.totalwo();
-        }
-        return delete;
-    }
 
 
 
 
     // products operations
-    public static boolean addP(Product p) {
+    public static boolean addProduct(Product p) {
         boolean add=true;
         for(int i=0; i< Product.getP().size() ; i++) {
             if((Product.getP().get(i).getId().equals(p.getId())) && (Product.getP().get(i).getName().equals(p.getName())) && (Product.getP().get(i).getDescription().equals(p.getDescription()))&& (Product.getP().get(i).getPrice()==p.getPrice())&& (Product.getP().get(i).getCategory().equals(p.getCategory())))
@@ -165,12 +168,12 @@ public class Operations {
         }
         if(add) {
             Product.getP().add(p);
-            //Statistics.totalpr();
+            //Statistics.totalpr();///////////////////////////////////////////////////////////////////
         }
         return add;
     }
 
-    public static boolean deleteP(Product p) {
+    public static boolean deleteProduct(Product p) {
         boolean delete =true;
 
         int index=-1;
@@ -184,7 +187,7 @@ public class Operations {
         }
         if(!delete) {
             Product.getP().remove(index); //delete index
-            //Statistics.totalpro();
+            //Statistics.totalpro();////////////////////////////////////////////////////////////////
         }
         return delete;
     }
@@ -212,23 +215,6 @@ public class Operations {
         return update;
     }
 
-
-    /* I think we need to delete this
-    public static boolean listInstaller (List<Installer> list, String name) {
-
-            boolean x=false;
-        for(int i=0;i<list.size();i++)
-        {   if(list.get(i).getName().equalsIgnoreCase(name)) {
-
-            if(list.get(i).available) {
-                x=true;
-                list.get(i).available = false;
-                return x;
-            }
-        }
-        }
-        return x;
-    }*/
 
 
 }

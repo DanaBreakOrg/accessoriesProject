@@ -54,7 +54,7 @@ public class productManagment {
     public void aProductWhoseIDNameDescriptionCategoryPriceNISWasAdded(String id, String name, String description, String category, String price) {
         Price = Double.parseDouble(price);
         p= new Product (id,name,description,category,Price);
-        add=Operations.addP(p);
+        add=Operations.addProduct(p);
         assertTrue(add);
     }
 
@@ -74,7 +74,7 @@ public class productManagment {
     public void productWhoseIDNameDescriptionCategoryPriceNISWasDeleted(String id, String name, String description, String category, String price) {
         double value = Double.parseDouble(price);
         p=new Product(id,name,description,category,value);
-        delete = Operations.deleteP(p);
+        delete = Operations.deleteProduct(p);
         assertFalse(delete);
     }
 

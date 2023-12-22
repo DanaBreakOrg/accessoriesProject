@@ -1,12 +1,12 @@
 package org.example;
+
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Scanner;
 import java.util.logging.*;
-import org.example.Request;
 
 import static org.example.Admin.cusReq;
+import static org.example.Installer.reqq;
 import static org.example.Logging.y;
 
 public class Customer {
@@ -19,17 +19,19 @@ public class Customer {
     private String gender;
     private int type;
     private static int productsCounter;
-
-    boolean addstate; // where do we use it?
     private double cost;
-
     boolean logState;
-
-    String date;
     public static final  String DEC="%d - ";
     private String pass;
-
     boolean onHold=true;
+
+
+
+
+    private List<Product> card = new ArrayList<>() ;
+    protected static final List<Customer> C = new ArrayList<>() ;//the used list that contains all customers,getC
+    protected static final List<Request> customerRequestsHistory = new ArrayList<>() ;
+
 
 
     protected static Scanner input = new Scanner (System.in);
@@ -48,12 +50,6 @@ public class Customer {
             });
         }
     }
-
-
-    //lists
-    private List<Product> card = new ArrayList<>() ;
-    protected static final List<Customer> C = new ArrayList<>() ;
-
 
 
     public Customer() {
@@ -77,11 +73,10 @@ public class Customer {
                     + "5. Buy a product.\r\n"//done
                     + "6. Show cart.\r\n"//done
                     + "7. Search a product.\r\n"//done
-                    + "8. Make an installation request.\r\n"//not done
-                    + "9. View your installation requests status.\r\n"//not done
-                    + "10. Logout.\r\n"//done
+                    + "8. View your installation requests status.\r\n"// done
+                    + "9. Logout.\r\n"//done
                     + "Enter your choice\r"
-                    
+                    //view order history
             );
             int choice = Main.scanner();
 
@@ -177,7 +172,7 @@ public class Customer {
                     }
                     break;
                 
-                case 5://///////////////////////////////////////////////////////////////////////////////
+                case 5:
                     showAllProducts();
                     boolean done = false;
                     double total=0;
@@ -196,6 +191,49 @@ public class Customer {
                                     Customer.getC().get(y).setCost(total);
                                     logger.info("added to cart successfully !");
                                     found=true;
+
+                                    if(Integer.parseInt(pid)<2000&&Integer.parseInt(pid)>1000){
+                                        logger.info("Would you lik to make an installation request?\n"+
+                                                "1- Yes." +
+                                                "2- No.\n"
+                                                +"Enter your choice : ");
+
+                                        String choicee= input.next();
+                                        if(choicee.equals("yes")||choicee.equals("Yes")||choicee.equals("1")){
+
+                                            Scanner req = new Scanner(System.in);
+                                            Scanner c = new Scanner(System.in);
+                                            logger.info("Enter your car model\r");
+                                            String cmodel= req.nextLine();
+                                            logger.info("Enter your preferred date (DD/MM/YYYY)\r");
+                                            String predate= req.next();
+                                            logger.info("Enter your location\r");
+                                            String location= req.next();
+                                            showCart();
+                                            logger.info("Enter the product ID you want to install\r");
+                                            String pchoice = c.next();
+                                            boolean flag=false;
+
+
+                                            for(int k=0;k<Customer.getC().get(y).getCard().size();k++) {
+                                                if(pchoice.equals(Customer.getC().get(y).getCard().get(k).getId())){
+                                                    //make a request
+                                                    Request r=Customer.getC().get(y).setRequest(predate,cmodel,Customer.getC().get(y).getCard().get(k),location);
+                                                    r.setStatus("Waiting for Admin response.");
+                                                    cusReq.put(r,Customer.getC().get(y));
+
+                                                    customerRequestsHistory.add(r);
+                                                    logger.info("Your installation request is submitted and waiting for the admin to schedule it. \r");
+                                                    flag=true;
+                                                    break;
+                                                }
+                                            }
+                                            if(!flag){
+                                                logger.info("Invalid input\r");
+                                            }
+                                        }
+                                        else break;
+                                    }
                                     break;
                                 }
                             }
@@ -220,37 +258,21 @@ public class Customer {
                     break;
 
 
-                case 8://make an installation request not done yet
-                    Scanner req = new Scanner(System.in);
-                    Scanner c = new Scanner(System.in);
-                    logger.info("Enter your car model\r");
-                    String cmodel= req.nextLine();
-                    logger.info("Enter your preferred date (DD/MM/YYYY)\r");
-                    String predate= req.next();
-                    showCart();
-                    logger.info("Enter the product ID you want to install\r");
-                    String pchoice = c.next();
-                    boolean flag=false;
 
-                    for(int i=0;i<Customer.getC().get(y).getCard().size();i++) {
-                        if(pchoice.equals(Customer.getC().get(y).getCard().get(i).getId())){
-                            //make a request
-                            cusReq.put(Customer.getC().get(y),Customer.getC().get(y).setRequest(predate,cmodel,Customer.getC().get(y).getCard().get(i)));
-                            logger.info("Your installation request is submitted and waiting for the admin to schedule it. \r");
-                            flag=true;
-                            break;
+                case 8: {//view installation requests
+
+                    for(int i=0;i<customerRequestsHistory.size();i++) {
+                        if (customerRequestsHistory.get(i).getStatus().equals("Waiting for Installer response.") || customerRequestsHistory.get(i).getStatus().equals("Waiting for Admin response.")) {
+                            System.out.println(Admin.toString(customerRequestsHistory.get(i)) + "          Waiting\n");
+                        } else if (customerRequestsHistory.get(i).getStatus().equals("Approved.")&&reqq.containsKey(customerRequestsHistory.get(i))) {
+                            System.out.println(Admin.toString(customerRequestsHistory.get(i)) + "          Approved by    " + Admin.toString(reqq.get(customerRequestsHistory.get(i))) + "\n");
                         }
                     }
-                    if(!flag){
-                        logger.info("Invalid input\r");
-                    }
-
                     break;
+                }
 
-                case 9://view installation request status not done yet
 
-                    break;
-                case 10://costumer logout done
+                case 9://costumer logout done
                     running = false;
                     break;
 
@@ -461,12 +483,13 @@ public class Customer {
 
     public boolean getRequest() {return onHold;}
 
-    public Request setRequest(String datte,String carModel,Product pr) {
+    public Request setRequest(String datte,String carModel,Product pr,String location) {
         Request r=new Request();
         this.onHold=true;
         r.preferredDate=datte;
         r.carModel=carModel;
         r.product=pr;
+        r.location=location;
         r.setStatus("waiting");
 
         return r;

@@ -3,6 +3,8 @@ package org.example;
 import java.util.logging.*;
 import java.util.Scanner;
 
+import static org.example.Admin.cusReq;
+
 
 public class Main {
 
@@ -37,13 +39,13 @@ public class Main {
         Logging.q.put(a.getEmail(), a.getPassword());
         Logging.q.put(t.getEmail(), t.getPassword());
 
-        Customer i=new Customer("shahod","222","QAM","02872228","shahd@gmail.com","Male",0.0,1);
-        Customer i2=new Customer("dana","555","DAM","028725323","dana@gmail.com","Male",0.0,1);
-        Customer.getC().add(i);
-        Customer.getC().add(i2);
+        Customer c=new Customer("shahd","111","QAM","02872228","shahd@gmail.com","Male",0.0,1);
+        Customer c2=new Customer("dana","222","DAM","028725323","dana@gmail.com","Male",0.0,1);
+        Customer.getC().add(c);
+        Customer.getC().add(c2);
 
-        Logging.q.put(i.getEmail(), i.getPassword());
-        Logging.q.put(i2.getEmail(), i2.getPassword());
+        Logging.q.put(c.getEmail(), c.getPassword());
+        Logging.q.put(c2.getEmail(), c2.getPassword());
 
 
         Product product1 = new Product("1200","car seat" ,"waterproof car seats", "interior",50);
@@ -54,6 +56,16 @@ public class Main {
         Product product6 = new Product("3576","Roof racks2" ,"pack of 2 car roof rackkmvkl", "electronics",130);
         Product product7 = new Product("3100","Roof racks3" ,"pack of 2 car roof rackkvkv", "electronics",300);
 
+        Operations.addProduct(product7);
+        Operations.addProduct(product6);
+        Operations.addProduct(product5);
+        Operations.addProduct(product4);
+        Operations.addProduct(product3);
+        Operations.addProduct(product2);
+        Operations.addProduct(product1);
+
+
+
         Installer n=new Installer("woroud@gmail.com","woroud","123123","RAM","0568725598","122",true,2);
         Installer n1=new Installer("ahmad@gmail.com","ahmad","123","nablus","0568665598","123",true,2);
         Installer n2=new Installer("leen@gmail.com","leen","321","SAM","0568722198","124",false,2);
@@ -62,21 +74,16 @@ public class Main {
         Installer.getInstaller().add(n2);
 
 
+        n.getReservaeddates().put(c2,"24/10/2002");
+
         Logging.q.put(n.getEmail(), n.getPass());
         Logging.q.put(n2.getEmail(), n2.getPass());
 
-        n.getReservaeddates().put(i2.getEmail(),"24/10/2023");
-        n.getReservaeddates().put(i.getEmail(),"25/10/2023");
-        n1.getReservaeddates().put("leen@","10/12/2023");
-        n1.getReservaeddates().put("ahmad@","1/10/2023");
 
+        cusReq.put(c.setRequest("24/10/2002","kia",product1,"nabl"),c);
+        cusReq.put(c.setRequest("25/10/2002","kia",product1,"jenin"),c);
+        //cusReq.put(c2.setRequest("24/10/2020","lampo",product1,"kalil"),c2);
 
-        Operations.addP(product6);
-        Operations.addP(product5);
-        Operations.addP(product4);
-        Operations.addP(product3);
-        Operations.addP(product2);
-        Operations.addP(product1);
 
         HomePage();
 
@@ -150,7 +157,7 @@ public class Main {
                     switch (utype) {
 
 
-                        case 0: {//admin
+                        case 0: {
 
                             Admin.adminActivities();
                             break;
@@ -164,9 +171,8 @@ public class Main {
 
 
                         case 2:
-                            logger.info("\n" + " Welcome Installer " + Installer.getInstaller().get(y).getName() + "\n");
 
-                            //installer activities
+                            Installer.installerActivities();
                             break;
 
                     }
@@ -198,7 +204,7 @@ public class Main {
         String password = input.nextLine();
 
         Customer r = new Customer(username, password, address, phnum, email, gen,0.0,1);
-        boolean create = Operations.createC(r);
+        boolean create = Operations.createCustomer(r);
         if (create) {
             logger.info("A new account was created successfully");
             Logging.q.put(email, password);
