@@ -38,8 +38,8 @@ public class Main {
 
         Logging.q.put(a.getEmail(), a.getPassword());
         Logging.q.put(t.getEmail(), t.getPassword());
-
-        Customer c=new Customer("shahd","111","QAM","02872228","shahd@gmail.com","Male",0.0,1);
+//jelenab798@vkr1.com
+        Customer c=new Customer("shahd","111","QAM","02872228","jixag36030@usoplay.com","Male",0.0,1);
         Customer c2=new Customer("dana","222","DAM","028725323","dana@gmail.com","Male",0.0,1);
         Customer.getC().add(c);
         Customer.getC().add(c2);
@@ -66,8 +66,8 @@ public class Main {
 
 
 
-        Installer n=new Installer("woroud@gmail.com","woroud","123123","RAM","0568725598","122",true,2);
-        Installer n1=new Installer("ahmad@gmail.com","ahmad","123","nablus","0568665598","123",true,2);
+        Installer n=new Installer("jelenab798@vkr1.com","woroud","123123","RAM","0568725598","122",true,2);
+        Installer n1=new Installer("l,mfvjelenab798@vkr1.com","ahmad","123","nablus","0568665598","123",true,2);
         Installer n2=new Installer("leen@gmail.com","leen","321","SAM","0568722198","124",false,2);
         Installer.getInstaller().add(n);
         Installer.getInstaller().add(n1);
@@ -78,7 +78,7 @@ public class Main {
 
         Logging.q.put(n.getEmail(), n.getPass());
         Logging.q.put(n2.getEmail(), n2.getPass());
-
+        Logging.q.put(n1.getEmail(), n2.getPass());
 
         cusReq.put(c.setRequest("24/10/2002","kia",product1,"nabl"),c);
         cusReq.put(c.setRequest("25/10/2002","kia",product1,"jenin"),c);

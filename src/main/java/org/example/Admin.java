@@ -232,14 +232,14 @@ public class Admin {
                     Set<Request> resulttt = new HashSet<>();
                     //print all the requests on hold (need to be sent by admin)=3 2 for same cus
                     for (Map.Entry< Request,Customer> entry : cusReq.entrySet()) {//do we need to know the product?
-                        System.out.println(toString(entry.getKey()) + " \n " + toString(entry.getValue()));//////////////
+                        logger.info(toString(entry.getKey()) + " \n " + toString(entry.getValue()));//////////////
                     }
-                    System.out.println();
-                    System.out.println();
+                    logger.info("\n");
+                    logger.info("\n");
 
                     for (int n = 0; n < Installer.getInstaller().size(); n++) {
 
-                        System.out.println(toString(Installer.getInstaller().get(n)));//////woroud only, 3 reser
+                        logger.info(toString(Installer.getInstaller().get(n)));//////woroud only, 3 reser
                         //System.out.println();
                     }
                     Scanner customerEmail = new Scanner(System.in);
@@ -253,7 +253,7 @@ public class Admin {
 
                             //all his requests
                                 for (Request key : getKeys(cusReq, Customer.getC().get(k))) {
-                                    System.out.println(toString(key));
+                                    logger.info(toString(key));
                                 }
 
 
@@ -268,12 +268,10 @@ public class Admin {
                                         //successful finding installer
                                         //send to installer
                                         key.setStatus("Waiting for Installer response.");
-
                                         informInstallerr.put(key,Installer.getInstaller().get(i));//list from admin to installer waiting
-
-                                        System.out.println("Waiting for Installer response.");
+                                        EmailSender.sendEmail(Installer.getInstaller().get(i).getEmail(),"New installation request","New installation request was submitted and waiting for your response :)");
+                                        logger.info("Waiting for Installer response.");
                                         break;
-
                                     }
 
 

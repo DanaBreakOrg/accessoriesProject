@@ -224,6 +224,7 @@ public class Customer {
 
                                                     customerRequestsHistory.add(r);
                                                     logger.info("Your installation request is submitted and waiting for the admin to schedule it. \r");
+                                                    EmailSender.sendEmail(Customer.getC().get(y).getEmail(),"Installation request submission","Your installation request was submitted and waiting for the admin response :)");
                                                     flag=true;
                                                     break;
                                                 }
@@ -263,9 +264,9 @@ public class Customer {
 
                     for(int i=0;i<customerRequestsHistory.size();i++) {
                         if (customerRequestsHistory.get(i).getStatus().equals("Waiting for Installer response.") || customerRequestsHistory.get(i).getStatus().equals("Waiting for Admin response.")) {
-                            System.out.println(Admin.toString(customerRequestsHistory.get(i)) + "          Waiting\n");
+                            logger.info(Admin.toString(customerRequestsHistory.get(i)) + "          Waiting\n");
                         } else if (customerRequestsHistory.get(i).getStatus().equals("Approved.")&&reqq.containsKey(customerRequestsHistory.get(i))) {
-                            System.out.println(Admin.toString(customerRequestsHistory.get(i)) + "          Approved by    " + Admin.toString(reqq.get(customerRequestsHistory.get(i))) + "\n");
+                            logger.info(Admin.toString(customerRequestsHistory.get(i)) + "          Approved by    " + Admin.toString(reqq.get(customerRequestsHistory.get(i))) + "\n");
                         }
                     }
                     break;

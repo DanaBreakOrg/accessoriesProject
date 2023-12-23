@@ -102,7 +102,7 @@ public class Installer {
                 case 1: {
 
                         for (Request key : getKeys(informInstallerr, getInstaller().get(y))) {
-                            System.out.println(toString(key));
+                            logger.info(toString(key));
                         }
 
                break;
@@ -157,7 +157,7 @@ public class Installer {
 
 
                 for (Request key : getKeys(h, Installer.getInstaller().get(k))) {
-                    System.out.println(toString(key));
+                    logger.info(toString(key));
 
                     logger.info("Do you want to accept this request ?\n"
                     +"1- Accept.\n"
@@ -167,11 +167,15 @@ public class Installer {
 
                     if(x.equals("yes")||x.equals("Yes")||x.equals("1")) {
                             key.setStatus("Approved.");
-                            cusReq.remove(key);
+                        EmailSender.sendEmail(cusReq.get(key).getEmail(),"Installation request approval","Your installation request was approved by the installer :)");
+
+                        cusReq.remove(key);
                             informInstallerr.remove(key);
                             reqq.put(key, Installer.getInstaller().get(k));
+                            //inform customer that the installation was approved
 
-                        }
+
+                    }
 
                         else if(x.equals("No")||x.equals("no")||x.equals("2")){
 
