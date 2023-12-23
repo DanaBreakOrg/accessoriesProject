@@ -98,10 +98,10 @@ public class Admin {
 
             switch (choice) {
                 case 1: {//show all customers done
-                    for (int i = 0; i < Customer.getC().size(); i++) {
+                    for (int i = 0; i < Customer.getCustomerList().size(); i++) {
                         String ff = String.format("%d-", i + 1);
                         logger.info(ff);
-                        logger.info(Customer.getC().get(i).getUsername() + "   " + Customer.getC().get(i).getAddress() + "   " + Customer.getC().get(i).getPhone() + "\r\n");
+                        logger.info(Customer.getCustomerList().get(i).getUsername() + "   " + Customer.getCustomerList().get(i).getAddress() + "   " + Customer.getCustomerList().get(i).getPhone() + "\r\n");
 
                     }
                     break;
@@ -211,15 +211,15 @@ public class Admin {
                     Scanner pass2 = new Scanner(System.in);
                     logger.info("Enter the customer username you want to delete:");//username or smth else??
                     String z1 = pass2.next();
-                    for (int i = 0; i < Customer.getC().size(); i++) {
-                        if (Customer.getC().get(i).getUsername().equals(z1)) {
+                    for (int i = 0; i < Customer.getCustomerList().size(); i++) {
+                        if (Customer.getCustomerList().get(i).getUsername().equals(z1)) {
                             index = i;
                         }
                     }
                     if (index == -1) {
                         logger.info("A customer you want to delete doesn't exist");
                     } else {
-                        boolean delete = Operations.deleteCustomer(Customer.getC().get(index));
+                        boolean delete = Operations.deleteCustomer(Customer.getCustomerList().get(index));
                         if (!delete)
                             logger.info("A customer was deleted");
                     }
@@ -232,7 +232,7 @@ public class Admin {
                     Set<Request> resulttt = new HashSet<>();
                     //print all the requests on hold (need to be sent by admin)=3 2 for same cus
                     for (Map.Entry< Request,Customer> entry : cusReq.entrySet()) {//do we need to know the product?
-                        logger.info(toString(entry.getKey()) + " \n " + toString(entry.getValue()));//////////////
+                        logger.info("Request Info   :\n"+toString(entry.getKey()) + " \n " + "Customer Info   :\n"+toString(entry.getValue()));//////////////
                     }
                     logger.info("\n");
                     logger.info("\n");
@@ -247,37 +247,52 @@ public class Admin {
                     String ce = customerEmail.next();
 
 
-                    for (int k = 0; k < Customer.getC().size(); k++) {
+                    for (int k = 0; k < Customer.getCustomerList().size(); k++) {
 
-                        if (Customer.getC().get(k).getEmail().equals(ce)&&cusReq.containsValue(Customer.getC().get(k))){//customer found
+                        if (Customer.getCustomerList().get(k).getEmail().equals(ce)&&cusReq.containsValue(Customer.getCustomerList().get(k))){//customer found
 
                             //all his requests
-                                for (Request key : getKeys(cusReq, Customer.getC().get(k))) {
-                                    logger.info(toString(key));
+                                for (Request key : getKeys(cusReq, Customer.getCustomerList().get(k))) {
+                                    logger.info("Request Info   :\n"+toString(key));
                                 }
 
 
-                            resulttt=getKeys(cusReq, Customer.getC().get(k));//all the requests of certain customer
+                            resulttt=getKeys(cusReq, Customer.getCustomerList().get(k));//all the requests of certain customer
 
-                            for (Request key : getKeys(cusReq, Customer.getC().get(k))) {
+                            for (Request key : getKeys(cusReq, Customer.getCustomerList().get(k))) {
                                 for(int i=0; i<Installer.getInstaller().size(); i++){
                                     boolean done;
-                                    done=searchAvailable(Installer.getInstaller().get(i),Customer.getC().get(k),key.preferredDate);
+                                    done=searchAvailable(Installer.getInstaller().get(i),Customer.getCustomerList().get(k),key.preferredDate);
 
                                     if(!done){
                                         //successful finding installer
                                         //send to installer
                                         key.setStatus("Waiting for Installer response.");
                                         informInstallerr.put(key,Installer.getInstaller().get(i));//list from admin to installer waiting
-                                        EmailSender.sendEmail(Installer.getInstaller().get(i).getEmail(),"New installation request","New installation request was submitted and waiting for your response :)");
+                                        EmailSender.sendEmail(Installer.getInstaller().get(i).getEmail(),"New installation request","New installation request was submitted and waiting for your response :\n"
+                                                + "Customer Info   : "+"\n"+
+                                                "Name           : "+Customer.getCustomerList().get(k).getUsername()+"\n" +
+                                                "Email          : "+Customer.getCustomerList().get(k).getEmail()+"\n"+
+                                                "Phone Number   : "+Customer.getCustomerList().get(k).getPhone()+"\n"+
+                                                "Address        : "+Customer.getCustomerList().get(k).getAddress()+"\n"+
+                                                "----------------------------------------------------\n"
+                                                + "Request Info     : "+"\n"+
+                                                "Car Model      : "+key.carModel+"\n" +
+                                                "Preferred Date : "+key.preferredDate+"\n"+
+                                                "Location       : "+key.location+"\n"+
+                                                "----------------------------------------------------\n"
+                                                + "Product Info     : "+"\n"+
+                                                toString(key.product));
+
+
+
+
                                         logger.info("Waiting for Installer response.");
                                         break;
                                     }
 
 
                                 }}
-                            //logger.info("Enter product price : ");
-                           // String price = pPrice.nextLine();
 
 
 
@@ -326,7 +341,7 @@ public class Admin {
                     Scanner pid = new Scanner(System.in);
                     logger.info("Enter the product name you want to delete:");
                     String z1 = pid.next();
-                    for (int i = 0; i < Customer.getC().size(); i++) {
+                    for (int i = 0; i < Customer.getCustomerList().size(); i++) {
                         if (Product.getP().get(i).getName().equals(z1)) {
                             index = i;
                         }
@@ -394,13 +409,32 @@ public class Admin {
 
 
 
-    private static void printAllDates(Installer installer) {
-        logger.info(installer.getName()+" \t ");
+    private static Set<Request> getKeys(Map<Request, Customer> map, Customer value) {
+
+        Set<Request> result = new HashSet<>();
+        if (map.containsValue(value)) {
+            for (Map.Entry<Request, Customer> entry : map.entrySet()) {
+                if (Objects.equals(entry.getValue(), value)) {
+                    result.add(entry.getKey());
+                }
+            }
+        }
+        return result;
+
+    }
+
+
+    private static String printAllDates(Installer installer) {
+        String m="Busy on : \n";
+
+     //   logger.info(installer.getName()+" \t ");
 
         for (Map.Entry< Customer,String> entry : installer.getReservaeddates().entrySet()) {//do we need to know the product?
-            logger.info(toString(entry.getKey()) + " \n " + entry.getValue());//////////////
-        }
+            m+=  entry.getValue()+"\n";
+           // logger.info(toString(entry.getKey()) + " \n " + entry.getValue());//////////////
 
+        }
+return m;
     }
     private static boolean searchAvailable(Installer installer,Customer customer,String date) {
         installer.available=true;
@@ -415,43 +449,55 @@ public class Admin {
 return installer.available;
     }
 
-    public static List<Customer> getNewCus() {
-        return newCustomers;
-    }
-    //@Override
-    public static String toString(Customer c, Installer i) {
-        return c.getEmail() + "   +    " + i.getName() ;
-    }
+
     public static String toString(Customer c) {
         return "Customer : " +c.getEmail()+" "+c.getUsername()+" "+c.getPhone()+" "+c.getAddress() ;
     }
+
+    public static String toString1(Customer c) {
+        return "Customer Info   : " + "\n" +
+                "Name           : " + c.getUsername() + "\n" +
+                "Email          : " + c.getEmail() + "\n" +
+                "Phone Number   : " + c.getPhone() + "\n" +
+                "Address        : " + c.getAddress() + "\n" ;
+
+    }
+
+    public static String toString(Product p) {
+        return  "ID:            "+p.getId()+"\n"
+                +"Name:         "+p.getName()+"\n"
+                +"Description:  "+p.getDescription()+"\n"
+                +"Price:        "+ p.getPrice()+ "\n";
+    }
+
+    public static String toString1(Product p) {
+        return  "ID:            "+p.getId()+"\t"
+                +"Name:         "+p.getName()+"\t"
+                +"Description:  "+p.getDescription()+"\t"
+                +"Price:        "+ p.getPrice()+ "\n";
+    }
+
+
+    public static String toStringWithBusyDays(Installer i) {
+        return "Installer :     "+i.getEmail()+" \t "+i.getName()+" \t "+i.getPhone()+"\n" +
+                "Busy On  :     "+"\n"
+                +printAllDates(i);
+
+    }
     public static String toString(Installer i) {
-        return "Installer : "+i.getEmail()+" "+i.getName()+" "+i.getPhone()+"\n" +
-                "Busy On : " ; //printAllDates(i);
+        return "Installer :     "+i.getEmail()+" \t "+i.getName()+" \t "+i.getPhone()+"\n" ;
 
     }
     public static String toString(Request r) {
-        return "Request Info : " +r.carModel+" "+r.location+" "+r.preferredDate;
+
+
+        return  "Car Model      : "+r.carModel+"\n" +
+                "Preferred Date : "+r.preferredDate+"\n"+
+                "Location       : "+r.location+"\n";
     }
 
 
-    private static Set<Request> getKeys(Map<Request, Customer> map, Customer value) {
 
-        Set<Request> result = new HashSet<>();
-        if (map.containsValue(value)) {
-            for (Map.Entry<Request, Customer> entry : map.entrySet()) {
-                if (Objects.equals(entry.getValue(), value)) {
-                    result.add(entry.getKey());
-                }
-                // we can't compare like this, null will throws exception
-              /*(if (entry.getValue().equals(value)) {
-                  result.add(entry.getKey());
-              }*/
-            }
-        }
-        return result;
-
-    }
 
 
 }

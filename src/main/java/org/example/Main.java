@@ -41,8 +41,8 @@ public class Main {
 //jelenab798@vkr1.com
         Customer c=new Customer("shahd","111","QAM","02872228","jixag36030@usoplay.com","Male",0.0,1);
         Customer c2=new Customer("dana","222","DAM","028725323","dana@gmail.com","Male",0.0,1);
-        Customer.getC().add(c);
-        Customer.getC().add(c2);
+        Customer.getCustomerList().add(c);
+        Customer.getCustomerList().add(c2);
 
         Logging.q.put(c.getEmail(), c.getPassword());
         Logging.q.put(c2.getEmail(), c2.getPassword());

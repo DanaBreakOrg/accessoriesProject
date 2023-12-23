@@ -35,15 +35,15 @@ public class Operations {
 
     public static boolean createCustomer(Customer c) {
             boolean add=true;
-            for(int i=0; i< Customer.getC().size() ; i++) {
-                if((Customer.getC().get(i).getEmail().equals(c.getEmail()))||((Customer.getC().get(i).getEmail().equals(c.getEmail())) && (Customer.getC().get(i).getUsername().equals(c.getUsername())) && (Customer.getC().get(i).getAddress().equals(c.getAddress()))&& (Customer.getC().get(i).getPhone().equals(c.getPhone()))))
+            for(int i = 0; i< Customer.getCustomerList().size() ; i++) {
+                if((Customer.getCustomerList().get(i).getEmail().equals(c.getEmail()))||((Customer.getCustomerList().get(i).getEmail().equals(c.getEmail())) && (Customer.getCustomerList().get(i).getUsername().equals(c.getUsername())) && (Customer.getCustomerList().get(i).getAddress().equals(c.getAddress()))&& (Customer.getCustomerList().get(i).getPhone().equals(c.getPhone()))))
                 {
                     add = false;//exists
                     break;
                 }
             }
             if(add) {
-                Customer.getC().add(c);
+                Customer.getCustomerList().add(c);
                 //Statistics.totalw();
             }
             return add;
@@ -53,8 +53,8 @@ public class Operations {
         boolean delete =true;
 
         int index=-1;
-        for(int i=0; i< Customer.getC().size() ; i++) {
-            if((Customer.getC().get(i).getEmail().equals(c.getEmail()))||((Customer.getC().get(i).getEmail().equals(c.getEmail())) && (Customer.getC().get(i).getUsername().equals(c.getUsername())) && (Customer.getC().get(i).getAddress().equals(c.getAddress()))&& (Customer.getC().get(i).getPhone().equals(c.getPhone()))))
+        for(int i = 0; i< Customer.getCustomerList().size() ; i++) {
+            if((Customer.getCustomerList().get(i).getEmail().equals(c.getEmail()))||((Customer.getCustomerList().get(i).getEmail().equals(c.getEmail())) && (Customer.getCustomerList().get(i).getUsername().equals(c.getUsername())) && (Customer.getCustomerList().get(i).getAddress().equals(c.getAddress()))&& (Customer.getCustomerList().get(i).getPhone().equals(c.getPhone()))))
             {
                 index=i;
                 delete = false;
@@ -62,7 +62,7 @@ public class Operations {
             }
         }
         if(!delete) {
-            Customer.getC().remove(index);
+            Customer.getCustomerList().remove(index);
             //Statistics.totalwo();
         }
         return delete;
@@ -70,15 +70,15 @@ public class Operations {
 
     public static boolean addCustomer(Customer c) {
         boolean add=true;
-        for(int i=0; i< Customer.getC().size() ; i++) {
-            if((Customer.getC().get(i).getEmail().equals(c.getEmail()))||((Customer.getC().get(i).getEmail().equals(c.getEmail())) && (Customer.getC().get(i).getUsername().equals(c.getUsername())) && (Customer.getC().get(i).getAddress().equals(c.getAddress()))&& (Customer.getC().get(i).getPhone().equals(c.getPhone()))))
+        for(int i = 0; i< Customer.getCustomerList().size() ; i++) {
+            if((Customer.getCustomerList().get(i).getEmail().equals(c.getEmail()))||((Customer.getCustomerList().get(i).getEmail().equals(c.getEmail())) && (Customer.getCustomerList().get(i).getUsername().equals(c.getUsername())) && (Customer.getCustomerList().get(i).getAddress().equals(c.getAddress()))&& (Customer.getCustomerList().get(i).getPhone().equals(c.getPhone()))))
             {
                 add = false;
                 break;
             }
         }
         if(add) {
-            Customer.getC().add(c);
+            Customer.getCustomerList().add(c);
            // Statistics.totalw();///////////////////
         }
         return add;
@@ -86,8 +86,8 @@ public class Operations {
 
     public static int searchCustomer(String name) {
         int index=-1;
-        for(int i=0; i< Customer.getC().size() ; i++) {
-            if(name.equals(Customer.getC().get(i).getUsername())) {
+        for(int i = 0; i< Customer.getCustomerList().size() ; i++) {
+            if(name.equals(Customer.getCustomerList().get(i).getUsername())) {
                 index=i;
                 break;
             }
@@ -106,7 +106,7 @@ public class Operations {
             index=searchCustomer(oldname);
             if(index>=0) {
                 update = false;
-                Customer.getC().get(index).setUsername(name);}
+                Customer.getCustomerList().get(index).setUsername(name);}
             return update;
     }
     public static boolean updateAddress(String oldname,String address) {
@@ -116,7 +116,7 @@ public class Operations {
         index=searchCustomer(oldname);
         if(index>=0) {
             update = false;
-            Customer.getC().get(index).setAddress(address);}
+            Customer.getCustomerList().get(index).setAddress(address);}
         return update;
     }
     public static boolean updatePhone(String oldname,String phone) {
@@ -125,7 +125,7 @@ public class Operations {
         index=searchCustomer(oldname);
         if(index>=0) {
             update = false;
-            Customer.getC().get(index).setPhone(phone);}
+            Customer.getCustomerList().get(index).setPhone(phone);}
         return update;
 
     }
@@ -135,7 +135,7 @@ public class Operations {
         index=searchCustomer(oldname);
         if(index>=0) {
             update = false;
-            Customer.getC().get(index).setPassword(password);}
+            Customer.getCustomerList().get(index).setPassword(password);}
         return update;
 
     }
@@ -146,7 +146,7 @@ public class Operations {
         index=searchCustomer(oldname);
         if(index>=0) {
             update = false;
-            Customer.getC().get(index).setEmail(email);}
+            Customer.getCustomerList().get(index).setEmail(email);}
         return update;
     }
 

@@ -39,8 +39,8 @@ public class Logging {
             }}
 
         if (flag) {
-            for (int j = 0; j < Customer.getC().size(); j++) {
-                if (email.equals(Customer.getC().get(j).getEmail())) {
+            for (int j = 0; j < Customer.getCustomerList().size(); j++) {
+                if (email.equals(Customer.getCustomerList().get(j).getEmail())) {
                     flag = false;
                     successfulusername=true;
                     type = 1;//////////////////////

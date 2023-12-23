@@ -3,7 +3,6 @@ package myPackage;
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
-import org.example.Admin;
 import org.example.Customer;
 import org.example.Logging;
 
@@ -22,7 +21,7 @@ Customer c;
     log=new Logging();
     log.password="123456";
     c = new Customer("ss","1234567","nablus","0599874562","nkjc@gmail.com","female",0.0,1);
-    Customer.getC().add(c);
+    Customer.getCustomerList().add(c);
 
 }
 

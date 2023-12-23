@@ -6,9 +6,12 @@ import java.util.Scanner;
 import java.util.logging.*;
 
 import static org.example.Admin.cusReq;
+import static org.example.Admin.toString1;
 import static org.example.Installer.reqq;
 import static org.example.Logging.y;
 
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 public class Customer {
 
 
@@ -30,8 +33,8 @@ public class Customer {
 
     private List<Product> card = new ArrayList<>() ;
     protected static final List<Customer> C = new ArrayList<>() ;//the used list that contains all customers,getC
-    protected static final List<Request> customerRequestsHistory = new ArrayList<>() ;
-
+    protected final List<Request> customerRequestsHistory = new ArrayList<>() ;
+    protected final List<Product> customerProductsHistory = new ArrayList<>() ;
 
 
     protected static Scanner input = new Scanner (System.in);
@@ -63,18 +66,18 @@ public class Customer {
 
         boolean running = true;
         while (running) {
-            logger.info("\n Welcome "+Customer.getC().get(y).getUsername()+ " , to the Car accessories company.\r\n"
+            logger.info("\n Welcome "+Customer.getCustomerList().get(y).getUsername()+ " , to the Car accessories company.\r\n"
                     + "------------------------------------------------------------.\r\n"
                     + "Select an option:.\r\n"
-                    + "1. Profile.\r\n"//done
-                    + "2. Show all products.\r\n"//done
-                    + "3. Filter by category.\r\n"//done
-                    + "4. Filter by price.\r\n"//done
-                    + "5. Buy a product.\r\n"//done
-                    + "6. Show cart.\r\n"//done
-                    + "7. Search a product.\r\n"//done
-                    + "8. View your installation requests status.\r\n"// done
-                    + "9. Logout.\r\n"//done
+                    + "1.  Profile.\r\n"//done
+                    + "2.  Show all products.\r\n"//done
+                    + "3.  Filter by category.\r\n"//done
+                    + "4.  Filter by price.\r\n"//done
+                    + "5.  Buy a product.\r\n"//done
+                    + "6.  Show cart.\r\n"//done
+                    + "7.  Search a product.\r\n"//done
+                  //  + "8.  View your installation requests status.\r\n"// done
+                    + "8. Logout.\r\n"//done
                     + "Enter your choice\r"
                     //view order history
             );
@@ -174,6 +177,7 @@ public class Customer {
                 
                 case 5:
                     showAllProducts();
+                    Order order=new Order();
                     boolean done = false;
                     double total=0;
                     boolean found=false;
@@ -185,10 +189,11 @@ public class Customer {
                             //addToCart--;
                             for(int i=0 ; i<Product.getP().size();i++){
                                 if(pid.equals(Product.getP().get(i).getId())){
-                                    Customer.getC().get(y).getCard().add(Product.getP().get(i));
-                                    total = Customer.getC().get(y).getCost();
+                                    Customer.getCustomerList().get(y).getCard().add(Product.getP().get(i));
+                                    Customer.getCustomerList().get(y).customerProductsHistory.add(Product.getP().get(i));
+                                    total = Customer.getCustomerList().get(y).getCost();
                                     total += Product.getP().get(i).getPrice();
-                                    Customer.getC().get(y).setCost(total);
+                                    Customer.getCustomerList().get(y).setCost(total);
                                     logger.info("added to cart successfully !");
                                     found=true;
 
@@ -215,16 +220,16 @@ public class Customer {
                                             boolean flag=false;
 
 
-                                            for(int k=0;k<Customer.getC().get(y).getCard().size();k++) {
-                                                if(pchoice.equals(Customer.getC().get(y).getCard().get(k).getId())){
+                                            for(int k = 0; k<Customer.getCustomerList().get(y).getCard().size(); k++) {
+                                                if(pchoice.equals(Customer.getCustomerList().get(y).getCard().get(k).getId())){
                                                     //make a request
-                                                    Request r=Customer.getC().get(y).setRequest(predate,cmodel,Customer.getC().get(y).getCard().get(k),location);
+                                                    Request r=Customer.getCustomerList().get(y).setRequest(predate,cmodel,Customer.getCustomerList().get(y).getCard().get(k),location);
                                                     r.setStatus("Waiting for Admin response.");
-                                                    cusReq.put(r,Customer.getC().get(y));
+                                                    cusReq.put(r,Customer.getCustomerList().get(y));
 
-                                                    customerRequestsHistory.add(r);
+                                                    Customer.getCustomerList().get(y).customerRequestsHistory.add(r);
                                                     logger.info("Your installation request is submitted and waiting for the admin to schedule it. \r");
-                                                    EmailSender.sendEmail(Customer.getC().get(y).getEmail(),"Installation request submission","Your installation request was submitted and on waiting status :)");
+                                                    EmailSender.sendEmail(Customer.getCustomerList().get(y).getEmail(),"Installation request submission","Your installation request was submitted and on waiting status :)");
                                                     flag=true;
                                                     break;
                                                 }
@@ -236,8 +241,10 @@ public class Customer {
                                         else break;
                                     }
                                     break;
+
                                 }
                             }
+
                             if(!found)
                             {
                                 logger.info("There is no such product id !");
@@ -245,6 +252,19 @@ public class Customer {
                             }
                         }
                     }
+                    LocalDateTime currentDateTime = LocalDateTime.now();
+
+                    // Define the date and time format
+                    DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
+
+                    // Format the current date and time
+                    String formattedDateTime = currentDateTime.format(formatter);
+
+                    // Print the formatted current date and time
+                    // System.out.println("Formatted current date and time: " + formattedDateTime);
+
+                    order.makeOrder(Customer.getCustomerList().get(y),Customer.getCustomerList().get(y).getCard(),formattedDateTime);
+
                     break;
                 
                 case 6:
@@ -259,21 +279,21 @@ public class Customer {
                     break;
 
 
-
+/*
                 case 8: {//view installation requests
 
-                    for(int i=0;i<customerRequestsHistory.size();i++) {
-                        if (customerRequestsHistory.get(i).getStatus().equals("Waiting for Installer response.") || customerRequestsHistory.get(i).getStatus().equals("Waiting for Admin response.")) {
-                            logger.info(Admin.toString(customerRequestsHistory.get(i)) + "          Waiting\n");
-                        } else if (customerRequestsHistory.get(i).getStatus().equals("Approved.")&&reqq.containsKey(customerRequestsHistory.get(i))) {
-                            logger.info(Admin.toString(customerRequestsHistory.get(i)) + "          Approved by    " + Admin.toString(reqq.get(customerRequestsHistory.get(i))) + "\n");
+                    for(int i = 0; i<Customer.getCustomerList().get(y).customerRequestsHistory.size(); i++) {
+                        if (Customer.getCustomerList().get(y).customerRequestsHistory.get(i).getStatus().equals("Waiting for Installer response.") || Customer.getCustomerList().get(y).customerRequestsHistory.get(i).getStatus().equals("Waiting for Admin response.")) {
+                            logger.info("Your Request   :\n"+Admin.toString(Customer.getCustomerList().get(y).customerRequestsHistory.get(i)) + "          Waiting\n");
+                        } else if (Customer.getCustomerList().get(y).customerRequestsHistory.get(i).getStatus().equals("Approved.")&&reqq.containsKey(Customer.getCustomerList().get(y).customerRequestsHistory.get(i))) {
+                            logger.info("Your Request   :\n"+Admin.toString(Customer.getCustomerList().get(y).customerRequestsHistory.get(i)) + "          Approved by    " + Admin.toString(reqq.get(Customer.getCustomerList().get(y).customerRequestsHistory.get(i))));
                         }
                     }
                     break;
                 }
 
-
-                case 9://costumer logout done
+*/
+                case 8://costumer logout done
                     running = false;
                     break;
 
@@ -302,17 +322,18 @@ public class Customer {
     }
 
     private static void CustomerProfile() {
-        logger.info("\n Hi , "+Customer.getC().get(y).getUsername()+"\r\n"
+        logger.info("\n Hi , "+Customer.getCustomerList().get(y).getUsername()+"\r\n"
                 + "------------------------------------------------------------.\r\n"
-                +" Username : "+ Customer.getC().get(y).getUsername() + "\n" + " Address : "+ Customer.getC().get(y).getAddress() + "\n"
-                + " Phone : "+ Customer.getC().get(y).getPhone() + "\n" + " Email : " + Customer.getC().get(y).getEmail() +"\n\n"
+                +" Username : "+ Customer.getCustomerList().get(y).getUsername() + "\n" + " Address : "+ Customer.getCustomerList().get(y).getAddress() + "\n"
+                + " Phone : "+ Customer.getCustomerList().get(y).getPhone() + "\n" + " Email : " + Customer.getCustomerList().get(y).getEmail() +"\n\n"
                 + "Select an option:.\r\n"
                 + "1. Change address.\r\n"
                 + "2. Change phone number.\r\n"
                 + "3. Change Email.\r\n"
                 + "4. Change Password.\r\n"
-                + "5. View order history.\r\n"//not done
-                + "6. Back.\r"//done
+                + "5. View order history.\r\n"//done
+                + "6. View your installation requests status.\r\n"// done
+                + "7. Back.\r"//done
                 + "Enter your choice: \r"
         );
         int p= Main.scanner();
@@ -321,7 +342,7 @@ public class Customer {
                 Scanner newad1 = new Scanner(System.in);
                 logger.info("Enter your new address\r");
                 String newaddress= newad1.nextLine();
-                Customer.getC().get(y).setAddress(newaddress);
+                Customer.getCustomerList().get(y).setAddress(newaddress);
                 logger.info("Your address's updated :)");
                 break;
 
@@ -329,7 +350,7 @@ public class Customer {
                 Scanner newph1 = new Scanner(System.in);
                 logger.info("Enter your new phone number\r");
                 String newph= newph1.nextLine();
-                Customer.getC().get(y).setPhone(newph);
+                Customer.getCustomerList().get(y).setPhone(newph);
                 logger.info("Your phone number's' updated :)");
                 break;
 
@@ -338,18 +359,18 @@ public class Customer {
 
                 logger.info("Enter your new Email\r");
                 String newmail= newemail.nextLine();
-                Customer.getC().get(y).setEmail(newmail);
+                Customer.getCustomerList().get(y).setEmail(newmail);
                 logger.info("Your Email's updated :)");
                 break;
             case 4:
                 Scanner newpass1 = new Scanner(System.in);
                 logger.info("Enter your old password\r");
                 String oldpass= newpass1.next();
-                if(Customer.getC().get(y).getPassword().equals(oldpass))
+                if(Customer.getCustomerList().get(y).getPassword().equals(oldpass))
                 {
                     logger.info("Enter your new password (no spaces allowed)\r");
                     String newpass = newpass1.next();
-                    Customer.getC().get(y).setPassword(newpass);
+                    Customer.getCustomerList().get(y).setPassword(newpass);
                     logger.info("Your password's updated :)");
                 }else{
                     logger.info("Password is incorrect\r");
@@ -357,10 +378,34 @@ public class Customer {
 
                 break;
 
-            case 5:
-                //order history
+            case 5:{
+                for(int i=0; i<Customer.getCustomerList().get(y).customerProductsHistory.size();i++){
+                    logger.info(toString1(Customer.getCustomerList().get(y).customerProductsHistory.get(i)));
+
+                }
+
                 break;
-            case 6://back
+            }
+                //order history
+
+
+
+            case 6:{
+
+                //view installation requests
+
+                for(int i = 0; i<Customer.getCustomerList().get(y).customerRequestsHistory.size(); i++) {
+                    if (Customer.getCustomerList().get(y).customerRequestsHistory.get(i).getStatus().equals("Waiting for Installer response.") || Customer.getCustomerList().get(y).customerRequestsHistory.get(i).getStatus().equals("Waiting for Admin response.")) {
+                        logger.info("Your Request   :\n"+Admin.toString(Customer.getCustomerList().get(y).customerRequestsHistory.get(i)) + "          Waiting\n");
+                    } else if (Customer.getCustomerList().get(y).customerRequestsHistory.get(i).getStatus().equals("Approved.")&&reqq.containsKey(Customer.getCustomerList().get(y).customerRequestsHistory.get(i))) {
+                        logger.info("Your Request   :\n"+Admin.toString(Customer.getCustomerList().get(y).customerRequestsHistory.get(i)) + "          Approved by    " + Admin.toString(reqq.get(Customer.getCustomerList().get(y).customerRequestsHistory.get(i))));
+                    }
+                }
+                break;
+
+
+            }
+            case 7://back
                 break;
             default:
                 logger.info("Invalid input, enter your choice again!\r");
@@ -373,15 +418,15 @@ public class Customer {
     }
 
     private static void showCart() {
-        for(int i=0;i<Customer.getC().get(y).getCard().size();i++) {
+        for(int i = 0; i<Customer.getCustomerList().get(y).getCard().size(); i++) {
             String format =String.format(DEC, i + 1);
             logger.info(format +
-                    "ID: "+Customer.getC().get(y).getCard().get(i).getId()+"\t"
-                            +"Name: "+Customer.getC().get(y).getCard().get(i).getName()+"\t"
-                            +"Description: "+Customer.getC().get(y).getCard().get(i).getDescription()+"\t"
-                            +"Price: "+ Customer.getC().get(y).getCard().get(i).getPrice()+ "\n");
+                    "ID: "+Customer.getCustomerList().get(y).getCard().get(i).getId()+"\t"
+                            +"Name: "+Customer.getCustomerList().get(y).getCard().get(i).getName()+"\t"
+                            +"Description: "+Customer.getCustomerList().get(y).getCard().get(i).getDescription()+"\t"
+                            +"Price: "+ Customer.getCustomerList().get(y).getCard().get(i).getPrice()+ "\n");
         }
-        String totalCost=String.format("Total cost : %f",Customer.getC().get(y).getCost());
+        String totalCost=String.format("Total cost : %f",Customer.getCustomerList().get(y).getCost());
         logger.info(totalCost);
     }
 
@@ -440,7 +485,13 @@ public class Customer {
             }
         }
     }
-    
+
+    public static String toString(Product p) {
+        return  "ID:            "+p.getId()+"\t"
+                +"Name:         "+p.getName()+"\t"
+                +"Description:  "+p.getDescription()+"\t"
+                +"Price:        "+ p.getPrice()+ "\n";
+    }
 
     public void logging(boolean t) {
             logState=t;
@@ -468,7 +519,7 @@ public class Customer {
 
 
         //lists functions , must be static or not?
-        public static List<Customer> getC() {
+        public static List<Customer> getCustomerList() {
             return C;
         }
         public List<Product> getCard() {
@@ -481,7 +532,6 @@ public class Customer {
 
 
     // request functions
-
     public boolean getRequest() {return onHold;}
 
     public Request setRequest(String datte,String carModel,Product pr,String location) {

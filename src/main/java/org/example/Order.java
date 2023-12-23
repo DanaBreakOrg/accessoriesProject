@@ -3,10 +3,13 @@ package org.example;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Collections;
 import java.util.List;
 
 public class Order {
 
+
+    //set of products the customer buys at once
 
         private Customer customer;
 
@@ -62,6 +65,14 @@ public class Order {
             this.status = status;
         }
 
+
+        public void makeOrder(Customer customer, List<Product> getcard, String date2){
+            this.customer = customer;
+            this.date2=  date2;
+            //this.status = status;
+
+            Collections.copy( this.products, getcard);
+        }
 
 
 

@@ -135,18 +135,6 @@ public class Installer {
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
     public static void HandleRequestsFromAdmin(HashMap<Request, Installer> h, String email){
 
         Scanner choice = new Scanner(System.in);
