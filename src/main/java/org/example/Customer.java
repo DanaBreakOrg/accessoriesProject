@@ -224,7 +224,7 @@ public class Customer {
 
                                                     customerRequestsHistory.add(r);
                                                     logger.info("Your installation request is submitted and waiting for the admin to schedule it. \r");
-                                                    EmailSender.sendEmail(Customer.getC().get(y).getEmail(),"Installation request submission","Your installation request was submitted and waiting for the admin response :)");
+                                                    EmailSender.sendEmail(Customer.getC().get(y).getEmail(),"Installation request submission","Your installation request was submitted and on waiting status :)");
                                                     flag=true;
                                                     break;
                                                 }
