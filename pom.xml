@@ -8,6 +8,8 @@
     <artifactId>accessoriesProject</artifactId>
     <version>1.0-SNAPSHOT</version>
 
+
+
     <dependencies>
 
 
@@ -45,5 +47,18 @@
         <maven.compiler.target>20</maven.compiler.target>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     </properties>
+
+    <build>
+        <plugins>
+
+                    <plugin>
+                        <groupId>org.apache.maven.plugins</groupId>
+                        <artifactId>maven-surefire-plugin</artifactId>
+
+
+                    </plugin>
+
+        </plugins>
+    </build>
 
 </project>
