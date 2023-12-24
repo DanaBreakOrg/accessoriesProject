@@ -2,13 +2,13 @@ Feature: User Login
 
   Scenario: User login successfully
     Given the User is on the login page
-    When User enters the valid username "nasser" and enters the valid password "12345"
+    When User enters the valid username "nasser@gmail.com" and enters the valid password "12345"
     Then the User is logged in
 
 
   Scenario: User login failed due to invalid password
     Given the User is on the login page
-    When User enters correct username "nasser" and enters the password "1234"
+    When User enters correct username "nasser@gmail.com" and enters the password "1234"
     Then Invalid password error message
     And the User is not logged in
 

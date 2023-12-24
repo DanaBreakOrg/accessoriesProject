@@ -25,12 +25,16 @@ public class Login {
 
     public Login() {
         user = new Logging();
-        a= new Admin("nass@gmail.com","nasser","12345",0);
+        a= new Admin("nasser@gmail.com","nasser","12345",0);
         Admin.getAdmin().add(a);
-        user.q.put("nass@gmail.com", "12345");
+        user.q.put("nasser@gmail.com", "12345");
 
     }
 
+    @Given("that the User is logged in")
+    public void that_the_user_is_logged_in() {
+        user.setLogState(true);
+    }
     @Given("the User is on the login page")
     public void the_user_is_on_the_login_page() {
 
@@ -111,10 +115,7 @@ public class Login {
         assertFalse(user.successfulusername);
     }
 
-    @Given("that the User is logged in")
-    public void that_the_user_is_logged_in() {
-        user.setLogState(true);
-    }
+
 
     @When("the User logs out")
     public void the_user_logs_out() {
