@@ -52,30 +52,34 @@
     <build>
         <plugins>
             <plugin>
-
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-surefire-plugin</artifactId>
-
+                <version>2.22.2</version> <!-- Specify the version -->
+                <configuration>
+                    <!-- If you have a specific test directory or patterns, configure them here -->
+                    <includes>
+                        <include>/*Test.java</include>
+                        <include>/*Tests.java</include>
+                    </includes>
+                </configuration>
             </plugin>
             <plugin>
                 <groupId>org.jacoco</groupId>
                 <artifactId>jacoco-maven-plugin</artifactId>
                 <version>0.8.6</version>
                 <executions>
+                    <!-- other executions -->
                     <execution>
-                        <goals>
-                            <goal>prepare-agent</goal>
-                        </goals>
-                    </execution>
-                    <execution>
-                        <id>generate-report</id>
-                        <phase>verify</phase>
+                        <id>report</id>
+                        <phase>prepare-package</phase> <!-- You may adjust the phase as necessary -->
                         <goals>
                             <goal>report</goal>
                         </goals>
+                        <configuration>
+                            <outputDirectory>${project.reporting.outputDirectory}/jacoco</outputDirectory>
+                        </configuration>
                     </execution>
                 </executions>
-
             </plugin>
 
         </plugins>
