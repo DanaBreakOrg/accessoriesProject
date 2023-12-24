@@ -94,16 +94,14 @@ public class Customer {
                     break;
 
                 case 3://filter by cat done
-                logger.info("""
-                         Filter Accessories by category.\r
-                        ------------------------------------------------------------.\r
-                        Select an option:.\r
-                        1. Interior accessories.\r
-                        2. Exterior accessories.\r
-                        3. Electronics.\r
-                        4. Back\r
-                        Enter your choice : \r"""
-
+                logger.info("Filter Accessories by category.\r"+
+                        "------------------------------------------------------------.\r"+
+                        "Select an option:.\r"+
+                        "1. Interior accessories.\r"+
+                        "2. Exterior accessories.\r"+
+                        "3. Electronics.\r"+
+                                "4. Back\r"+
+                        "Enter your choice : \r"
                     );
                     int filterChoice = Main.scanner();
 
@@ -122,18 +120,14 @@ public class Customer {
             
                 case 4://filter by price done
                 
-                    logger.info("""
-                             Filter Accessories by price.\r
-                            ------------------------------------------------------------.\r
-                            Select an option:.\r
-                            1. low priced accessories (0-70)NIS.\r
-                            2. medium priced accessories (70-150)NIS.\r
-                            3. high priced accessories (higher than 150) NIS.\r
-                            4.Back\r
-                            Enter your choice:\s"""
-
-
-                    );
+                    logger.info("Filter Accessories by price.\r"+
+                            "------------------------------------------------------------.\r"+
+                            "Select an option:.\r"+
+                            " 1. low priced accessories (0-70)NIS.\r"+
+                    " 2. medium priced accessories (70-150)NIS.\r"+
+                    " 3. high priced accessories (higher than 150) NIS.\r"+
+                    "4.Back\r"+
+                    "Enter your choice:\r ");
                     filterChoice = Main.scanner();
                     if (filterChoice == 1) {
                         for (int i = 0; i < Product.getP().size(); i++) {
@@ -439,9 +433,8 @@ public class Customer {
     }
 
     private static void showElectronicsAccessories() {
-        logger.info("""
-                Electronic accessories:\r
-                ------------------------------------------------------------""");
+        logger.info("Electronic accessories:\r"+
+                "------------------------------------------------------------");
         for (int i = 0; i < Product.getP().size(); i++) {
             if (Product.getP().get(i).getCategory().equals("electronics")) {
                 logger.info(
@@ -454,9 +447,8 @@ public class Customer {
     }
 
     private static void showInteriorAccessories() {
-        logger.info("""
-                Interior accessories:\r
-                ------------------------------------------------------------""");
+        logger.info("Interior accessories:\r"+
+                "------------------------------------------------------------");
         for (int i = 0; i < Product.getP().size(); i++) {
             if (Product.getP().get(i).getCategory().equals("interior")) {
                 logger.info(
@@ -468,10 +460,8 @@ public class Customer {
     }
 
     private static void showExteriorAccessories() {
-        logger.info("""
-                Exterior accessories:\r
-                ------------------------------------------------------------
-                """);
+        logger.info("Exterior accessories:\r"+
+                "------------------------------------------------------------ ");
 
         for (int i = 0; i < Product.getP().size(); i++) {
             if (Product.getP().get(i).getCategory().equals("exterior")) {
