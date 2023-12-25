@@ -33,8 +33,8 @@ public class Customer {
 
     private List<Product> card = new ArrayList<>() ;
     protected static final List<Customer> C = new ArrayList<>() ;//the used list that contains all customers,getC
-    protected final List<Request> customerRequestsHistory = new ArrayList<>() ;
-    protected final List<Product> customerProductsHistory = new ArrayList<>() ;
+    protected List<Request> customerRequestsHistory = new ArrayList<>() ;
+    public List<Order> customerOrders = new ArrayList<>() ;
 
     //Order order=new Order();
     protected static Scanner input = new Scanner (System.in);
@@ -168,9 +168,24 @@ public class Customer {
                 +"Price:        "+ p.getPrice()+ "\n";
     }
 
+    public void printOrderProducts(Order order) {
+
+        logger.info("Order info : \n");
+        double total=0;
+        for (Product product : order.products) {
+            logger.info("Product id : " + product.getId() + "\t\t" + " Name : " + product.getName() + "\t\t" + " Price : " + product.getPrice()+"\n");
+            total += product.getPrice();
+        }
+
+        logger.info("Time       :    "+order.date2+"\n");
+        logger.info("Total cost :    "+total+"\n\n");
+
+        //roducts.clear();
+    }
+
     public static void viewOrderHistory() {
-        for(int i=0; i<Customer.getCustomerList().get(y).customerProductsHistory.size();i++){
-            logger.info(toString1(Customer.getCustomerList().get(y).customerProductsHistory.get(i)));
+        for(int i=0; i<Customer.getCustomerList().get(y).customerOrders.size();i++){
+            Customer.getCustomerList().get(y).printOrderProducts(Customer.getCustomerList().get(y).customerOrders.get(i));
 
         }
     }
@@ -204,13 +219,15 @@ public class Customer {
             logger.info("Request Info   :\n"+Admin.toString(entry.getKey()) + " \n " + "Customer Info   :\n"+Admin.toString(entry.getValue()));//////////////
         }
     }
+
+    /*
     public static void printAllRequestsOfaCustomer(String cusmail) {
         for (Map.Entry< Request,Customer> entry : cusReq.entrySet()) {//do we need to know the product?
             if(cusReq.get(entry.getKey()).getEmail().equals(cusmail)) {
                 logger.info("Request Info   :\n" + Admin.toString(entry.getKey()) + " \n " );//////////////
             }
         }
-    }
+    }*/
 
 
 
@@ -224,8 +241,8 @@ public class Customer {
         }
     }
 
-    public static void makeRequest(String predate, String cmodel, int k, String location) {
-        Request r=Customer.getCustomerList().get(y).setRequest(predate, cmodel,Customer.getCustomerList().get(y).getCard().get(k), location);
+    public static void makeRequest(String predate, String cmodel, Product p, String location) {
+        Request r=Customer.getCustomerList().get(y).setRequest(predate, cmodel,p, location);
         r.setStatus("Waiting for Admin response.");
         cusReq.put(r,Customer.getCustomerList().get(y));
 
@@ -237,7 +254,6 @@ public class Customer {
     public static void pFound(int i) {
         double total;
         Customer.getCustomerList().get(y).getCard().add(Product.getP().get(i));
-        Customer.getCustomerList().get(y).customerProductsHistory.add(Product.getP().get(i));
         total = Customer.getCustomerList().get(y).getCost();
         total += Product.getP().get(i).getPrice();
         Customer.getCustomerList().get(y).setCost(total);
