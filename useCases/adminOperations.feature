@@ -1,4 +1,4 @@
-Feature: display all customers
+Feature: admin operations
   Background:
     Given an admin is logged in
 
