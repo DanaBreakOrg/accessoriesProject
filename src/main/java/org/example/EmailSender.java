@@ -27,7 +27,7 @@ public class EmailSender {
     }
 
 
-    public static void sendEmail(String to, String subject, String body) {
+    public static boolean sendEmail(String to, String subject, String body) {
         // Set the properties
         final String username = "shsalahat2002@gmail.com";
         final String pass = "dhnknaegmenciwgj";
@@ -59,14 +59,15 @@ public class EmailSender {
             // Send the email
             Transport.send(message);
             logger.info("Email sent successfully");
+            return true;
         } catch (MessagingException e) {
             logger.info("Failed to send email. Error message: " + e.getMessage());
-
+            return false;
         }
     }
 
-    public static void main(String[] args) {
+    /*public static void main(String[] args) {
         // Example usage
         sendEmail("jixag36030@usoplay.com", "Order Confirmation", "Thank you for your order!");
-    }
+    }*/
 }

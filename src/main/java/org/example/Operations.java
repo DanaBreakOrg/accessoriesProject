@@ -4,50 +4,50 @@ public class Operations {
 // line 190 + 171 need to be checked
 
 
-        private Operations() {
+    private Operations() {
 
-        }
+    }
 
-        public static void errorMsg(String errorMessage)
-        {
-            if(errorMessage=="1") {
-                System.out.println("Username can't be empty");
-            }
-            else if(errorMessage=="2") {
-                System.out.println("Password can't be empty");
-            }
-            else if(errorMessage=="3") {
-                System.out.println("this user already exists");
-            }
-            else if(errorMessage=="invalid email") {
-                System.out.println("Invalid email");
-            }
-            else if(errorMessage=="invalid phone number") {
-                System.out.println("Invalid phone number , should be 10 numbers");
-            }
-            else if(errorMessage=="invalid address") {
-                System.out.println("Invalid address, should be only letters");
-            }
+    public static void errorMsg(String errorMessage)
+    {
+        if(errorMessage=="1") {
+            System.out.println("Username can't be empty");
         }
+        else if(errorMessage=="2") {
+            System.out.println("Password can't be empty");
+        }
+        else if(errorMessage=="3") {
+            System.out.println("this user already exists");
+        }
+        else if(errorMessage=="invalid email") {
+            System.out.println("Invalid email");
+        }
+        else if(errorMessage=="invalid phone number") {
+            System.out.println("Invalid phone number , should be 10 numbers");
+        }
+        else if(errorMessage=="invalid address") {
+            System.out.println("Invalid address, should be only letters");
+        }
+    }
 
 
     //customer operations
 
     public static boolean createCustomer(Customer c) {
-            boolean add=true;
-            for(int i = 0; i< Customer.getCustomerList().size() ; i++) {
-                if((Customer.getCustomerList().get(i).getEmail().equals(c.getEmail()))||((Customer.getCustomerList().get(i).getEmail().equals(c.getEmail())) && (Customer.getCustomerList().get(i).getUsername().equals(c.getUsername())) && (Customer.getCustomerList().get(i).getAddress().equals(c.getAddress()))&& (Customer.getCustomerList().get(i).getPhone().equals(c.getPhone()))))
-                {
-                    add = false;//exists
-                    break;
-                }
+        boolean add=true;
+        for(int i = 0; i< Customer.getCustomerList().size() ; i++) {
+            if((Customer.getCustomerList().get(i).getEmail().equals(c.getEmail()))||((Customer.getCustomerList().get(i).getEmail().equals(c.getEmail())) && (Customer.getCustomerList().get(i).getUsername().equals(c.getUsername())) && (Customer.getCustomerList().get(i).getAddress().equals(c.getAddress()))&& (Customer.getCustomerList().get(i).getPhone().equals(c.getPhone()))))
+            {
+                add = false;//exists
+                break;
             }
-            if(add) {
-                Customer.getCustomerList().add(c);
-                //Statistics.totalw();
-            }
-            return add;
         }
+        if(add) {
+            Customer.getCustomerList().add(c);
+            //Statistics.totalw();
+        }
+        return add;
+    }
 
     public static boolean deleteCustomer(Customer c) {
         boolean delete =true;
@@ -79,7 +79,7 @@ public class Operations {
         }
         if(add) {
             Customer.getCustomerList().add(c);
-           // Statistics.totalw();///////////////////
+            // Statistics.totalw();///////////////////
         }
         return add;
     }
@@ -101,13 +101,13 @@ public class Operations {
 
     public static boolean updateName(String oldname,String name) {
 
-            boolean update=true;
-            int index;
-            index=searchCustomer(oldname);
-            if(index>=0) {
-                update = false;
-                Customer.getCustomerList().get(index).setUsername(name);}
-            return update;
+        boolean update=true;
+        int index;
+        index=searchCustomer(oldname);
+        if(index>=0) {
+            update = false;
+            Customer.getCustomerList().get(index).setUsername(name);}
+        return update;
     }
     public static boolean updateAddress(String oldname,String address) {
 

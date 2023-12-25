@@ -1,10 +1,32 @@
 Feature: user profile operations
 
-    Scenario: password change
-      Given the user is signed in and their old password "1234567"
-      When the user changes the password to "New pass"
-      Then the password is change successfully
+  Scenario: password change
+    Given the user is signed in and wants to update "password"
+    When the user changes to "New pass"
+    Then change is successfull
 
-      Scenario: password change fails
-        Given the user is signed in and their old password "wrong old pass"
-        Then  changing password failed
+
+
+
+  Scenario: name change
+    Given the user is signed in and wants to update "name"
+    When the user changes to "New pass"
+    Then change is successfull
+
+  Scenario: email change
+    Given the user is signed in and wants to update "email"
+    When the user changes to "New pass"
+    Then change is successfull
+
+  Scenario: address change
+    Given the user is signed in and wants to update "address"
+    When the user changes to "New pass"
+    Then change is successfull
+
+  Scenario: phone change
+    Given the user is signed in and wants to update "phone"
+    When the user changes to "New pass"
+    Then change is successfull
+
+
+

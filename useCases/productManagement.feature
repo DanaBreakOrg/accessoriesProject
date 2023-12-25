@@ -24,3 +24,5 @@ Feature: product management (add,delete,update)
     And the admin is logged in
     When its ID "3"
     Then the information for a product was updated
+
+

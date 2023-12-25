@@ -1,5 +1,7 @@
 package org.example;
 
+import org.main.Main;
+
 import java.util.*;
 import java.util.logging.Handler;
 import java.util.logging.LogRecord;
@@ -56,7 +58,7 @@ public class Admin {
     }
 
     public Admin(String email, String name,String password, int type) {
-       // super();
+        // super();
         this.password= password;
         this.type = type;
         this.username = name;
@@ -252,9 +254,9 @@ public class Admin {
                         if (Customer.getCustomerList().get(k).getEmail().equals(ce)&&cusReq.containsValue(Customer.getCustomerList().get(k))){//customer found
 
                             //all his requests
-                                for (Request key : getKeys(cusReq, Customer.getCustomerList().get(k))) {
-                                    logger.info("Request Info   :\n"+toString(key));
-                                }
+                            for (Request key : getKeys(cusReq, Customer.getCustomerList().get(k))) {
+                                logger.info("Request Info   :\n"+toString(key));
+                            }
 
 
                             resulttt=getKeys(cusReq, Customer.getCustomerList().get(k));//all the requests of certain customer
@@ -427,26 +429,26 @@ public class Admin {
     private static String printAllDates(Installer installer) {
         String m="Busy on : \n";
 
-     //   logger.info(installer.getName()+" \t ");
+        //   logger.info(installer.getName()+" \t ");
 
         for (Map.Entry< Customer,String> entry : installer.getReservaeddates().entrySet()) {//do we need to know the product?
             m+=  entry.getValue()+"\n";
-           // logger.info(toString(entry.getKey()) + " \n " + entry.getValue());//////////////
+            // logger.info(toString(entry.getKey()) + " \n " + entry.getValue());//////////////
 
         }
-return m;
+        return m;
     }
     private static boolean searchAvailable(Installer installer,Customer customer,String date) {
         installer.available=true;
-       // printAllDates(installer);
+        // printAllDates(installer);
         if(!installer.getReservaeddates().containsValue(date)){
             installer.available=false;
             installer.getReservaeddates().put(customer,date);
         }
 
-       // printAllDates(installer);
-     //   System.out.println("availablity state : "+installer.available);
-return installer.available;
+        // printAllDates(installer);
+        //   System.out.println("availablity state : "+installer.available);
+        return installer.available;
     }
 
 

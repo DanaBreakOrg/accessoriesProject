@@ -4,8 +4,8 @@ public class Request {
 
     String carModel;
     String preferredDate;
-String location;
-Installer temp;
+    String location;
+    Installer temp;
     Product product;
 
     public String getStatus() {
