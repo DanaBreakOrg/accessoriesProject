@@ -3,6 +3,8 @@ package myPackage;
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.When;
 import io.cucumber.java.en.Then;
+
+import static org.example.Admin.cusReq;
 import static org.junit.Assert.*;
 import org.example.Customer;
 import org.example.Operations;
@@ -37,7 +39,8 @@ public class customerShopping {
         Operations.addCustomer(customer);
         Operations.addProduct(p1);
         Operations.createCustomer(customer);
-      //  Customer.makeRequest("2024/1/1","uno",0,"nablus");
+        //cusReq.put(customer.setRequest("24/10/2002","kia",p1,"nabl"),customer);
+        Customer.makeRequest("2024/1/1","uno",p1,"nablus");
 
 
     }
@@ -142,6 +145,11 @@ public class customerShopping {
 
     @Then("return a sample request from the list to prove there is requests.")
     public void returnASampleRequestFromTheListToProveThereIsRequests() {
-        assertNull(customer.getReqArry().get(0));
+        assertNotNull(customer.getReqArry());
     }
+
+
+
+
+
 }

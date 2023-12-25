@@ -10,23 +10,14 @@ public class Operations {
 
     public static void errorMsg(String errorMessage)
     {
-        if(errorMessage=="1") {
+        if(errorMessage.equals("1")) {
             System.out.println("Username can't be empty");
         }
-        else if(errorMessage=="2") {
+        else if(errorMessage.equals("2")) {
             System.out.println("Password can't be empty");
         }
-        else if(errorMessage=="3") {
+        else if(errorMessage.equals("3")) {
             System.out.println("this user already exists");
-        }
-        else if(errorMessage=="invalid email") {
-            System.out.println("Invalid email");
-        }
-        else if(errorMessage=="invalid phone number") {
-            System.out.println("Invalid phone number , should be 10 numbers");
-        }
-        else if(errorMessage=="invalid address") {
-            System.out.println("Invalid address, should be only letters");
         }
     }
 
