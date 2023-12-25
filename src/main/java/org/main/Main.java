@@ -601,7 +601,7 @@ public class Main {
                                     if(Integer.parseInt(pid)<2000&&Integer.parseInt(pid)>1000){
                                         logger.info("Would you lik to make an installation request?\n"+
                                                 "1- Yes.\n" +
-                                                "  2- No.\n"
+                                                "2- No.\n"
                                                 +"Enter your choice : ");
 
                                         String choicee= input.next();
