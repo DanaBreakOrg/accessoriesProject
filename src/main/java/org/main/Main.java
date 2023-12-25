@@ -4,12 +4,14 @@ import org.example.*;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.util.HashMap;
 import java.util.logging.*;
 import java.util.Scanner;
 
 import static org.example.Admin.cusReq;
 //import static org.example.Admin.toString1;
 //import static org.example.Installer.reqq;
+import static org.example.Admin.informInstallerr;
 import static org.example.Logging.y;
 
 
@@ -179,7 +181,7 @@ public class Main {
 
                         case 2:
 
-                            Installer.installerActivities();
+                            installerActivities();
                             break;
 
                     }
@@ -194,6 +196,84 @@ public class Main {
 
 
     }
+    public static void installerActivities() {
+
+        boolean running = true;
+        while (running) {
+            logger.info("\n Welcome Installer "+ Installer.getInstaller().get(y).getName() +" , to the Car accessories company.\r\n"
+                    +"------------------------------------------------------------.\r\n"
+                    +"Select an option:.\r\n"//add update delete view customers
+                    +"1.  View installation requests.\r\n"
+                    +"2.  Schedule appointments.\r\n"
+                    +"3.  Logout.\r\n"
+                    +"Enter your choice : ");
+            int choice = Main.scanner();
+
+            switch (choice) {
+
+                case 1: {
+                    Installer.viewInsReq();
+                    break;
+                }
+
+                case 2:{
+                    HandleRequestsFromAdmin(informInstallerr,Installer.getInstaller().get(y).getEmail());
+                    break;
+                }
+
+                case 3: {
+                    running = false;
+                    break;
+                }
+
+                default:{
+                    logger.info("Invalid choice. Please try again.");
+                    input.nextLine();
+                    break;
+                }
+            }
+
+        }
+
+    }
+    public static void HandleRequestsFromAdmin(HashMap<Request, Installer> h, String email){
+
+        Scanner choice = new Scanner(System.in);
+
+        for (int k = 0; k < Installer.getInstaller().size(); k++) {
+
+            if(Installer.getInstaller().get(k).getEmail().equals(email)) {
+
+
+                for (Request key : Installer.getKeys(h, Installer.getInstaller().get(k))) {
+                    logger.info(Installer.toString(key));
+
+                    logger.info("Do you want to accept this request ?\n"
+                            +"1- Accept.\n"
+                            +"2- Reject.\n"
+                            +"Please, enter the number of the choice you want to proceed.\n");
+                    String x = choice.next();
+                    if(!Installer.installerAnswer( x ,  key, k)){
+                        break;
+                    }
+
+                }
+
+            }
+        }
+    }
+
+
+
+    private static String acceptReq(Scanner choice) {
+        logger.info("Do you want to accept this request ?\n"
+                +"1- Accept.\n"
+                +"2- Reject.\n"
+                +"Please, enter the number of the choice you want to proceed.\n");
+        String x = choice.next();
+        return x;
+    }
+
     public static void customerActivities() {
 
         boolean running = true;
