@@ -191,6 +191,17 @@ public class Operations {
         }
         return delete;
     }
+    public static int returnProductIndex(String p) {
+
+        int index=-1;
+        for (int i = 0; i < Product.getP().size(); i++) {
+            if (Product.getP().get(i).getName().equals(p)) {
+                index = i;
+            }
+        }
+
+        return index;
+    }
 
     public static boolean updateP(String idupdate,String id,String name,String description,double price,String Category) {
         boolean update=true;

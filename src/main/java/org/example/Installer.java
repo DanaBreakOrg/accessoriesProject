@@ -1,7 +1,5 @@
 package org.example;
 
-import org.main.Main;
-
 import java.util.*;
 import java.util.logging.Handler;
 import java.util.logging.LogRecord;
@@ -9,7 +7,6 @@ import java.util.logging.Logger;
 import java.util.logging.SimpleFormatter;
 
 import static org.example.Admin.cusReq;
-import static org.example.Admin.informInstallerr;
 import static org.example.Logging.y;
 
 public class Installer {
@@ -20,17 +17,18 @@ public class Installer {
     private String phone;
     private String idd;
     boolean available;
-    boolean addstate;
-    boolean deletestate;
-    boolean updatestate;
     @SuppressWarnings("unused")
     private int type;
     boolean logState;
     String pass;
 
-    public static HashMap<Request,Installer> reqq= new HashMap<>();
 
+    protected static final List<Installer> installer = new ArrayList<>() ;
+    private HashMap<Customer,String> reservaedDates= new HashMap<>();
+    public static HashMap<Request,Installer> reservedDone = new HashMap<>();
     static final Logger logger = Logger.getLogger(Installer.class.getName());
+
+
 
     static {
 
@@ -46,8 +44,6 @@ public class Installer {
         }
     }
 
-    protected static final List<Installer> installer = new ArrayList<>() ;
-    public HashMap<Customer,String> reservaedDates= new HashMap<>();
 
     public Installer() {
         logState=false;
@@ -56,20 +52,16 @@ public class Installer {
     }
 
     public static void viewInsReq() {
-        for (Request key : getKeys(informInstallerr, getInstaller().get(y))) {
+        for (Request key : getKeys(Admin.InformInstallerr(), getInstaller().get(y))) {
             logger.info(toString(key));
         }
     }
-
-
-    public void logging(boolean t) {
-
-        logState=t;
+    public static void printAllInstallers() {
+        for (int n = 0; n < getInstaller().size(); n++) {
+            logger.info(Admin.toString(getInstaller().get(n)));//////woroud only, 3 reser
+        }
     }
-    public boolean getLogState() {
 
-        return logState;
-    }
 
 
     public Installer(String email,String name,String password, String address, String phone, String iD, boolean available, int type) {
@@ -94,29 +86,51 @@ public static boolean installerAnswer(String x , Request key, int k)
         EmailSender.sendEmail(cusReq.get(key).getEmail(),"Installation request approval","Your installation request was approved by the installer :)");
 
         cusReq.remove(key);
-        informInstallerr.remove(key);
-        reqq.put(key, Installer.getInstaller().get(k));
+        Admin.InformInstallerr().remove(key);
+        getReservedDone().put(key, Installer.getInstaller().get(k));
         //inform customer that the installation was approved
-
 
     }
 
     else if(x.equals("No")||x.equals("no")||x.equals("2")){
 
         key.setStatus("Waiting for Installer response.");
-        informInstallerr.remove(key);
+        Admin.InformInstallerr().remove(key);
         flag=false;
         return flag;
     }
 
-
     else logger.info("Invalid choice. Please try again.");
-return flag;
+
+    return flag;
 
 }
+
+    public static Set<Request> getKeys(Map<Request, Installer> map, Installer value) {
+
+        Set<Request> result = new HashSet<>();
+        if (map.containsValue(value)) {
+            for (Map.Entry<Request, Installer> entry : map.entrySet()) {
+                if (Objects.equals(entry.getValue(), value)) {
+                    result.add(entry.getKey());
+                }
+            }
+        }
+        return result;
+    }
+
+
+
     public static String toString(Request r) {
         return "Request Info : " +r.carModel+" "+r.location+" "+r.preferredDate;
     }
+
+
+
+    public static List<Installer> getInstaller() {return installer;}
+    public HashMap<Customer,String> getReservaeddates() {return reservaedDates;}
+    public static HashMap<Request,Installer> getReservedDone() {return reservedDone;}
+
 
 
     public String getPass() {
@@ -126,24 +140,12 @@ return flag;
     public String getEmail() {
         return email;
     }
-
-    public static List<Installer> getInstaller() {
-        return installer;
-    }
-    public HashMap<Customer,String> getReservaeddates() {
-        return reservaedDates;
-    }
-    public HashMap<Request,Installer> getReq() {
-        return reqq;
-    }
-
-
+    public void logging(boolean t) {logState=t;}
+    public boolean getLogState() {return logState;}
     public String getName() {
         return name;
     }
-    public void setName(String name) {
-        this.name = name;
-    }
+    public void setName(String name) {this.name = name;}
     public String getAddress() {
         return address;
     }
@@ -163,22 +165,5 @@ return flag;
         idd = iD;
     }
 
-    public static Set<Request> getKeys(Map<Request, Installer> map, Installer value) {
-
-        Set<Request> result = new HashSet<>();
-        if (map.containsValue(value)) {
-            for (Map.Entry<Request, Installer> entry : map.entrySet()) {
-                if (Objects.equals(entry.getValue(), value)) {
-                    result.add(entry.getKey());
-                }
-                // we can't compare like this, null will throws exception
-              /*(if (entry.getValue().equals(value)) {
-                  result.add(entry.getKey());
-              }*/
-            }
-        }
-        return result;
-
-    }
 
 }

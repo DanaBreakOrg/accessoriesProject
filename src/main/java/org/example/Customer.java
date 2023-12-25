@@ -1,15 +1,13 @@
 package org.example;
 
-import org.main.Main;
-
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 import java.util.Scanner;
 import java.util.logging.*;
 
 import static org.example.Admin.cusReq;
 import static org.example.Admin.toString1;
-import static org.example.Installer.reqq;
 import static org.example.Logging.y;
 
 import java.time.LocalDateTime;
@@ -62,6 +60,9 @@ public class Customer {
         //pass="worker123";
 
     }
+
+
+
 
 
 
@@ -173,12 +174,44 @@ public class Customer {
         }
     }
 
+    public static void showAllCustomers() {
+        for (int i = 0; i < Customer.getCustomerList().size(); i++) {
+            String ff = String.format("%d-", i + 1);
+            logger.info(ff);
+            logger.info(Customer.getCustomerList().get(i).getUsername() + "   " + Customer.getCustomerList().get(i).getAddress() + "   " + Customer.getCustomerList().get(i).getPhone() + "\r\n");
+
+        }
+    }
+    public static void deleteCustomerUsingUsername(String username) {
+        int index = -1;
+        for (int i = 0; i < Customer.getCustomerList().size(); i++) {
+            if (Customer.getCustomerList().get(i).getUsername().equals(username)) {
+                index = i;
+            }
+        }
+        if (index == -1) {
+            logger.info("A customer you want to delete doesn't exist");
+        } else {
+            boolean delete = Operations.deleteCustomer(Customer.getCustomerList().get(index));
+            if (!delete)
+                logger.info("A customer was deleted");
+        }
+    }
+
+    public static void printAllRequestsAndCustomers() {
+        for (Map.Entry< Request,Customer> entry : cusReq.entrySet()) {//do we need to know the product?
+            logger.info("Request Info   :\n"+Admin.toString(entry.getKey()) + " \n " + "Customer Info   :\n"+Admin.toString(entry.getValue()));//////////////
+        }
+    }
+
+
+
     public static void viewInstallationRequests() {
         for(int i = 0; i<Customer.getCustomerList().get(y).customerRequestsHistory.size(); i++) {
             if (Customer.getCustomerList().get(y).customerRequestsHistory.get(i).getStatus().equals("Waiting for Installer response.") || Customer.getCustomerList().get(y).customerRequestsHistory.get(i).getStatus().equals("Waiting for Admin response.")) {
                 logger.info("Your Request   :\n"+Admin.toString(Customer.getCustomerList().get(y).customerRequestsHistory.get(i)) + "          Waiting\n");
-            } else if (Customer.getCustomerList().get(y).customerRequestsHistory.get(i).getStatus().equals("Approved.")&&reqq.containsKey(Customer.getCustomerList().get(y).customerRequestsHistory.get(i))) {
-                logger.info("Your Request   :\n"+Admin.toString(Customer.getCustomerList().get(y).customerRequestsHistory.get(i)) + "          Approved by    " + Admin.toString(reqq.get(Customer.getCustomerList().get(y).customerRequestsHistory.get(i))));
+            } else if (Customer.getCustomerList().get(y).customerRequestsHistory.get(i).getStatus().equals("Approved.")&& Installer.getReservedDone().containsKey(Customer.getCustomerList().get(y).customerRequestsHistory.get(i))) {
+                logger.info("Your Request   :\n"+Admin.toString(Customer.getCustomerList().get(y).customerRequestsHistory.get(i)) + "          Approved by    " + Admin.toString(Installer.getReservedDone().get(Customer.getCustomerList().get(y).customerRequestsHistory.get(i))));
             }
         }
     }
