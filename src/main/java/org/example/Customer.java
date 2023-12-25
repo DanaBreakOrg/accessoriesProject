@@ -225,7 +225,7 @@ public class Customer {
     }
 
     public static void makeRequest(String predate, String cmodel, Product p , String location) {
-        Request r=Customer.getCustomerList().get(y).setRequest(predate, cmodel,p/*Customer.getCustomerList().get(y).getCard().get(k)*/, location);
+        Request r=Customer.getCustomerList().get(y).setRequest(predate, cmodel,p, location);
         r.setStatus("Waiting for Admin response.");
         cusReq.put(r,Customer.getCustomerList().get(y));
 
