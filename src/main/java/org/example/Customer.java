@@ -304,9 +304,7 @@ public class Customer {
     public void logging(boolean t) {
         logState=t;
     }
-    public boolean getLogState() {
-        return logState;
-    }
+
 
 
     public Customer(String username,String password, String address, String phone, String email,String Gender,double cost,int type) {
@@ -340,7 +338,7 @@ public class Customer {
 
 
     // request functions
-    public boolean getRequest() {return onHold;}
+
 
     public Request setRequest(String datte,String carModel,Product pr,String location) {
         Request r=new Request();

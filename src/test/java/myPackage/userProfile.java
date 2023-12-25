@@ -38,6 +38,7 @@ public class userProfile {
         log.logState(true);
         if(arg0.equals("password")){
             paramT0Change=0;
+            String dummyPass=c.getPassword();
         }
         else if(arg0.equals("email")){
             paramT0Change=1;
