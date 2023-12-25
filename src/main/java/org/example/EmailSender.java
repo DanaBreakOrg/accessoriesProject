@@ -66,8 +66,4 @@ public class EmailSender {
         }
     }
 
-    /*public static void main(String[] args) {
-        // Example usage
-        sendEmail("jixag36030@usoplay.com", "Order Confirmation", "Thank you for your order!");
-    }*/
 }

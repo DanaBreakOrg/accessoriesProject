@@ -28,6 +28,8 @@ public class Login {
         a= new Admin("nasser@gmail.com","nasser","12345",0);
         Admin.getAdmin().add(a);
         user.q.put("nasser@gmail.com", "12345");
+        user.q.put("dana@gmail.com","222");
+        user.q.put("jelenab798@vkr1.com","123123");
 
     }
 
@@ -48,6 +50,8 @@ public class Login {
         password = string2;
         int x = user.searchEmail(username);
         int z = user.searchPassword(password);
+        boolean customer = user.isCustomer(true);
+        boolean installer = user.isInstaller(true);
 
         System.out.println(x+"   "+z);
 

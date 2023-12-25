@@ -16,6 +16,7 @@ public class Logging {
     public String password;
     public boolean logState = false;
     public static int y;
+    public static boolean flag;
     int type = -3;
 
     protected static Scanner input = new Scanner (System.in);
@@ -25,7 +26,7 @@ public class Logging {
 
     public int searchEmail(String email1){
 
-        boolean flag = true;
+         flag = true;
 
         email = email1;
 
@@ -39,32 +40,43 @@ public class Logging {
             }}
 
         if (flag) {
-            for (int j = 0; j < Customer.getCustomerList().size(); j++) {
-                if (email.equals(Customer.getCustomerList().get(j).getEmail())) {
-                    flag = false;
-                    successfulusername=true;
-                    type = 1;//////////////////////
-                    y=j;
-                    break;
-                }
-            }
+            flag = isCustomer(flag);
         }
 
         if (flag) {
-            for (int k = 0; k < Installer.getInstaller().size(); k++) {
-                if (email.equals(Installer.getInstaller().get(k).getEmail())) {
-                    flag = false;
-                    successfulusername=true;
-                    type = 2;
-                    y=k;
-                    break;
-                }
-            }
+            flag = isInstaller(flag);
         }
 
 
         return type;
 
+    }
+
+    public boolean isInstaller(boolean flag) {
+
+        for (int k = 0; k < Installer.getInstaller().size(); k++) {
+            if (email.equals(Installer.getInstaller().get(k).getEmail())) {
+                flag = false;
+                successfulusername=true;
+                type = 2;
+                y=k;
+                break;
+            }
+        }
+        return flag;
+    }
+
+    public boolean isCustomer(boolean flag) {
+        for (int j = 0; j < Customer.getCustomerList().size(); j++) {
+            if (email.equals(Customer.getCustomerList().get(j).getEmail())) {
+                flag = false;
+                successfulusername=true;
+                type = 1;
+                y=j;
+                break;
+            }
+        }
+        return flag;
     }
 
 
@@ -91,40 +103,6 @@ public class Logging {
 
     }
 
-    /*
-    public int login(String username1,String password1) {
-
-        int z = -1;
-        int p = -33;
-
-        z = searchUsername(username1);
-
-        while(z == -1){
-
-            logger.info("Please enter your username again : ");
-            username1 = input.nextLine();
-            z = searchUsername(username1);
-
-        }
-
-
-        p = searchPassword(password1);
-
-        while(p == -33){
-            logger.info("Please enter your password again");
-            password1 = input.nextLine();
-            p = searchPassword(password1);
-        }
-
-        int type = p;
-        //index: 0->admin
-        //       1->customer
-        //       2->installer must enter case statement in main
-
-        return type;
-
-
-    }*/
 
 
     public void logState(boolean t) {
@@ -151,7 +129,6 @@ public class Logging {
         logState=t;
     }
     public boolean getLogState() {
-
         return logState;
     }
     public void logout() {

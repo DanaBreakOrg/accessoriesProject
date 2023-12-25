@@ -147,4 +147,9 @@ public class customerShopping {
     public void returnASampleRequestFromTheListToProveThereIsRequests() {
         assertNotNull(customer.getReqArry());
     }
+
+
+
+
+
 }

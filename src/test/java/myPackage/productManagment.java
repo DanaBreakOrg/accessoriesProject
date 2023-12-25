@@ -76,6 +76,7 @@ public class productManagment {
         p=new Product(id,name,description,category,value);
         delete = Operations.deleteProduct(p);
         assertFalse(delete);
+        int i = Operations.returnProductIndex((name));
     }
 
 
