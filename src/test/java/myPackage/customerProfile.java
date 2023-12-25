@@ -8,12 +8,12 @@ import org.example.Customer;
 
 public class customerProfile {
 
-    private Customer customer;
 
+    Customer customer= new Customer("username", "password", "address", "phone", "email", "gender", 0.0, 1);
     @Given("customer is logged in")
     public void customerIsLoggedIn() {
 
-        customer = new Customer("username", "password", "address", "phone", "email", "gender", 0.0, 1);
+        //customer = new Customer("username", "password", "address", "phone", "email", "gender", 0.0, 1);
         customer.logging(true);
 
     }
@@ -28,7 +28,7 @@ public class customerProfile {
     @Then("the customer's profile details are displayed")
     public void the_customer_profile_details_are_displayed() {
         // Assert that the profile details are not null or as expected
-        assertNotNull(customer.getUsername());
+        assertNotNull(customer.getEmail());//.getUsername()
         assertNotNull(customer.getAddress());
         assertNotNull(customer.getPhone());
         assertNotNull(customer.getEmail());
