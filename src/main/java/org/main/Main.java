@@ -2,8 +2,7 @@ package org.main;
 
 import org.example.*;
 
-import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
+
 import java.util.*;
 import java.util.logging.*;
 
@@ -12,7 +11,8 @@ import static org.example.Admin.cusReq;
 //import static org.example.Installer.reqq;
 import static org.example.Admin.informInstallerr;
 import static org.example.Logging.y;
-
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 
 public class Main {
 
@@ -535,9 +535,7 @@ public class Main {
                             + "5.  Buy a product.\r\n"//done
                             + "6.  Show cart.\r\n"//done
                             + "7.  Search a product.\r\n"//done
-                            + "8.  View your installation requests status.\r\n"// done
-                            //+ "9.  View your order history.\r\n"// done
-                            + "9. Logout.\r\n"//done
+                            + "8. Logout.\r\n"//done
                             + "Enter your choice\r"
                     //view order history
             );
@@ -602,8 +600,8 @@ public class Main {
 
                                     if(Integer.parseInt(pid)<2000&&Integer.parseInt(pid)>1000){
                                         logger.info("Would you lik to make an installation request?\n"+
-                                                "1- Yes." +
-                                                "  2- No.\n"
+                                                "1- Yes.\n" +
+                                                "2- No.\n"
                                                 +"Enter your choice : ");
 
                                         String choicee= input.next();
@@ -648,8 +646,20 @@ public class Main {
                                 input.nextLine();
                             }
                         }
-                    }
 
+
+
+
+                    }
+                    //
+                    LocalDateTime currentDateTime = LocalDateTime.now();
+                    DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
+
+                    String formattedDateTime = currentDateTime.format(formatter);
+                    Order order=new Order(Customer.getCustomerList().get(y),Customer.getCustomerList().get(y).getCard(),formattedDateTime);
+
+                    Customer.getCustomerList().get(y).customerOrders.add(order);
+                    Customer.getCustomerList().get(y).getCard().clear();
                     //not working properly
 
                    // Customer.submitOrder(Customer.getCustomerList().get(y),Customer.getCustomerList().get(y).getCard());
@@ -668,35 +678,7 @@ public class Main {
                     Customer.SearchAProduct(searchP);
                     break;
 
-
-
-                case 8: {//view installation requests
-
-                        Customer.printAllRequestsOfaCustomer(Customer.getCustomerList().get(y).getEmail());
-                    /*for(int i = 0; i<Customer.getCustomerList().get(y).customerRequestsHistory.size(); i++) {
-                        if (Customer.getCustomerList().get(y).customerRequestsHistory.get(i).getStatus().equals("Waiting for Installer response.") || Customer.getCustomerList().get(y).customerRequestsHistory.get(i).getStatus().equals("Waiting for Admin response.")) {
-                            logger.info("Your Request   :\n"+Admin.toString(Customer.getCustomerList().get(y).customerRequestsHistory.get(i)) + "          Waiting\n");
-                        } else if (Customer.getCustomerList().get(y).customerRequestsHistory.get(i).getStatus().equals("Approved.")&&reqq.containsKey(Customer.getCustomerList().get(y).customerRequestsHistory.get(i))) {
-                            logger.info("Your Request   :\n"+Admin.toString(Customer.getCustomerList().get(y).customerRequestsHistory.get(i)) + "          Approved by    " + Admin.toString(reqq.get(Customer.getCustomerList().get(y).customerRequestsHistory.get(i))));
-                        }
-                    }*/
-                    break;
-                }
-                /*case 9:{
-                    logger.info("List of Orders : \n");
-                    for (int i=0 ; i<Order.getOrderList().size();i++)
-                    {
-                        logger.info("Order "+i+"\n");
-                        Order.printOrderProducts();
-                        Order.getOrderList().get(i).getProducts().clear();
-
-                    }
-
-                    break;
-                }*/
-
-
-                case 10://costumer logout done
+                case 8://costumer logout done
                     running = false;
                     break;
 
@@ -776,6 +758,18 @@ public class Main {
             //order history
 
 
+                /*case 9:{
+                    logger.info("List of Orders : \n");
+                    for (int i=0 ; i<Order.getOrderList().size();i++)
+                    {
+                        logger.info("Order "+i+"\n");
+                        Order.printOrderProducts();
+                        Order.getOrderList().get(i).getProducts().clear();
+
+                    }
+
+                    break;
+                }*/
 
             case 6:{
 
