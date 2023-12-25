@@ -187,7 +187,8 @@ public class Admin {
 
         return  "Car Model      : "+r.carModel+"\n" +
                 "Preferred Date : "+r.preferredDate+"\n"+
-                "Location       : "+r.location+"\n";
+                "Location       : "+r.location+"\n"+
+                "Status         : "+r.getStatus();
     }
 
 

@@ -66,7 +66,7 @@ public class Customer {
 
 
 
-    public static void SearchAProduct(String searchP) {
+    public static boolean SearchAProduct(String searchP) {
         boolean found =false;
         for (int i = 0; i < Product.getP().size(); i++) {
 
@@ -77,6 +77,7 @@ public class Customer {
         }
         if(!found)logger.info("this product can't be found");
 
+        return found;
     }
 
 
@@ -203,6 +204,13 @@ public class Customer {
             logger.info("Request Info   :\n"+Admin.toString(entry.getKey()) + " \n " + "Customer Info   :\n"+Admin.toString(entry.getValue()));//////////////
         }
     }
+    public static void printAllRequestsOfaCustomer(String cusmail) {
+        for (Map.Entry< Request,Customer> entry : cusReq.entrySet()) {//do we need to know the product?
+            if(cusReq.get(entry.getKey()).getEmail().equals(cusmail)) {
+                logger.info("Request Info   :\n" + Admin.toString(entry.getKey()) + " \n " );//////////////
+            }
+        }
+    }
 
 
 
@@ -216,8 +224,8 @@ public class Customer {
         }
     }
 
-    public static void makeRequest(String predate, String cmodel, int k, String location) {
-        Request r=Customer.getCustomerList().get(y).setRequest(predate, cmodel,Customer.getCustomerList().get(y).getCard().get(k), location);
+    public static void makeRequest(String predate, String cmodel, Product p, String location) {
+        Request r=Customer.getCustomerList().get(y).setRequest(predate, cmodel,p, location);
         r.setStatus("Waiting for Admin response.");
         cusReq.put(r,Customer.getCustomerList().get(y));
 
@@ -275,8 +283,9 @@ public class Customer {
 
         }
     }
-
+    /*private static List<Product> products1;
     public static void submitOrder(Customer customer, List<Product> card) {
+        products1=card;
         LocalDateTime currentDateTime = LocalDateTime.now();
 
         // Define the date and time format
@@ -285,10 +294,12 @@ public class Customer {
         // Format the current date and time
         String formattedDateTime = currentDateTime.format(formatter);
 
-        Order order=new Order();
-        order.makeOrder(Customer.getCustomerList().get(y),Customer.getCustomerList().get(y).getCard(),formattedDateTime);
+        Order order=new Order(customer,products1,formattedDateTime);
+        Order.getOrderList().add(order);
+        //card.clear();
+        //order.makeOrder(customer,card,formattedDateTime);
 
-    }
+    }*/
 
     public void logging(boolean t) {
         logState=t;
@@ -388,5 +399,7 @@ public class Customer {
     }
 
 
-
+    public List<Request> getReqArry() {
+        return this.customerRequestsHistory ;
+    }
 }

@@ -535,8 +535,9 @@ public class Main {
                             + "5.  Buy a product.\r\n"//done
                             + "6.  Show cart.\r\n"//done
                             + "7.  Search a product.\r\n"//done
-                            //  + "8.  View your installation requests status.\r\n"// done
-                            + "8. Logout.\r\n"//done
+                            + "8.  View your installation requests status.\r\n"// done
+                            //+ "9.  View your order history.\r\n"// done
+                            + "9. Logout.\r\n"//done
                             + "Enter your choice\r"
                     //view order history
             );
@@ -616,23 +617,23 @@ public class Main {
                                             String predate= req.next();
                                             logger.info("Enter your location\r");
                                             String location= req.next();
-                                            Customer.showCart();
-                                            logger.info("Enter the product ID you want to install\r");
-                                            String pchoice = c.next();
-                                            boolean flag=false;
+                                            //Customer.showCart();
+                                            //logger.info("Enter the product ID you want to install\r");
+                                            //String pchoice = c.next();
+                                            //boolean flag=false;
 
 
-                                            for(int k = 0; k<Customer.getCustomerList().get(y).getCard().size(); k++) {
-                                                if(pchoice.equals(Customer.getCustomerList().get(y).getCard().get(k).getId())){
+                                            //for(int k = 0; k<Customer.getCustomerList().get(y).getCard().size(); k++) {
+                                                //if(pchoice.equals(Customer.getCustomerList().get(y).getCard().get(k).getId())){
                                                     //make a request
-                                                    Customer.makeRequest(predate, cmodel, k, location);
-                                                    flag=true;
-                                                    break;
-                                                }
-                                            }
-                                            if(!flag){
-                                                logger.info("Invalid input\r");
-                                            }
+                                                    Customer.makeRequest(predate, cmodel, Product.getP().get(i), location);
+                                                    //flag=true;
+                                                    //break;
+                                                //}
+                                            //}
+                                            //if(!flag){
+                                              //  logger.info("Invalid input\r");
+                                            //}
                                         }
                                         else break;
                                     }
@@ -650,8 +651,9 @@ public class Main {
                     }
 
                     //not working properly
-                    //Customer.submitOrder(Customer.getCustomerList().get(y),Customer.getCustomerList().get(y).getCard());
 
+                   // Customer.submitOrder(Customer.getCustomerList().get(y),Customer.getCustomerList().get(y).getCard());
+                    //Customer.getCustomerList().get(y).getCard().clear();
 
                     break;
 
@@ -667,21 +669,34 @@ public class Main {
                     break;
 
 
-/*
+
                 case 8: {//view installation requests
 
-                    for(int i = 0; i<Customer.getCustomerList().get(y).customerRequestsHistory.size(); i++) {
+                        Customer.printAllRequestsOfaCustomer(Customer.getCustomerList().get(y).getEmail());
+                    /*for(int i = 0; i<Customer.getCustomerList().get(y).customerRequestsHistory.size(); i++) {
                         if (Customer.getCustomerList().get(y).customerRequestsHistory.get(i).getStatus().equals("Waiting for Installer response.") || Customer.getCustomerList().get(y).customerRequestsHistory.get(i).getStatus().equals("Waiting for Admin response.")) {
                             logger.info("Your Request   :\n"+Admin.toString(Customer.getCustomerList().get(y).customerRequestsHistory.get(i)) + "          Waiting\n");
                         } else if (Customer.getCustomerList().get(y).customerRequestsHistory.get(i).getStatus().equals("Approved.")&&reqq.containsKey(Customer.getCustomerList().get(y).customerRequestsHistory.get(i))) {
                             logger.info("Your Request   :\n"+Admin.toString(Customer.getCustomerList().get(y).customerRequestsHistory.get(i)) + "          Approved by    " + Admin.toString(reqq.get(Customer.getCustomerList().get(y).customerRequestsHistory.get(i))));
                         }
-                    }
+                    }*/
                     break;
                 }
+                /*case 9:{
+                    logger.info("List of Orders : \n");
+                    for (int i=0 ; i<Order.getOrderList().size();i++)
+                    {
+                        logger.info("Order "+i+"\n");
+                        Order.printOrderProducts();
+                        Order.getOrderList().get(i).getProducts().clear();
 
-*/
-                case 8://costumer logout done
+                    }
+
+                    break;
+                }*/
+
+
+                case 10://costumer logout done
                     running = false;
                     break;
 
