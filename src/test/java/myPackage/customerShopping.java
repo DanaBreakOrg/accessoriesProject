@@ -37,7 +37,7 @@ public class customerShopping {
         Operations.addCustomer(customer);
         Operations.addProduct(p1);
         Operations.createCustomer(customer);
-        Customer.makeRequest("2024/1/1","uno",p1,"nablus");
+        Customer.makeRequest("2024/1/1","uno",0,"nablus");
 
 
     }

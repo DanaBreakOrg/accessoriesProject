@@ -623,14 +623,14 @@ public class Main {
                                             //boolean flag=false;
 
 
-                                            //for(int k = 0; k<Customer.getCustomerList().get(y).getCard().size(); k++) {
-                                                //if(pchoice.equals(Customer.getCustomerList().get(y).getCard().get(k).getId())){
+                                            for(int k = 0; k<Customer.getCustomerList().get(y).getCard().size(); k++) {
+                                                if(pid.equals(Customer.getCustomerList().get(y).getCard().get(k).getId())){
                                                     //make a request
-                                                    Customer.makeRequest(predate, cmodel, Product.getP().get(i), location);
+                                                    Customer.makeRequest(predate, cmodel, k, location);
                                                     //flag=true;
-                                                    //break;
-                                                //}
-                                            //}
+                                                    break;
+                                                }
+                                            }
                                             //if(!flag){
                                               //  logger.info("Invalid input\r");
                                             //}

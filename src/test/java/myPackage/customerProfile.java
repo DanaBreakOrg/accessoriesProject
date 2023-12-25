@@ -10,11 +10,14 @@ public class customerProfile {
 
     private Customer customer;
 
-    @Given("a customer is logged in")
-    public void a_customer_is_logged_in() {
-        // Initialize a Customer instance (assuming a constructor or a login method)
+    @Given("customer is logged in")
+    public void customerIsLoggedIn() {
+
         customer = new Customer("username", "password", "address", "phone", "email", "gender", 0.0, 1);
+        customer.logging(true);
+
     }
+
 
     @When("the customer chooses to view their profile")
     public void the_customer_chooses_to_view_their_profile() {
@@ -60,4 +63,6 @@ public class customerProfile {
     public void the_new_email_is_saved_in_the_customer_profile(String expectedEmail) {
         assertEquals(expectedEmail, customer.getEmail());
     }
+
+
 }
