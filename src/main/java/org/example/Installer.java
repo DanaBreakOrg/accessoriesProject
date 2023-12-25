@@ -1,6 +1,6 @@
 package org.example;
 
-import io.cucumber.java.sl.In;
+import org.main.Main;
 
 import java.util.*;
 import java.util.logging.Handler;
@@ -101,11 +101,11 @@ public class Installer {
 
                 case 1: {
 
-                        for (Request key : getKeys(informInstallerr, getInstaller().get(y))) {
-                            logger.info(toString(key));
-                        }
+                    for (Request key : getKeys(informInstallerr, getInstaller().get(y))) {
+                        logger.info(toString(key));
+                    }
 
-               break;
+                    break;
                 }
 
                 case 2:{
@@ -125,7 +125,7 @@ public class Installer {
                 }
             }
 
-            }
+        }
 
 
 
@@ -148,33 +148,33 @@ public class Installer {
                     logger.info(toString(key));
 
                     logger.info("Do you want to accept this request ?\n"
-                    +"1- Accept.\n"
-                    +"2- Reject.\n"
-                    +"Please, enter the number of the choice you want to proceed.\n");
+                            +"1- Accept.\n"
+                            +"2- Reject.\n"
+                            +"Please, enter the number of the choice you want to proceed.\n");
                     String x = choice.next();
 
                     if(x.equals("yes")||x.equals("Yes")||x.equals("1")) {
-                            key.setStatus("Approved.");
+                        key.setStatus("Approved.");
                         EmailSender.sendEmail(cusReq.get(key).getEmail(),"Installation request approval","Your installation request was approved by the installer :)");
 
                         cusReq.remove(key);
-                            informInstallerr.remove(key);
-                            reqq.put(key, Installer.getInstaller().get(k));
-                            //inform customer that the installation was approved
+                        informInstallerr.remove(key);
+                        reqq.put(key, Installer.getInstaller().get(k));
+                        //inform customer that the installation was approved
 
 
                     }
 
-                        else if(x.equals("No")||x.equals("no")||x.equals("2")){
+                    else if(x.equals("No")||x.equals("no")||x.equals("2")){
 
-                            key.setStatus("Waiting for Installer response.");
-                            informInstallerr.remove(key);
+                        key.setStatus("Waiting for Installer response.");
+                        informInstallerr.remove(key);
 
                         break;
-                        }
+                    }
 
 
-                        else logger.info("Invalid choice. Please try again.");
+                    else logger.info("Invalid choice. Please try again.");
 
 
 

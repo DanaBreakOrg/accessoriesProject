@@ -14,8 +14,8 @@ import org.example.Logging;
 import java.util.HashMap;
 public class Login {
 
-   String username;
-   String password;
+    String username;
+    String password;
 
 
     Logging user;
@@ -44,12 +44,12 @@ public class Login {
     @When("User enters the valid username {string} and enters the valid password {string}")
     public void user_enters_the_valid_username_and_enters_the_valid_password(String string, String string2) {
 
-      username = string;
-      password = string2;
-      int x = user.searchEmail(username);
-      int z = user.searchPassword(password);
+        username = string;
+        password = string2;
+        int x = user.searchEmail(username);
+        int z = user.searchPassword(password);
 
-      System.out.println(x+"   "+z);
+        System.out.println(x+"   "+z);
 
     }
 
@@ -60,9 +60,9 @@ public class Login {
         System.out.println("successfulusername   "+user.successfulusername);
         System.out.println("successfulpassword   "+user.successfulpassword);
 
-     assertTrue(user.getLogState());
-     assertTrue(user.successfulpassword);
-     assertTrue(user.successfulusername);
+        assertTrue(user.getLogState());
+        assertTrue(user.successfulpassword);
+        assertTrue(user.successfulusername);
 
 
     }

@@ -7,25 +7,25 @@ public class Product {
 
 
 
-private String category;
-        private String name;
-        private String description;
-        private double price;
-        private String id;
+    private String category;
+    private String name;
+    private String description;
+    private double price;
+    private String id;
 
-        protected static final List<Product> P = new ArrayList<>() ;
-        public Product(String id, String name, String description,String category, double price) {
-            super();
-            this.name = name;
-            this.description = description;
-            this.category=category;
-            this.price = price;
-            this.id = id;
-        }
+    protected static final List<Product> P = new ArrayList<>() ;
+    public Product(String id, String name, String description,String category, double price) {
+        super();
+        this.name = name;
+        this.description = description;
+        this.category=category;
+        this.price = price;
+        this.id = id;
+    }
 
-        public static List<Product> getP() {
-            return P;
-        }
+    public static List<Product> getP() {
+        return P;
+    }
 
 
     public String getCategory() {

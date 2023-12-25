@@ -15,7 +15,7 @@ public class Logging {
     public String email;
     public String password;
     public boolean logState = false;
-    protected static int y;
+    public static int y;
     int type = -3;
 
     protected static Scanner input = new Scanner (System.in);
@@ -75,18 +75,18 @@ public class Logging {
         String passw = password;
         String value = q.get(email);
 
-            if (passw.equals(value)) {
-                successfulpassword = true;
-                //String f=String.format("Welcome:: %s",Customer.getC().get(y).getUsername());
-                //logger.info(f);
-                logState = true;
-                return y;
-            }
-            else {
-                successfulpassword = false;
-                return -33;
+        if (passw.equals(value)) {
+            successfulpassword = true;
+            //String f=String.format("Welcome:: %s",Customer.getC().get(y).getUsername());
+            //logger.info(f);
+            logState = true;
+            return y;
+        }
+        else {
+            successfulpassword = false;
+            return -33;
 
-            }
+        }
 
 
     }
