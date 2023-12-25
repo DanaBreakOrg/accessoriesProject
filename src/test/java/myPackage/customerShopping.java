@@ -39,8 +39,8 @@ public class customerShopping {
         Operations.addCustomer(customer);
         Operations.addProduct(p1);
         Operations.createCustomer(customer);
-        cusReq.put(customer.setRequest("24/10/2002","kia",p1,"nabl"),customer);
-        //Customer.makeRequest("2024/1/1","uno",0,"nablus");
+        //cusReq.put(customer.setRequest("24/10/2002","kia",p1,"nabl"),customer);
+        Customer.makeRequest("2024/1/1","uno",p1,"nablus");
 
 
     }
@@ -145,6 +145,6 @@ public class customerShopping {
 
     @Then("return a sample request from the list to prove there is requests.")
     public void returnASampleRequestFromTheListToProveThereIsRequests() {
-        assertNotNull(cusReq);
+        assertNotNull(customer.getReqArry());
     }
 }

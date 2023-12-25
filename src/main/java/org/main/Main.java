@@ -626,7 +626,7 @@ public class Main {
                                             for(int k = 0; k<Customer.getCustomerList().get(y).getCard().size(); k++) {
                                                 if(pid.equals(Customer.getCustomerList().get(y).getCard().get(k).getId())){
                                                     //make a request
-                                                    Customer.makeRequest(predate, cmodel, k, location);
+                                                    Customer.makeRequest(predate, cmodel, Customer.getCustomerList().get(y).getCard().get(k), location);
                                                     //flag=true;
                                                     break;
                                                 }
