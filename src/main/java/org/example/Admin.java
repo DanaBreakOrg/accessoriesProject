@@ -57,7 +57,6 @@ public class Admin {
 
 
                 //all his requests
-
                 for (Request key : getKeys(getCusReq(), Customer.getCustomerList().get(k))) {
                     String logMessage = String.format("Request Info:%n%s", toString(key));
                     logger.info(logMessage);
