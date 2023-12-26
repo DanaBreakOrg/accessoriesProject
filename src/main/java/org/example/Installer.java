@@ -6,7 +6,7 @@ import java.util.logging.LogRecord;
 import java.util.logging.Logger;
 import java.util.logging.SimpleFormatter;
 
-import static org.example.Admin.cusReq;
+import static org.example.Admin.getCusReq;
 import static org.example.Logging.y;
 
 public class Installer {
@@ -83,9 +83,9 @@ public static boolean installerAnswer(String x , Request key, int k)
     boolean flag=true;
     if(x.equals("yes")||x.equals("Yes")||x.equals("1")) {
         key.setStatus("Approved.");
-        EmailSender.sendEmail(cusReq.get(key).getEmail(),"Installation request approval","Your installation request was approved by the installer :)");
+        EmailSender.sendEmail(getCusReq().get(key).getEmail(),"Installation request approval","Your installation request was approved by the installer :)");
 
-        cusReq.remove(key);
+        getCusReq().remove(key);
         Admin.InformInstallerr().remove(key);
         getReservedDone().put(key, Installer.getInstaller().get(k));
         //inform customer that the installation was approved

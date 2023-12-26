@@ -3,7 +3,6 @@ package myPackage;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.assertEquals;
-import static org.example.Admin.*;
 
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
@@ -13,7 +12,6 @@ import org.example.Customer;
 import org.example.Installer;
 import org.example.Logging;
 
-import java.util.HashMap;
 public class Login {
 
     String username;
@@ -29,7 +27,7 @@ public class Login {
     public Login() {
         user = new Logging();
         a= new Admin("nasser@gmail.com","nasser","12345",0);
-        Admin.getAdmin().add(a);
+        Admin.getAdminList().add(a);
         user.q.put("nasser@gmail.com", "12345");
         user.q.put("dana@gmail.com","222");
         user.q.put("jelenab798@vkr1.com","123123");

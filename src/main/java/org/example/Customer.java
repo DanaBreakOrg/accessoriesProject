@@ -6,7 +6,7 @@ import java.util.Map;
 import java.util.Scanner;
 import java.util.logging.*;
 
-import static org.example.Admin.cusReq;
+import static org.example.Admin.getCusReq;
 import static org.example.Admin.toString;
 import static org.example.Logging.y;
 
@@ -215,7 +215,7 @@ public class Customer {
     }
 
     public static void printAllRequestsAndCustomers() {
-        for (Map.Entry< Request,Customer> entry : cusReq.entrySet()) {//do we need to know the product?
+        for (Map.Entry< Request,Customer> entry : getCusReq().entrySet()) {//do we need to know the product?
             logger.info("Request Info   :\n"+Admin.toString(entry.getKey()) + " \n " + "Customer Info   :\n"+Admin.toString(entry.getValue()));//////////////
         }
     }
@@ -244,7 +244,7 @@ public class Customer {
     public static void makeRequest(String predate, String cmodel, Product p, String location) {
         Request r=Customer.getCustomerList().get(y).setRequest(predate, cmodel,p, location);
         r.setStatus("Waiting for Admin response.");
-        cusReq.put(r,Customer.getCustomerList().get(y));
+        getCusReq().put(r,Customer.getCustomerList().get(y));
 
         Customer.getCustomerList().get(y).customerRequestsHistory.add(r);
         logger.info("Your installation request is submitted and waiting for the admin to schedule it. \r");

@@ -6,10 +6,9 @@ import org.example.*;
 import java.util.*;
 import java.util.logging.*;
 
-import static org.example.Admin.cusReq;
 //import static org.example.Admin.toString1;
 //import static org.example.Installer.reqq;
-import static org.example.Admin.informInstallerr;
+import static org.example.Admin.*;
 import static org.example.Logging.y;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
@@ -41,8 +40,8 @@ public class Main {
 
         Admin a= new Admin("nasser@gmail.com","nasser","12345",0);
         Admin t= new Admin("talah@gmail.com","talah","123456",0);
-        Admin.getAdmin().add(a);
-        Admin.getAdmin().add(t);
+        Admin.getAdminList().add(a);
+        Admin.getAdminList().add(t);
 
         Logging.q.put(a.getEmail(), a.getPassword());
         Logging.q.put(t.getEmail(), t.getPassword());
@@ -88,8 +87,8 @@ public class Main {
         Logging.q.put(n2.getEmail(), n2.getPass());
         Logging.q.put(n1.getEmail(), n2.getPass());
 
-        cusReq.put(c.setRequest("24/10/2002","kia",product1,"nabl"),c);
-        cusReq.put(c.setRequest("25/10/2002","kia",product1,"jenin"),c);
+        getCusReq().put(c.setRequest("24/10/2002","kia",product1,"nabl"),c);
+        getCusReq().put(c.setRequest("25/10/2002","kia",product1,"jenin"),c);
         //cusReq.put(c2.setRequest("24/10/2020","lampo",product1,"kalil"),c2);
 
 
@@ -199,7 +198,7 @@ public class Main {
     public static void adminActivities() {
         boolean running = true;
         while (running) {
-            logger.info("\n Welcome Admin "+ Admin.getAdmin().get(y).getName() +" , to the Car accessories company.\r\n"
+            logger.info("\n Welcome Admin "+ Admin.getAdminList().get(y).getName() +" , to the Car accessories company.\r\n"
                     +"------------------------------------------------------------.\r\n"
                     +"Select an option:.\r\n"
                     +"1.  Show all customers.\r\n"

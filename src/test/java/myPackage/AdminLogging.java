@@ -22,7 +22,7 @@ public class AdminLogging {
         log=new Logging();
         log.password="123456";
         admin= new Admin(email,name,"123456",0);
-        Admin.getAdmin().add(admin);
+        Admin.getAdminList().add(admin);
 
     }
 

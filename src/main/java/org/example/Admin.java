@@ -16,8 +16,8 @@ public class Admin {
     private String email;
 
 
-    public static final List<Admin> admin = new ArrayList<>() ;
-    public static HashMap<Request,Customer> cusReq= new HashMap<>();//for admin usage,each customer with his requests,make an installation request (customer fills it)
+    protected static final List<Admin> adminList = new ArrayList<>() ;
+    protected static HashMap<Request,Customer> cusReq= new HashMap<>();//for admin usage,each customer with his requests,make an installation request (customer fills it)
     public static HashMap<Request,Installer> informInstallerr= new HashMap<>();
     final static Logger logger = Logger.getLogger(Admin.class.getName());
 
@@ -54,14 +54,14 @@ public class Admin {
         boolean done=false;
         for (int k = 0; k < Customer.getCustomerList().size(); k++) {
 
-            if (Customer.getCustomerList().get(k).getEmail().equals(customerEmail) && cusReq.containsValue(Customer.getCustomerList().get(k))) {//customer found
+            if (Customer.getCustomerList().get(k).getEmail().equals(customerEmail) && getCusReq().containsValue(Customer.getCustomerList().get(k))) {//customer found
 
                 //all his requests
-                for (Request key : getKeys(cusReq, Customer.getCustomerList().get(k))) {
+                for (Request key : getKeys(getCusReq(), Customer.getCustomerList().get(k))) {
                     logger.info("Request Info   :\n" + toString(key));
                 }
 
-                for (Request key : getKeys(cusReq, Customer.getCustomerList().get(k))) {
+                for (Request key : getKeys(getCusReq(), Customer.getCustomerList().get(k))) {
                     for (int i = 0; i < Installer.getInstaller().size(); i++) {
 
                         done = searchAvailable(Installer.getInstaller().get(i), Customer.getCustomerList().get(k), key.preferredDate);
@@ -172,7 +172,8 @@ public class Admin {
 
 
     public static HashMap<Request,Installer> InformInstallerr() {return informInstallerr;}
-    public static List<Admin> getAdmin() {return admin;}
+    public static HashMap<Request,Customer> getCusReq() {return cusReq;}
+    public static List<Admin> getAdminList() {return adminList;}
     public String getPassword() {return password;}
     public void logging(boolean t) { logState=t; }
     public boolean getLogState() { return logState; }

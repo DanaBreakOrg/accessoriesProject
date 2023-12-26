@@ -30,8 +30,8 @@ public class Logging {
 
         email = email1;
 
-        for (int i = 0; i < Admin.getAdmin().size(); i++) {
-            if (email.equals(Admin.getAdmin().get(i).getEmail())) {
+        for (int i = 0; i < Admin.getAdminList().size(); i++) {
+            if (email.equals(Admin.getAdminList().get(i).getEmail())) {
                 flag = false;
                 successfulusername=true;
                 type = 0;

@@ -4,7 +4,7 @@ import io.cucumber.java.en.Given;
 import io.cucumber.java.en.When;
 import io.cucumber.java.en.Then;
 
-import static org.example.Admin.cusReq;
+import static org.example.Admin.getCusReq;
 import static org.junit.Assert.*;
 import org.example.Customer;
 import org.example.Operations;
