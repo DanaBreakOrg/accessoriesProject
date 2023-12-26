@@ -276,7 +276,7 @@ public class Main {
                     String z = pass1.next();
 
                     logger.info("\n Enter the number of the information you want to update: \r\n"
-                                    + "------------------------------------------------------------.\r\n"
+                                    + SEPERATOR
                                     + "1. Update customer username.\r\n"
                                     + "2. Update customer password.\r\n"
                                     + "3. Update customer Email.\r\n"
@@ -577,7 +577,7 @@ public class Main {
                 case 4://filter by price done
 
                     logger.info("Filter Accessories by price.\n"+
-                            "------------------------------------------------------------.\n"+
+                            SEPERATOR+
                             "Select an option:.\n"+
                             " 1. low priced accessories (0-70)NIS.\n"+
                             " 2. medium priced accessories (70-150)NIS.\n"+
