@@ -10,7 +10,7 @@ import java.util.logging.SimpleFormatter;
 
 
 public class EmailSender {
-    final static Logger logger = Logger.getLogger(EmailSender.class.getName());
+    protected final static Logger logger = Logger.getLogger(EmailSender.class.getName());
 
     static {
 
@@ -26,6 +26,10 @@ public class EmailSender {
         }
     }
 
+    private EmailSender(){
+
+
+    }
 
     public static boolean sendEmail(String to, String subject, String body) {
         // Set the properties
@@ -38,7 +42,9 @@ public class EmailSender {
         properties.put("mail.smtp.starttls.enable", "true");
 
         // Create a session with an Authenticator
+
         Session session = Session.getInstance(properties, new Authenticator() {
+            @Override
             protected PasswordAuthentication getPasswordAuthentication() {
                 return new PasswordAuthentication(username, pass);
             }

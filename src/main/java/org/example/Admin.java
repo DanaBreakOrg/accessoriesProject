@@ -11,7 +11,6 @@ public class Admin {
 
     boolean logState;
     private String password;
-    private int type;
     private String username;
     private String email;
 
@@ -39,9 +38,8 @@ public class Admin {
 
     public Admin() {logState=false;}
 
-    public Admin(String email, String name,String password, int type) {
+    public Admin(String email, String name,String password) {
         this.password= password;
-        this.type = type;
         this.username = name;
         this.email = email;
     }

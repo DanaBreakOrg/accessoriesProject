@@ -14,7 +14,7 @@ public class adminOperations {
 
     private final ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
     String cusname;
-    Admin a= new Admin("nasser@gmail.com","nasser","12345",0);
+    Admin a= new Admin("nasser@gmail.com","nasser","12345");
 
     @Given("an admin is logged in")
     public void anAdminIsLoggedIn() {

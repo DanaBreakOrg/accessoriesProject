@@ -1,6 +1,7 @@
 package org.example;
 
 import java.util.HashMap;
+import java.util.Map;
 import java.util.Scanner;
 import java.util.logging.Logger;
 
@@ -19,8 +20,7 @@ public class Logging {
     public static boolean flag;
     int type = -3;
 
-    protected static Scanner input = new Scanner (System.in);
-    public static HashMap<String,String> q= new HashMap<>();//how to make it protected
+    protected static Map<String,String> q= new HashMap<>();//how to make it protected
     final Logger logger = Logger.getLogger(Logging.class.getName());
 
 
@@ -105,6 +105,10 @@ public class Logging {
 
 
 
+    public static Map<String,String> getQ(){
+        return q;
+
+    }
     public void logState(boolean t) {
 
         logState=t;

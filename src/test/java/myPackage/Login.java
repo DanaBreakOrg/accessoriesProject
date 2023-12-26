@@ -26,11 +26,11 @@ public class Login {
     Installer installer;
     public Login() {
         user = new Logging();
-        a= new Admin("nasser@gmail.com","nasser","12345",0);
+        a= new Admin("nasser@gmail.com","nasser","12345");
         Admin.getAdminList().add(a);
-        user.q.put("nasser@gmail.com", "12345");
-        user.q.put("dana@gmail.com","222");
-        user.q.put("jelenab798@vkr1.com","123123");
+        user.getQ().put("nasser@gmail.com", "12345");
+        user.getQ().put("dana@gmail.com","222");
+        user.getQ().put("jelenab798@vkr1.com","123123");
 
     }
 
@@ -53,7 +53,7 @@ public class Login {
 
 
         installer=new Installer("testInstaller@gmail.com","Installer1","Appleiphone5","nablus","0543","1313",true,2);
-        customer = new Customer("ss","1234567","nablus","0599874562","nkjc@gmail.com","female",0.0,1);
+        customer = new Customer("ss","1234567","nablus","0599874562","nkjc@gmail.com","female",0.0);
         Customer.getCustomerList().add(customer);
         Installer.getInstaller().add(installer);
 

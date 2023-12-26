@@ -9,15 +9,15 @@ import static org.example.Admin.getCusReq;
 import static org.example.Logging.y;
 
 public class Customer {
-    public static final String constName = "Name: ";
-    public static final String constDescription = "Description: ";
-    public static final String constPrice= "Price: ";
+    public static final String NAME = "Name: ";
+    public static final String ID = "ID: ";
+    public static final String DESCRIPTION = "Description: ";
+    public static final String PRICE = "Price: ";
     private String username;
     private String address;
     private String phone;
     private String email;
     private String gender;
-    private int type;
     private static int productsCounter;
     private double cost;
     boolean logState;
@@ -78,20 +78,45 @@ public class Customer {
 
 
 
-
-
     public static void showCart() {
         for(int i = 0; i<Customer.getCustomerList().get(y).getCard().size(); i++) {
-            String format =String.format(DEC, i + 1);
-            logger.info(format +
-                    "ID: "+Customer.getCustomerList().get(y).getCard().get(i).getId()+"\t"
-                    +constName+Customer.getCustomerList().get(y).getCard().get(i).getName()+"\t"
-                    + constDescription +Customer.getCustomerList().get(y).getCard().get(i).getDescription()+"\t"
-                    +constPrice+ Customer.getCustomerList().get(y).getCard().get(i).getPrice()+ "\n");
-        }
+         String cardInfo = String.format("%sID: %s\t%s%s\t%s%s\t%s%.2f\n",
+                 ID, Customer.getCustomerList().get(y).getCard().get(i).getId(),
+                 NAME ,Customer.getCustomerList().get(y).getCard().get(i).getName(),
+                DESCRIPTION,Customer.getCustomerList().get(y).getCard().get(i).getDescription(),
+                PRICE, Customer.getCustomerList().get(y).getCard().get(i).getPrice());
+        logger.info(cardInfo);
+   }
         String totalCost=String.format("Total cost : %f",Customer.getCustomerList().get(y).getCost());
         logger.info(totalCost);
     }
+    /*
+public static void showCart(int customerId) {
+    List<Customer> customerList = Customer.getCustomerList();
+    if (customerId < 0 || customerId >= customerList.size()) {
+        logger.info("Invalid customer ID");
+        return;
+    }
+
+    Customer customer = customerList.get(customerId);
+    if (cards == null) {
+        logger.info("No cards found for customer");
+        return;
+    }
+
+    for (int i = 0; i < cards.size(); i++) {
+        Card card = cards.get(i);
+        String cardInfo = String.format("%sID: %d\t%s%s\t%s%s\t%s%.2f\n",
+                DEC, i + 1,
+                NAME, card.getName(),
+                DESCRIPTION, card.getDescription(),
+                PRICE, card.getPrice());
+        logger.info(cardInfo);
+    }
+
+    String totalCost = String.format("Total cost: %.2f", customer.getCost());
+    logger.info(totalCost);
+}*/
 
     public static void showAllProducts() {
         showExteriorAccessories();
@@ -119,9 +144,9 @@ public class Customer {
             if (Product.getP().get(i).getCategory().equals("electronics")) {
                 logger.info(
                         "ID: "+Product.getP().get(i).getId()+"\t"
-                                +constName+Product.getP().get(i).getName()+"\t"
-                                +constDescription +Product.getP().get(i).getDescription()+"\t"
-                                +constPrice+ Product.getP().get(i).getPrice()+ "\n");            }
+                                + NAME +Product.getP().get(i).getName()+"\t"
+                                + DESCRIPTION +Product.getP().get(i).getDescription()+"\t"
+                                + PRICE + Product.getP().get(i).getPrice()+ "\n");            }
         }
 
     }
@@ -133,9 +158,9 @@ public class Customer {
             if (Product.getP().get(i).getCategory().equals("interior")) {
                 logger.info(
                         "ID: "+Product.getP().get(i).getId()+"\t"
-                                +constName+Product.getP().get(i).getName()+"\t"
-                                +constDescription +Product.getP().get(i).getDescription()+"\t"
-                                +constPrice+ Product.getP().get(i).getPrice()+ "\n");            }
+                                + NAME +Product.getP().get(i).getName()+"\t"
+                                + DESCRIPTION +Product.getP().get(i).getDescription()+"\t"
+                                + PRICE + Product.getP().get(i).getPrice()+ "\n");            }
         }
     }
 
@@ -148,9 +173,9 @@ public class Customer {
 
                 logger.info(
                         "ID: "+Product.getP().get(i).getId()+"\t"
-                                +constName+Product.getP().get(i).getName()+"\t"
-                                +constDescription +Product.getP().get(i).getDescription()+"\t"
-                                +constPrice+ Product.getP().get(i).getPrice()+ "\n");
+                                + NAME +Product.getP().get(i).getName()+"\t"
+                                + DESCRIPTION +Product.getP().get(i).getDescription()+"\t"
+                                + PRICE + Product.getP().get(i).getPrice()+ "\n");
                 productsCounter++;
             }
         }
@@ -163,6 +188,21 @@ public class Customer {
                 +"Price:        "+ p.getPrice()+ "\n";
     }
 
+    public void printOrderProducts(Order order) {
+        if (logger.isLoggable(Level.INFO)) {
+            logger.info("Order info : \n");
+            double total = 0;
+            for (Product product : order.products) {
+                String productInfo = String.format("Product id : %s\t\t Name : %s\t\t Price : %.2f\n",
+                        product.getId(), product.getName(), product.getPrice());
+                logger.info(productInfo);
+                total += product.getPrice();
+            }
+            logger.info(String.format("Time       :    %s\n", order.date2));
+            logger.info(String.format("Total cost :    %.2f\n\n", total));
+        }
+    }
+    /*
     public void printOrderProducts(Order order) {
 
         logger.info("Order info : \n");
@@ -177,7 +217,7 @@ public class Customer {
 
 
     }
-
+*/
     public static void viewOrderHistory() {
         for(int i=0; i<Customer.getCustomerList().get(y).getCustomerOrders().size();i++){
             Customer.getCustomerList().get(y).printOrderProducts(Customer.getCustomerList().get(y).getCustomerOrders().get(i));
@@ -189,7 +229,7 @@ public class Customer {
         for (int i = 0; i < Customer.getCustomerList().size(); i++) {
             String ff = String.format("%d-", i + 1);
             logger.info(ff);
-            logger.info(Customer.getCustomerList().get(i).getUsername() + "   " + Customer.getCustomerList().get(i).getAddress() + "   " + Customer.getCustomerList().get(i).getPhone() + "\r\n");
+            logger.info(Customer.getCustomerList().get(i).getUsername() + "   " + Customer.getCustomerList().get(i).getAddress() + "   " + Customer.getCustomerList().get(i).getPhone() +"   " + Customer.getCustomerList().get(i).getGender() + "\r\n");
 
         }
     }
@@ -210,11 +250,34 @@ public class Customer {
     }
 
     public static void printAllRequestsAndCustomers() {
-        for (Map.Entry< Request,Customer> entry : getCusReq().entrySet()) {//do we need to know the product?
-            logger.info("Request Info   :\n"+Admin.toString(entry.getKey()) + " \n " + "Customer Info   :\n"+Admin.toString(entry.getValue()));//////////////
+        for (Map.Entry<Request, Customer> entry : getCusReq().entrySet()) {
+            if (logger.isLoggable(Level.INFO)) {
+                // Constructing log message only if INFO level is enabled
+                String requestInfo = Admin.toString(entry.getKey());
+                String customerInfo = Admin.toString(entry.getValue());
+                String logMessage = "Request Info   :%n" + requestInfo + " %n Customer Info   :%n" + customerInfo;
+                logger.info(logMessage);
+            }
         }
     }
 
+    public static void viewInstallationRequests() {
+
+        for(int i = 0; i<Customer.getCustomerList().get(y).customerRequestsHistory.size(); i++) {
+
+            String status = Customer.getCustomerList().get(y).customerRequestsHistory.get(i).getStatus();
+            Request request = Customer.getCustomerList().get(y).customerRequestsHistory.get(i);
+            String requestInfo = Admin.toString(request);
+
+            if ("Waiting for Installer response.".equals(status) || "Waiting for Admin response.".equals(status)) {
+                logger.info(String.format("Your Request   :%n%s          Waiting%n", requestInfo));
+            } else if ("Approved.".equals(status) && Installer.getReservedDone().containsKey(request)) {
+                String installerInfo = Admin.toString(Installer.getReservedDone().get(request));
+                logger.info(String.format("Your Request   :%n%s          by    %s", requestInfo, installerInfo));
+            }
+        }
+    }
+    /*
 
     public static void viewInstallationRequests() {
         for(int i = 0; i<Customer.getCustomerList().get(y).customerRequestsHistory.size(); i++) {
@@ -224,7 +287,7 @@ public class Customer {
                 logger.info("Your Request   :\n"+Admin.toString(Customer.getCustomerList().get(y).customerRequestsHistory.get(i)) + "          Approved by    " + Admin.toString(Installer.getReservedDone().get(Customer.getCustomerList().get(y).customerRequestsHistory.get(i))));
             }
         }
-    }
+    }*/
 
     public static void makeRequest(String predate, String cmodel, Product p, String location) {
         Request r=Customer.getCustomerList().get(y).setRequest(predate, cmodel,p, location);
@@ -244,15 +307,53 @@ public class Customer {
         Customer.getCustomerList().get(y).setCost(total);
         logger.info("added to cart successfully !");
     }
+
+    public static void filterProductsbyPrice(int filterChoice) {
+        switch (filterChoice) {
+            case 1:
+                filterAndLogProducts(0, 70);
+                break;
+            case 2:
+                filterAndLogProducts(70, 150);
+                break;
+            case 3:
+                filterAndLogProducts(150, Integer.MAX_VALUE);
+                break;
+            default:
+                logger.info("Invalid input, enter your choice again\r");
+                //input.nextLine();
+                break;
+        }
+    }
+
+    private static void filterAndLogProducts(double minPrice, double maxPrice) {
+        for (Product product : Product.getP()) {
+            if (isPriceInRange(product.getPrice(), minPrice, maxPrice)) {
+                logProductInfo(product);
+            }
+        }
+    }
+
+    private static boolean isPriceInRange(double price, double minPrice, double maxPrice) {
+        return price > minPrice && price <= maxPrice;
+    }
+
+    private static void logProductInfo(Product product) {
+        logger.info("ID: " + product.getId() + "\t"
+                + NAME + product.getName() + "\t"
+                + DESCRIPTION + product.getDescription() + "\t"
+                + PRICE + product.getPrice() + "\n");
+    }
+/*
     public static void filterProductsbyPrice(int filterChoice) {
         if (filterChoice == 1) {
             for (int i = 0; i < Product.getP().size(); i++) {
                 if ((Product.getP().get(i).getPrice() > 0) && (Product.getP().get(i).getPrice() <= 70)) {
                     logger.info(
                             "ID: " + Product.getP().get(i).getId() + "\t"
-                                    + constName + Product.getP().get(i).getName() + "\t"
-                                    + constDescription + Product.getP().get(i).getDescription() + "\t"
-                                    + constPrice + Product.getP().get(i).getPrice() + "\n");
+                                    + NAME + Product.getP().get(i).getName() + "\t"
+                                    + DESCRIPTION + Product.getP().get(i).getDescription() + "\t"
+                                    + PRICE + Product.getP().get(i).getPrice() + "\n");
                 }
             }
         }
@@ -261,9 +362,9 @@ public class Customer {
                 if ((Product.getP().get(i).getPrice() > 70) && (Product.getP().get(i).getPrice() <= 150)) {
                     logger.info(
                             "ID: " + Product.getP().get(i).getId() + "\t"
-                                    + constName + Product.getP().get(i).getName() + "\t"
-                                    + constDescription + Product.getP().get(i).getDescription() + "\t"
-                                    + constPrice + Product.getP().get(i).getPrice() + "\n");
+                                    + NAME + Product.getP().get(i).getName() + "\t"
+                                    + DESCRIPTION + Product.getP().get(i).getDescription() + "\t"
+                                    + PRICE + Product.getP().get(i).getPrice() + "\n");
                 }
             }
         }
@@ -272,9 +373,9 @@ public class Customer {
                 if ((Product.getP().get(i).getPrice() > 150)) {
                     logger.info(
                             "ID: " + Product.getP().get(i).getId() + "\t"
-                                    + constName + Product.getP().get(i).getName() + "\t"
-                                    + constDescription + Product.getP().get(i).getDescription() + "\t"
-                                    + constPrice + Product.getP().get(i).getPrice() + "\n");
+                                    + NAME + Product.getP().get(i).getName() + "\t"
+                                    + DESCRIPTION + Product.getP().get(i).getDescription() + "\t"
+                                    + PRICE + Product.getP().get(i).getPrice() + "\n");
                 }
             }
         }
@@ -285,14 +386,14 @@ public class Customer {
         }
     }
 
-
+*/
     public void logging(boolean t) {
         logState=t;
     }
 
 
 
-    public Customer(String username,String password, String address, String phone, String email,String Gender,double cost,int type) {
+    public Customer(String username,String password, String address, String phone, String email,String Gender,double cost) {
         super();
         this.cost=cost;
         this.pass = password;
@@ -300,7 +401,6 @@ public class Customer {
         this.address = address;
         this.phone = phone;
         this.email = email;
-        this.type= type;
         this.gender= Gender;
 
 
@@ -384,5 +484,10 @@ public class Customer {
 
     public List<Request> getReqArry() {return this.customerRequestsHistory ;}
     public List<Order> getCustomerOrders() {return this.customerOrders ;}
+
+
+    public String getGender(){
+        return gender;
+    }
 
 }

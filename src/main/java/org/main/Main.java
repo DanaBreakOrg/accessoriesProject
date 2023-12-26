@@ -6,8 +6,6 @@ import org.example.*;
 import java.util.*;
 import java.util.logging.*;
 
-//import static org.example.Admin.toString1;
-//import static org.example.Installer.reqq;
 import static org.example.Admin.*;
 import static org.example.Logging.y;
 import java.time.LocalDateTime;
@@ -38,21 +36,21 @@ public class Main {
         logger = Logger.getLogger(Main.class.getName());
 
 
-        Admin a = new Admin("nasser@gmail.com", "nasser", "12345", 0);
-        Admin t = new Admin("talah@gmail.com", "talah", "123456", 0);
+        Admin a = new Admin("nasser@gmail.com", "nasser", "12345");
+        Admin t = new Admin("talah@gmail.com", "talah", "123456");
         Admin.getAdminList().add(a);
         Admin.getAdminList().add(t);
 
-        Logging.q.put(a.getEmail(), a.getPassword());
-        Logging.q.put(t.getEmail(), t.getPassword());
+        Logging.getQ().put(a.getEmail(), a.getPassword());
+        Logging.getQ().put(t.getEmail(), t.getPassword());
 //jelenab798@vkr1.com
-        Customer c = new Customer("shahd", "111", "QAM", "02872228", "jixag36030@usoplay.com", "Male", 0.0, 1);
-        Customer c2 = new Customer("dana", "222", "DAM", "028725323", "dana@gmail.com", "Male", 0.0, 1);
+        Customer c = new Customer("shahd", "111", "QAM", "02872228", "jixag36030@usoplay.com", "Male", 0.0);
+        Customer c2 = new Customer("dana", "222", "DAM", "028725323", "dana@gmail.com", "Male", 0.0);
         Customer.getCustomerList().add(c);
         Customer.getCustomerList().add(c2);
 
-        Logging.q.put(c.getEmail(), c.getPassword());
-        Logging.q.put(c2.getEmail(), c2.getPassword());
+        Logging.getQ().put(c.getEmail(), c.getPassword());
+        Logging.getQ().put(c2.getEmail(), c2.getPassword());
 
 
         Product product1 = new Product("1200", "car seat", "waterproof car seats", "interior", 50);
@@ -82,9 +80,9 @@ public class Main {
 
         n.getReservaeddates().put(c2, "24/10/2002");
 
-        Logging.q.put(n.getEmail(), n.getPass());
-        Logging.q.put(n2.getEmail(), n2.getPass());
-        Logging.q.put(n1.getEmail(), n2.getPass());
+        Logging.getQ().put(n.getEmail(), n.getPass());
+        Logging.getQ().put(n2.getEmail(), n2.getPass());
+        Logging.getQ().put(n1.getEmail(), n2.getPass());
 
         getCusReq().put(c.setRequest("24/10/2002", "kia", product1, "nabl"), c);
         getCusReq().put(c.setRequest("25/10/2002", "kia", product1, "jenin"), c);
@@ -241,7 +239,7 @@ public class Main {
                     String h = nn.nextLine();
                     logger.info("Enter customer password : ");
                     String d = nn2.nextLine();
-                    Customer customer = new Customer(n, d, h, j, s, k,0.0, 1);
+                    Customer customer = new Customer(n, d, h, j, s, k,0.0);
                     boolean add = Operations.addCustomer(customer);
                     if (add)
                         logger.info("A new Customer added");
@@ -773,8 +771,8 @@ public class Main {
                 }*/
 
             case 6:{
-
                 Customer.viewInstallationRequests();
+
                 break;
 
 
@@ -806,11 +804,11 @@ public class Main {
         logger.info("Enter your Password:");
         String password = input.nextLine();
 
-        Customer r = new Customer(username, password, address, phnum, email, gen,0.0,1);
+        Customer r = new Customer(username, password, address, phnum, email, gen,0.0);
         boolean create = Operations.addCustomer(r);
         if (create) {
             logger.info("A new account was created successfully");
-            Logging.q.put(email, password);
+            Logging.getQ().put(email, password);
         }
         else
             logger.info("This account already exists");
