@@ -1,10 +1,7 @@
 package org.example;
 
 import java.util.*;
-import java.util.logging.Handler;
-import java.util.logging.LogRecord;
-import java.util.logging.Logger;
-import java.util.logging.SimpleFormatter;
+import java.util.logging.*;
 
 import static org.example.Admin.getCusReq;
 import static org.example.Logging.getY;
@@ -66,8 +63,9 @@ public class Installer {
     }
     public static void printAllInstallers() {
         for (int n = 0; n < getInstallerList().size(); n++) {
-
-                logger.info(Admin.toString(getInstallerList().get(n)));//////woroud only, 3 reser
+            if (logger.isLoggable(Level.INFO)) {
+                logger.info(Admin.toString(getInstallerList().get(n)));
+            }
 
         }
     }

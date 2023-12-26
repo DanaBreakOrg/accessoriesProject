@@ -16,21 +16,9 @@ public class Request {
         this.status = status;
     }
 
-    /*public void informInstaller(Installer i) {
-        this.temp = i;
-    }*/
 
 
     private String status;
-
-
-
-
-
-
-
-
-
 
 
 

@@ -236,11 +236,11 @@ public class Customer {
 
             if ("Waiting for Installer response.".equals(status) || "Waiting for Admin response.".equals(status)) {
                 logger.info(String.format("Your Request   :%n%s          Waiting%n", requestInfo));
-            } else if ("Approved.".equals(status)) {
-                if (Installer.getReservedDone().containsKey(request)) {
+            } else if ("Approved.".equals(status)&&Installer.getReservedDone().containsKey(request)) {
+
                     String installerInfo = Admin.toString(Installer.getReservedDone().get(request));
                     logger.info(String.format("Your Request   :%n%s          by    %s", requestInfo, installerInfo));
-                }
+                
             }
         }
     }

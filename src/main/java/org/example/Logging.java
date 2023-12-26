@@ -69,7 +69,7 @@ public class Logging {
         }
 
         if (flag) {
-            flag = isInstaller(flag);
+           isInstaller(flag);
         }
 
 
