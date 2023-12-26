@@ -55,10 +55,13 @@ public class Installer {
 
     }
 
+    
     public static void viewInsReq() {
 
         for (Request key : getKeys(Admin.informInstallerMethod(), getInstallerList().get(getY()))) {
-            logger.info(toString(key));
+            if (logger.isLoggable(Level.INFO)) {
+                logger.info(toString(key));
+            }
         }
     }
     public static void printAllInstallers() {

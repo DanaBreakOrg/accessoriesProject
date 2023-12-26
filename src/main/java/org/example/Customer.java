@@ -229,6 +229,10 @@ public class Customer {
 
 
     public static void viewInstallationRequests() {
+        if (!logger.isLoggable(Level.INFO)) {
+            return; // Skip the entire method if INFO level logging is not enabled
+        }
+
         Customer currentCustomer = Customer.getCustomerList().get(getY());
         for (Request request : currentCustomer.customerRequestsHistory) {
             String status = request.getStatus();
@@ -236,14 +240,13 @@ public class Customer {
 
             if ("Waiting for Installer response.".equals(status) || "Waiting for Admin response.".equals(status)) {
                 logger.info(String.format("Your Request   :%n%s          Waiting%n", requestInfo));
-            } else if ("Approved.".equals(status)&&Installer.getReservedDone().containsKey(request)) {
-
-                    String installerInfo = Admin.toString(Installer.getReservedDone().get(request));
-                    logger.info(String.format("Your Request   :%n%s          by    %s", requestInfo, installerInfo));
-                
+            } else if ("Approved.".equals(status) && Installer.getReservedDone().containsKey(request)) {
+                String installerInfo = Admin.toString(Installer.getReservedDone().get(request));
+                logger.info(String.format("Your Request   :%n%s          by    %s", requestInfo, installerInfo));
             }
         }
     }
+
     public static void makeRequest(String predate, String cmodel, Product p, String location) {
         Request r=Customer.getCustomerList().get(getY()).setRequest(predate, cmodel,p, location);
         r.setStatus("Waiting for Admin response.");
