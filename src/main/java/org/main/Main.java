@@ -601,47 +601,22 @@ public class Main {
                         if (pid.equals("0")) done = true;
                         else {
 
-                            for(int i=0 ; i<Product.getP().size();i++){
-                                if(pid.equals(Product.getP().get(i).getId())){
+
+
+                            for(int i = 0; i < Product.getP().size() && !found; i++) {///////
+                                if(pid.equals(Product.getP().get(i).getId())) {
                                     Customer.pFound(i);
-                                    found=true;
+                                    found = true;
 
-                                    if(Integer.parseInt(pid)<2000&&Integer.parseInt(pid)>1000){
-                                        logger.info("Would you lik to make an installation request?\n"+
-                                                "1- Yes.\n" +
-                                                "2- No.\n"
-                                                +ENTER_CHOICE);
-
-                                        String choicee= input.next();
-                                        if(choicee.equals("yes")||choicee.equals("Yes")||choicee.equals("1")){
-
-                                            Scanner req = new Scanner(System.in);
-
-                                            logger.info("Enter your car model\r");
-                                            String cmodel= req.nextLine();
-                                            logger.info("Enter your preferred date (DD/MM/YYYY)\r");
-                                            String predate= req.next();
-                                            logger.info("Enter your location\r");
-                                            String location= req.next();
-
-
-
-                                            for(int k = 0; k<Customer.getCustomerList().get(getY()).getCard().size(); k++) {
-                                                if(pid.equals(Customer.getCustomerList().get(getY()).getCard().get(k).getId())){
-                                                    //make a request
-                                                    Customer.makeRequest(predate, cmodel, Customer.getCustomerList().get(getY()).getCard().get(k), location);
-
-                                                    break;
-                                                }
-                                            }
-
-                                        }
-                                        else break;
+                                    if (isProductIdInRange(pid)) {
+                                        handleUserChoice(input, pid);
                                     }
-                                    break;
-
                                 }
                             }
+
+
+
+
 
                             if(!found)
                             {
@@ -805,4 +780,39 @@ public class Main {
 
         homePage();
     }
+
+    private static boolean isProductIdInRange(String pid) {
+        int productId = Integer.parseInt(pid);
+        return productId < 2000 && productId > 1000;
+    }
+
+    private static void handleUserChoice(Scanner input, String pid) {
+        logger.info("Would you like to make an installation request?\n" +
+                "1- Yes.\n" +
+                "2- No.\n" +
+                ENTER_CHOICE);
+
+        String choice = input.next();
+        if (choice.equalsIgnoreCase("yes") || choice.equals("1")) {
+            processInstallationRequest(input, pid);
+        }
+    }
+
+    private void processInstallationRequest(Scanner input, String pid){
+        logger.info("Enter your car model\r");
+        String carModel = input.nextLine();
+        logger.info("Enter your preferred date (DD/MM/YYYY)\r");
+        String preferredDate = input.next();
+        logger.info("Enter your location\r");
+        String location = input.next();
+
+        for (int k = 0; k < Customer.getCustomerList().get(getY()).getCard().size(); k++) {
+            if (pid.equals(Customer.getCustomerList().get(getY()).getCard().get(k).getId())) {
+                Customer.makeRequest(preferredDate, carModel, Customer.getCustomerList().get(getY()).getCard().get(k), location);
+                break;
+            }
+        }
+    }
+
+
 }
