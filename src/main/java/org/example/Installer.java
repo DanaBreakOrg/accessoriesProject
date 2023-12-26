@@ -58,16 +58,16 @@ public class Installer {
     }
 
     public static void viewInsReq() {
-        if(Admin.informInstallerMethod()!= null){
+
         for (Request key : getKeys(Admin.informInstallerMethod(), getInstallerList().get(y))) {
             logger.info(toString(key));
-        }}
+        }
     }
     public static void printAllInstallers() {
         for (int n = 0; n < getInstallerList().size(); n++) {
-            if(getInstallerList().get(n)!= null) {
+
                 logger.info(Admin.toString(getInstallerList().get(n)));//////woroud only, 3 reser
-            }
+
         }
     }
 
@@ -169,77 +169,5 @@ public static boolean installerAnswer(String x , Request key, int k)
     }
 
 
-/*
-    public void printOrderProducts(Order order) {
-
-        logger.info("Order info : \n");
-        double total=0;
-        for (Product product : order.products) {
-            logger.info("Product id : " + product.getId() + "\t\t" + " Name : " + product.getName() + "\t\t" + " Price : " + product.getPrice()+"\n");
-            total += product.getPrice();
-        }
-
-        logger.info("Time       :    "+order.date2+"\n");
-        logger.info("Total cost :    "+total+"\n\n");
-
-
-    }
-*/
-
-/*
-
-    public static void viewInstallationRequests() {
-        for(int i = 0; i<Customer.getCustomerList().get(y).customerRequestsHistory.size(); i++) {
-            if (Customer.getCustomerList().get(y).customerRequestsHistory.get(i).getStatus().equals("Waiting for Installer response.") || Customer.getCustomerList().get(y).customerRequestsHistory.get(i).getStatus().equals("Waiting for Admin response.")) {
-                logger.info("Your Request   :\n"+Admin.toString(Customer.getCustomerList().get(y).customerRequestsHistory.get(i)) + "          Waiting\n");
-            } else if (Customer.getCustomerList().get(y).customerRequestsHistory.get(i).getStatus().equals("Approved.")&& Installer.getReservedDone().containsKey(Customer.getCustomerList().get(y).customerRequestsHistory.get(i))) {
-                logger.info("Your Request   :\n"+Admin.toString(Customer.getCustomerList().get(y).customerRequestsHistory.get(i)) + "          Approved by    " + Admin.toString(Installer.getReservedDone().get(Customer.getCustomerList().get(y).customerRequestsHistory.get(i))));
-            }
-        }
-    }*/
-
-/*
-    public static void filterProductsbyPrice(int filterChoice) {
-        if (filterChoice == 1) {
-            for (int i = 0; i < Product.getP().size(); i++) {
-                if ((Product.getP().get(i).getPrice() > 0) && (Product.getP().get(i).getPrice() <= 70)) {
-                    logger.info(
-                            "ID: " + Product.getP().get(i).getId() + "\t"
-                                    + NAME + Product.getP().get(i).getName() + "\t"
-                                    + DESCRIPTION + Product.getP().get(i).getDescription() + "\t"
-                                    + PRICE + Product.getP().get(i).getPrice() + "\n");
-                }
-            }
-        }
-        if (filterChoice == 2) {
-            for (int i = 0; i < Product.getP().size(); i++) {
-                if ((Product.getP().get(i).getPrice() > 70) && (Product.getP().get(i).getPrice() <= 150)) {
-                    logger.info(
-                            "ID: " + Product.getP().get(i).getId() + "\t"
-                                    + NAME + Product.getP().get(i).getName() + "\t"
-                                    + DESCRIPTION + Product.getP().get(i).getDescription() + "\t"
-                                    + PRICE + Product.getP().get(i).getPrice() + "\n");
-                }
-            }
-        }
-        if (filterChoice == 3) {
-            for (int i = 0; i < Product.getP().size(); i++) {
-                if ((Product.getP().get(i).getPrice() > 150)) {
-                    logger.info(
-                            "ID: " + Product.getP().get(i).getId() + "\t"
-                                    + NAME + Product.getP().get(i).getName() + "\t"
-                                    + DESCRIPTION + Product.getP().get(i).getDescription() + "\t"
-                                    + PRICE + Product.getP().get(i).getPrice() + "\n");
-                }
-            }
-        }
-        else{
-            logger.info("Invalid input, enter your choice again\r");
-            //input.nextLine();
-
-        }
-    }
-
-*/
 
 }
