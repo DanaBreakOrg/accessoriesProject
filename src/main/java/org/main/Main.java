@@ -15,7 +15,7 @@ import java.time.format.DateTimeFormatter;
 
 public class Main {
 
-    protected static Scanner input = new Scanner (System.in);
+    protected static Scanner input = new Scanner(System.in);
     protected static Logger logger;
 
     static {
@@ -38,16 +38,16 @@ public class Main {
         logger = Logger.getLogger(Main.class.getName());
 
 
-        Admin a= new Admin("nasser@gmail.com","nasser","12345",0);
-        Admin t= new Admin("talah@gmail.com","talah","123456",0);
+        Admin a = new Admin("nasser@gmail.com", "nasser", "12345", 0);
+        Admin t = new Admin("talah@gmail.com", "talah", "123456", 0);
         Admin.getAdminList().add(a);
         Admin.getAdminList().add(t);
 
         Logging.q.put(a.getEmail(), a.getPassword());
         Logging.q.put(t.getEmail(), t.getPassword());
 //jelenab798@vkr1.com
-        Customer c=new Customer("shahd","111","QAM","02872228","jixag36030@usoplay.com","Male",0.0,1);
-        Customer c2=new Customer("dana","222","DAM","028725323","dana@gmail.com","Male",0.0,1);
+        Customer c = new Customer("shahd", "111", "QAM", "02872228", "jixag36030@usoplay.com", "Male", 0.0, 1);
+        Customer c2 = new Customer("dana", "222", "DAM", "028725323", "dana@gmail.com", "Male", 0.0, 1);
         Customer.getCustomerList().add(c);
         Customer.getCustomerList().add(c2);
 
@@ -55,13 +55,13 @@ public class Main {
         Logging.q.put(c2.getEmail(), c2.getPassword());
 
 
-        Product product1 = new Product("1200","car seat" ,"waterproof car seats", "interior",50);
-        Product product2 = new Product("1","Car mats" ,"black rubber car mats", "exterior",70);
-        Product product3 = new Product("1400","Roof racks" ,"pack of 2 car roof rack", "electronics",100);
-        Product product4 = new Product("2200","Roof racksrfs" ,"pack of 2 car roof racklkmfvm", "electronics",100);
-        Product product5 = new Product("3000","Roof racks1" ,"pack of 2 car roof racksac,m", "electronics",200);
-        Product product6 = new Product("3576","Roof racks2" ,"pack of 2 car roof rackkmvkl", "electronics",130);
-        Product product7 = new Product("3100","Roof racks3" ,"pack of 2 car roof rackkvkv", "electronics",300);
+        Product product1 = new Product("1200", "car seat", "waterproof car seats", "interior", 50);
+        Product product2 = new Product("1", "Car mats", "black rubber car mats", "exterior", 70);
+        Product product3 = new Product("1400", "Roof racks", "pack of 2 car roof rack", "electronics", 100);
+        Product product4 = new Product("2200", "Roof racksrfs", "pack of 2 car roof racklkmfvm", "electronics", 100);
+        Product product5 = new Product("3000", "Roof racks1", "pack of 2 car roof racksac,m", "electronics", 200);
+        Product product6 = new Product("3576", "Roof racks2", "pack of 2 car roof rackkmvkl", "electronics", 130);
+        Product product7 = new Product("3100", "Roof racks3", "pack of 2 car roof rackkvkv", "electronics", 300);
 
         Operations.addProduct(product7);
         Operations.addProduct(product6);
@@ -72,23 +72,22 @@ public class Main {
         Operations.addProduct(product1);
 
 
-
-        Installer n=new Installer("jelenab798@vkr1.com","woroud","123123","RAM","0568725598","122",true,2);
-        Installer n1=new Installer("l,mfvjelenab798@vkr1.com","ahmad","123","nablus","0568665598","123",true,2);
-        Installer n2=new Installer("leen@gmail.com","leen","321","SAM","0568722198","124",false,2);
+        Installer n = new Installer("jelenab798@vkr1.com", "woroud", "123123", "RAM", "0568725598", "122", true, 2);
+        Installer n1 = new Installer("l,mfvjelenab798@vkr1.com", "ahmad", "123", "nablus", "0568665598", "123", true, 2);
+        Installer n2 = new Installer("leen@gmail.com", "leen", "321", "SAM", "0568722198", "124", false, 2);
         Installer.getInstaller().add(n);
         Installer.getInstaller().add(n1);
         Installer.getInstaller().add(n2);
 
 
-        n.getReservaeddates().put(c2,"24/10/2002");
+        n.getReservaeddates().put(c2, "24/10/2002");
 
         Logging.q.put(n.getEmail(), n.getPass());
         Logging.q.put(n2.getEmail(), n2.getPass());
         Logging.q.put(n1.getEmail(), n2.getPass());
 
-        getCusReq().put(c.setRequest("24/10/2002","kia",product1,"nabl"),c);
-        getCusReq().put(c.setRequest("25/10/2002","kia",product1,"jenin"),c);
+        getCusReq().put(c.setRequest("24/10/2002", "kia", product1, "nabl"), c);
+        getCusReq().put(c.setRequest("25/10/2002", "kia", product1, "jenin"), c);
         //cusReq.put(c2.setRequest("24/10/2020","lampo",product1,"kalil"),c2);
 
 
@@ -98,6 +97,7 @@ public class Main {
 
     public static int scanner() {
         int c;
+
         while (true) {
             try {
                 c = input.nextInt();
@@ -112,10 +112,10 @@ public class Main {
     }
 
 
-
     public static void HomePage() {
 
-        while (true) {
+        boolean loggedin=true;
+        while (loggedin) {
             logger.info("\n Welcome to the Car Accessories Company\r\n"
                     + "Do you have an account?\r\n"
                     + "1. Create account\r\n"
@@ -176,7 +176,6 @@ public class Main {
                             break;
 
 
-
                         case 2:
 
                             installerActivities();
@@ -186,14 +185,17 @@ public class Main {
                     break;
                 }
 
-                case 3: System.exit(0);
+                case 3:loggedin=false;
 
             }
+
 
         }
 
 
     }
+
+
 
     public static void adminActivities() {
         boolean running = true;
