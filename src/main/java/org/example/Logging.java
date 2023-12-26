@@ -11,7 +11,7 @@ public class Logging {
         return successfulusername;
     }
 
-    private static boolean successfulusername= false;
+    private boolean successfulusername= false;
 
     public boolean isSuccessfulpassword() {
         return successfulpassword;
@@ -22,10 +22,10 @@ public class Logging {
 
 
     public void setEmail(String email) {
-        Logging.email = email;
+        this.email = email;
     }
 
-    private static String email;
+    private String email;
 
     public void setPassword(String password) {
         this.password = password;
@@ -43,13 +43,13 @@ public class Logging {
     }
 
     private static int y;
-    static int type = -3;
+    int type = -3;
 
     protected static Map<String,String> q= new HashMap<>();//how to make it protected
     final Logger logger = Logger.getLogger(Logging.class.getName());
 
 
-    public static int searchEmail(String email1){
+    public int searchEmail(String email1){
 
         boolean flag = true;
 
@@ -77,7 +77,7 @@ public class Logging {
 
     }
 
-    public static boolean isInstaller(boolean flag) {
+    public boolean isInstaller(boolean flag) {
 
         for (int k = 0; k < Installer.getInstallerList().size(); k++) {
             if (email.equals(Installer.getInstallerList().get(k).getEmail())) {
@@ -91,7 +91,7 @@ public class Logging {
         return flag;
     }
 
-    public static boolean isCustomer(boolean flag) {
+    public boolean isCustomer(boolean flag) {
         for (int j = 0; j < Customer.getCustomerList().size(); j++) {
             if (email.equals(Customer.getCustomerList().get(j).getEmail())) {
                 flag = false;
