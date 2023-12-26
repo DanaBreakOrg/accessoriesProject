@@ -10,7 +10,7 @@ import java.util.logging.SimpleFormatter;
 
 
 public class EmailSender {
-    protected final static Logger logger = Logger.getLogger(EmailSender.class.getName());
+    protected static final  Logger logger = Logger.getLogger(EmailSender.class.getName());
 
     static {
 

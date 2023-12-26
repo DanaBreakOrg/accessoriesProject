@@ -4,7 +4,8 @@ import io.cucumber.java.en.Given;
 import io.cucumber.java.en.When;
 import io.cucumber.java.en.Then;
 
-import static org.example.Logging.y;
+
+import static org.example.Logging.getY;
 import static org.junit.Assert.*;
 
 import org.example.*;
@@ -141,8 +142,8 @@ public class customerShopping {
 
     @When("the customer requests installation requests")
     public void theCustomerRequestsInstallationRequests() {
-        Request r1=Customer.getCustomerList().get(y).setRequest("2024-01-02", "uno",p1, "nablus");
-        Request r2=Customer.getCustomerList().get(y).setRequest("2024-01-02", "uno",p1, "nablus");
+        Request r1=Customer.getCustomerList().get(getY()).setRequest("2024-01-02", "uno",p1, "nablus");
+        Request r2=Customer.getCustomerList().get(getY()).setRequest("2024-01-02", "uno",p1, "nablus");
         r1.setStatus("Waiting for Admin response.");
         r2.setStatus("Approved.");
         customer.getCustomerRequestsHistory().add(r1);

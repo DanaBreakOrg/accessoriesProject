@@ -7,7 +7,8 @@ import java.util.logging.Logger;
 import java.util.logging.SimpleFormatter;
 
 import static org.example.Admin.getCusReq;
-import static org.example.Logging.y;
+import static org.example.Logging.getY;
+
 
 public class Installer {
 
@@ -59,7 +60,7 @@ public class Installer {
 
     public static void viewInsReq() {
 
-        for (Request key : getKeys(Admin.informInstallerMethod(), getInstallerList().get(y))) {
+        for (Request key : getKeys(Admin.informInstallerMethod(), getInstallerList().get(getY()))) {
             logger.info(toString(key));
         }
     }

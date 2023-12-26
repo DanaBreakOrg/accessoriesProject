@@ -61,9 +61,9 @@ public class Login {
         password = string2;
         int x = user.searchEmail(username);
         int z = user.searchPassword(password);
-        user.email="nkjc@gmail.com";
+        user.setEmail("nkjc@gmail.com");
         boolean customer = user.isCustomer(true);
-        user.email="testInstaller@gmail.com";
+        user.setEmail("testInstaller@gmail.com");
         boolean installer = user.isInstaller(true);
 
 
@@ -75,12 +75,12 @@ public class Login {
     public void the_user_is_logged_in() {
 
         System.out.println("username and password are valid");
-        System.out.println("successfulusername   "+user.successfulusername);
-        System.out.println("successfulpassword   "+user.successfulpassword);
+        System.out.println("successfulusername   "+user.isSuccessfulusername());
+        System.out.println("successfulpassword   "+user.isSuccessfulusername());
 
         assertTrue(user.getLogState());
-        assertTrue(user.successfulpassword);
-        assertTrue(user.successfulusername);
+        assertTrue(user.isSuccessfulpassword());
+        assertTrue(user.isSuccessfulusername());
 
 
     }
@@ -100,11 +100,11 @@ public class Login {
     public void invalid_password_error_message() {
 
         System.out.println("Wrong password case");
-        System.out.println("successfulusername   "+user.successfulusername);
-        System.out.println("successfulpassword   "+user.successfulpassword);
+        System.out.println("successfulusername   "+user.isSuccessfulusername());
+        System.out.println("successfulpassword   "+user.isSuccessfulusername());
 
-        assertTrue(user.successfulusername);
-        assertFalse(user.successfulpassword);
+        assertTrue(user.isSuccessfulusername());
+        assertFalse(user.isSuccessfulpassword());
     }
 
     @Then("the User is not logged in")
@@ -128,9 +128,9 @@ public class Login {
     public void invalid_username_error_message() {
 
         System.out.println("Wrong username case");
-        System.out.println("successfulusername   "+user.successfulusername);
-        System.out.println("successfulpassword   "+user.successfulpassword);
-        assertFalse(user.successfulusername);
+        System.out.println("successfulusername   "+user.isSuccessfulusername());
+        System.out.println("successfulpassword   "+user.isSuccessfulusername());
+        assertFalse(user.isSuccessfulusername());
     }
 
 

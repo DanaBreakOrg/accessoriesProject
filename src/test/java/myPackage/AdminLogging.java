@@ -20,7 +20,7 @@ public class AdminLogging {
 
     public AdminLogging() {
         log=new Logging();
-        log.password="123456";
+        log.setPassword("123456");
         admin= new Admin(email,name,"123456");
         Admin.getAdminList().add(admin);
 
