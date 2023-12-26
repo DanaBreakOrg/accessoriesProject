@@ -14,9 +14,11 @@ import java.time.format.DateTimeFormatter;
 
 public class Main {
     public static final  String ELECTRONICS="electronics";
+    public static final String SEPERATOR = "------------------------------------------------------------.\r\n";
+    public static final String OPTION ="Select an option:.\r\n";
     public static final String WELCOME=" , to the Car accessories company.\r\n"
-            +"------------------------------------------------------------.\r\n"
-            +"Select an option:.\r\n";
+            +SEPERATOR
+            +OPTION;
 
     public static final String ENTER_CHOICE= "Enter your choice : ";
     public static final String INVALID_CHOICE="Invalid choice. Please try again.";
@@ -445,7 +447,7 @@ public class Main {
 
 
                 default:
-                    logger.info("Invalid choice. Please try again.");
+                    logger.info(INVALID_CHOICE);
 
                     break;
             }
@@ -559,8 +561,8 @@ public class Main {
                 case 3://filter by cat done
 
                     logger.info("Filter Accessories by category.\r\n"+
-                            "------------------------------------------------------------.\r\n"+
-                            "Select an option:.\r\n"+
+                            SEPERATOR+
+                            OPTION+
                             "1. Interior accessories.\r\n"+
                             "2. Exterior accessories.\r\n"+
                             "3. Electronics.\r\n"+
@@ -693,10 +695,10 @@ public class Main {
 
     private static void customerProfile() {
         logger.info("\n Hi , "+Customer.getCustomerList().get(getY()).getUsername()+"\r\n"
-                + "------------------------------------------------------------.\r\n"
+                +SEPERATOR
                 +" Username : "+ Customer.getCustomerList().get(getY()).getUsername() + "\n" + " Address : "+ Customer.getCustomerList().get(getY()).getAddress() + "\n"
                 + " Phone : "+ Customer.getCustomerList().get(getY()).getPhone() + "\n" + " Email : " + Customer.getCustomerList().get(getY()).getEmail() +"\n\n"
-                + "Select an option:.\r\n"
+                + OPTION
                 + "1. Change address.\r\n"
                 + "2. Change phone number.\r\n"
                 + "3. Change Email.\r\n"
