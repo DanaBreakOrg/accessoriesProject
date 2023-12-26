@@ -198,7 +198,7 @@ public class Main {
                 }
 
                 case 3:loggedin=false;
-                    break;
+                break;
 
                 default:
                     // Handle unexpected value, log an error, or take appropriate action
@@ -234,8 +234,8 @@ public class Main {
 
             switch (choice) {
                 case 1: {//show all customers done
-                    Customer.showAllCustomers();
-                    break;
+                  Customer.showAllCustomers();
+                  break;
                 }
 
                 case 2: {//add a new customer done
@@ -276,13 +276,13 @@ public class Main {
                     String z = pass1.next();
 
                     logger.info("\n Enter the number of the information you want to update: \r\n"
-                            + SEPERATOR
-                            + "1. Update customer username.\r\n"
-                            + "2. Update customer password.\r\n"
-                            + "3. Update customer Email.\r\n"
-                            + "4. Update customer phone number.\r\n"
-                            + "5. Update customer address.\r\n"
-                            + "6. Back.\r\n"
+                                    + SEPERATOR
+                                    + "1. Update customer username.\r\n"
+                                    + "2. Update customer password.\r\n"
+                                    + "3. Update customer Email.\r\n"
+                                    + "4. Update customer phone number.\r\n"
+                                    + "5. Update customer address.\r\n"
+                                    + "6. Back.\r\n"
                     );
                     int updateChoice = input.nextInt();
                     boolean update = true;
@@ -803,5 +803,5 @@ public class Main {
             logger.info("This account already exists");
 
         homePage();
-}
+    }
 }

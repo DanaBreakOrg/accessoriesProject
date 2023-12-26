@@ -31,6 +31,7 @@ public class Login {
         user.getQ().put("nasser@gmail.com", "12345");
         user.getQ().put("dana@gmail.com","222");
         user.getQ().put("jelenab798@vkr1.com","123123");
+        user.setY(0);
 
     }
 
