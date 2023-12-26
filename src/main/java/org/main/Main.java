@@ -70,9 +70,9 @@ public class Main {
         Operations.addProduct(product1);
 
 
-        Installer n = new Installer("jelenab798@vkr1.com", "woroud", "123123", "RAM", "0568725598", "122", true, 2);
-        Installer n1 = new Installer("l,mfvjelenab798@vkr1.com", "ahmad", "123", "nablus", "0568665598", "123", true, 2);
-        Installer n2 = new Installer("leen@gmail.com", "leen", "321", "SAM", "0568722198", "124", false, 2);
+        Installer n = new Installer("jelenab798@vkr1.com", "woroud", "123123", "RAM", "0568725598", "122", true);
+        Installer n1 = new Installer("l,mfvjelenab798@vkr1.com", "ahmad", "123", "nablus", "0568665598", "123", true);
+        Installer n2 = new Installer("leen@gmail.com", "leen", "321", "SAM", "0568722198", "124", false);
         Installer.getInstaller().add(n);
         Installer.getInstaller().add(n1);
         Installer.getInstaller().add(n2);

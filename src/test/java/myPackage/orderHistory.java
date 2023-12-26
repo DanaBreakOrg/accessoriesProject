@@ -45,7 +45,7 @@ public class orderHistory {
 
     @Given("a customer has made orders")
     public void aCustomerHasMadeOrders() {
-        c   =new Customer("shahd","111","QAM","02872228","jixag36030@usoplay.com","Male",0.0,1);
+        c   =new Customer("shahd","111","QAM","02872228","jixag36030@usoplay.com","Male",0.0);
 
         product7 = new Product("3100","Roof racks3" ,"pack of 2 car roof rackkvkv", "electronics",300);
         Operations.addProduct(product7);

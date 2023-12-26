@@ -18,7 +18,7 @@ public class Installer {
     private String idd;
     boolean available;
     @SuppressWarnings("unused")
-    private int type;
+
     boolean logState;
     String pass;
 
@@ -64,7 +64,7 @@ public class Installer {
 
 
 
-    public Installer(String email,String name,String password, String address, String phone, String iD, boolean available, int type) {
+    public Installer(String email,String name,String password, String address, String phone, String iD, boolean available) {
         super();
         this.pass = password;
         this.name = name;
@@ -72,7 +72,7 @@ public class Installer {
         this.phone = phone;
         this.idd = iD;
         this.available = available;
-        this.type= type;
+
         this.email=email;
 
     }

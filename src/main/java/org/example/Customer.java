@@ -30,6 +30,11 @@ public class Customer {
 
     private List<Product> card = new ArrayList<>() ;
     protected static final List<Customer> C = new ArrayList<>() ;//the used list that contains all customers,getC
+
+    public List<Request> getCustomerRequestsHistory() {
+        return customerRequestsHistory;
+    }
+
     protected List<Request> customerRequestsHistory = new ArrayList<>() ;
     protected List<Order> customerOrders = new ArrayList<>() ;
 
