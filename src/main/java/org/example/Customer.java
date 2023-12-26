@@ -131,6 +131,7 @@ public class Customer {
 
     }
 
+
     private static void showInteriorAccessories() {
         logger.info("Interior accessories:\r"+
                 "------------------------------------------------------------");
@@ -226,24 +227,23 @@ public class Customer {
         }
     }
 
+
     public static void viewInstallationRequests() {
-
-        for(int i = 0; i<Customer.getCustomerList().get(getY()).customerRequestsHistory.size(); i++) {
-
-            String status = Customer.getCustomerList().get(getY()).customerRequestsHistory.get(i).getStatus();
-            Request request = Customer.getCustomerList().get(getY()).customerRequestsHistory.get(i);
+        Customer currentCustomer = Customer.getCustomerList().get(getY());
+        for (Request request : currentCustomer.customerRequestsHistory) {
+            String status = request.getStatus();
             String requestInfo = Admin.toString(request);
 
             if ("Waiting for Installer response.".equals(status) || "Waiting for Admin response.".equals(status)) {
                 logger.info(String.format("Your Request   :%n%s          Waiting%n", requestInfo));
-            } else if ("Approved.".equals(status) && Installer.getReservedDone().containsKey(request)) {
-                String installerInfo = Admin.toString(Installer.getReservedDone().get(request));
-                logger.info(String.format("Your Request   :%n%s          by    %s", requestInfo, installerInfo));
+            } else if ("Approved.".equals(status)) {
+                if (Installer.getReservedDone().containsKey(request)) {
+                    String installerInfo = Admin.toString(Installer.getReservedDone().get(request));
+                    logger.info(String.format("Your Request   :%n%s          by    %s", requestInfo, installerInfo));
+                }
             }
         }
     }
-
-
     public static void makeRequest(String predate, String cmodel, Product p, String location) {
         Request r=Customer.getCustomerList().get(getY()).setRequest(predate, cmodel,p, location);
         r.setStatus("Waiting for Admin response.");
@@ -404,108 +404,6 @@ public class Customer {
     }
 
 
-
-
-    /*
-    public void printOrderProducts(Order order) {
-
-        logger.info("Order info : \n");
-        double total=0;
-        for (Product product : order.products) {
-            logger.info("Product id : " + product.getId() + "\t\t" + " Name : " + product.getName() + "\t\t" + " Price : " + product.getPrice()+"\n");
-            total += product.getPrice();
-        }
-
-        logger.info("Time       :    "+order.date2+"\n");
-        logger.info("Total cost :    "+total+"\n\n");
-
-
-    }
-
-
-
-
-    public static void viewInstallationRequests() {
-        for(int i = 0; i<Customer.getCustomerList().get(y).customerRequestsHistory.size(); i++) {
-            if (Customer.getCustomerList().get(y).customerRequestsHistory.get(i).getStatus().equals("Waiting for Installer response.") || Customer.getCustomerList().get(y).customerRequestsHistory.get(i).getStatus().equals("Waiting for Admin response.")) {
-                logger.info("Your Request   :\n"+Admin.toString(Customer.getCustomerList().get(y).customerRequestsHistory.get(i)) + "          Waiting\n");
-            } else if (Customer.getCustomerList().get(y).customerRequestsHistory.get(i).getStatus().equals("Approved.")&& Installer.getReservedDone().containsKey(Customer.getCustomerList().get(y).customerRequestsHistory.get(i))) {
-                logger.info("Your Request   :\n"+Admin.toString(Customer.getCustomerList().get(y).customerRequestsHistory.get(i)) + "          Approved by    " + Admin.toString(Installer.getReservedDone().get(Customer.getCustomerList().get(y).customerRequestsHistory.get(i))));
-            }
-        }
-    }
-
-
-   public static void filterProductsbyPrice(int filterChoice) {
-        if (filterChoice == 1) {
-            for (int i = 0; i < Product.getP().size(); i++) {
-                if ((Product.getP().get(i).getPrice() > 0) && (Product.getP().get(i).getPrice() <= 70)) {
-                    logger.info(
-                            "ID: " + Product.getP().get(i).getId() + "\t"
-                                    + NAME + Product.getP().get(i).getName() + "\t"
-                                    + DESCRIPTION + Product.getP().get(i).getDescription() + "\t"
-                                    + PRICE + Product.getP().get(i).getPrice() + "\n");
-                }
-            }
-        }
-        if (filterChoice == 2) {
-            for (int i = 0; i < Product.getP().size(); i++) {
-                if ((Product.getP().get(i).getPrice() > 70) && (Product.getP().get(i).getPrice() <= 150)) {
-                    logger.info(
-                            "ID: " + Product.getP().get(i).getId() + "\t"
-                                    + NAME + Product.getP().get(i).getName() + "\t"
-                                    + DESCRIPTION + Product.getP().get(i).getDescription() + "\t"
-                                    + PRICE + Product.getP().get(i).getPrice() + "\n");
-                }
-            }
-        }
-        if (filterChoice == 3) {
-            for (int i = 0; i < Product.getP().size(); i++) {
-                if ((Product.getP().get(i).getPrice() > 150)) {
-                    logger.info(
-                            "ID: " + Product.getP().get(i).getId() + "\t"
-                                    + NAME + Product.getP().get(i).getName() + "\t"
-                                    + DESCRIPTION + Product.getP().get(i).getDescription() + "\t"
-                                    + PRICE + Product.getP().get(i).getPrice() + "\n");
-                }
-            }
-        }
-        else{
-            logger.info("Invalid input, enter your choice again\r");
-            //input.nextLine();
-
-        }
-    }
-
-
-
-
-public static void showCart(int customerId) {
-    List<Customer> customerList = Customer.getCustomerList();
-    if (customerId < 0 || customerId >= customerList.size()) {
-        logger.info("Invalid customer ID");
-        return;
-    }
-
-    Customer customer = customerList.get(customerId);
-    if (cards == null) {
-        logger.info("No cards found for customer");
-        return;
-    }
-
-    for (int i = 0; i < cards.size(); i++) {
-        Card card = cards.get(i);
-        String cardInfo = String.format("%sID: %d\t%s%s\t%s%s\t%s%.2f\n",
-                DEC, i + 1,
-                NAME, card.getName(),
-                DESCRIPTION, card.getDescription(),
-                PRICE, card.getPrice());
-        logger.info(cardInfo);
-    }
-
-    String totalCost = String.format("Total cost: %.2f", customer.getCost());
-    logger.info(totalCost);
-}*/
 
 
 }
