@@ -344,6 +344,7 @@ public static void showCart(int customerId) {
                 + DESCRIPTION + product.getDescription() + "\t"
                 + PRICE + product.getPrice() + "\n");
     }
+
 /*
     public static void filterProductsbyPrice(int filterChoice) {
         if (filterChoice == 1) {
