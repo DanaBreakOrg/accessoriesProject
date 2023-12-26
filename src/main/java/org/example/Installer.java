@@ -58,16 +58,16 @@ public class Installer {
     }
 
     public static void viewInsReq() {
-        if(Admin.informInstallerMethod()!= null){
+
         for (Request key : getKeys(Admin.informInstallerMethod(), getInstallerList().get(y))) {
             logger.info(toString(key));
-        }}
+        }
     }
     public static void printAllInstallers() {
         for (int n = 0; n < getInstallerList().size(); n++) {
-            if(getInstallerList().get(n)!= null) {
+
                 logger.info(Admin.toString(getInstallerList().get(n)));//////woroud only, 3 reser
-            }
+
         }
     }
 
