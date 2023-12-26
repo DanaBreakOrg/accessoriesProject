@@ -80,6 +80,11 @@
                         </configuration>
                     </execution>
                 </executions>
+                <configuration>
+                    <excludes>
+                        <exclude>com/example/main</exclude>
+                    </excludes>
+                </configuration>
             </plugin>
 
         </plugins>
