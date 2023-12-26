@@ -9,6 +9,8 @@ import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
 import org.example.Admin;
+import org.example.Customer;
+import org.example.Installer;
 import org.example.Logging;
 
 import java.util.HashMap;
@@ -22,7 +24,8 @@ public class Login {
 
     int x;
     Admin a;
-
+    Customer customer;
+    Installer installer;
     public Login() {
         user = new Logging();
         a= new Admin("nasser@gmail.com","nasser","12345",0);
@@ -35,7 +38,10 @@ public class Login {
 
     @Given("that the User is logged in")
     public void that_the_user_is_logged_in() {
-        user.setLogState(true);
+        user.setLogState(true)
+
+
+        ;
     }
     @Given("the User is on the login page")
     public void the_user_is_on_the_login_page() {
@@ -46,12 +52,22 @@ public class Login {
     @When("User enters the valid username {string} and enters the valid password {string}")
     public void user_enters_the_valid_username_and_enters_the_valid_password(String string, String string2) {
 
+
+
+        installer=new Installer("testInstaller@gmail.com","Installer1","Appleiphone5","nablus","0543","1313",true,2);
+        customer = new Customer("ss","1234567","nablus","0599874562","nkjc@gmail.com","female",0.0,1);
+        Customer.getCustomerList().add(customer);
+        Installer.getInstaller().add(installer);
+
         username = string;
         password = string2;
         int x = user.searchEmail(username);
         int z = user.searchPassword(password);
+        user.email="nkjc@gmail.com";
         boolean customer = user.isCustomer(true);
+        user.email="testInstaller@gmail.com";
         boolean installer = user.isInstaller(true);
+
 
         System.out.println(x+"   "+z);
 

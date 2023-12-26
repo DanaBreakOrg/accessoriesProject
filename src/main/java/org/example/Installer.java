@@ -158,12 +158,6 @@ public static boolean installerAnswer(String x , Request key, int k)
     public void setPhone(String phone) {
         this.phone = phone;
     }
-    public String getID() {
-        return idd;
-    }
-    public void setID(String iD) {
-        idd = iD;
-    }
 
 
 }
