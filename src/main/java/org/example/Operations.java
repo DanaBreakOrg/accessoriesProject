@@ -4,7 +4,7 @@ import java.util.logging.Logger;
 
 public class Operations {
 
-    protected final static Logger logger = Logger.getLogger(Operations.class.getName());
+    protected static final Logger logger = Logger.getLogger(Operations.class.getName());
 
     private Operations() {
 
