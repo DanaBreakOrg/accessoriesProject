@@ -63,11 +63,11 @@ public class Main {
 
         Product product1 = new Product("1200", "car seat", "waterproof car seats", "interior", 50);
         Product product2 = new Product("1", "Car mats", "black rubber car mats", "exterior", 70);
-        Product product3 = new Product("1400", "Roof racks", "pack of 2 car roof rack", "electronics", 100);
-        Product product4 = new Product("2200", "Roof racksrfs", "pack of 2 car roof racklkmfvm", "electronics", 100);
-        Product product5 = new Product("3000", "Roof racks1", "pack of 2 car roof racksac,m", "electronics", 200);
-        Product product6 = new Product("3576", "Roof racks2", "pack of 2 car roof rackkmvkl", "electronics", 130);
-        Product product7 = new Product("3100", "Roof racks3", "pack of 2 car roof rackkvkv", "electronics", 300);
+        Product product3 = new Product("1400", "Roof racks", "pack of 2 car roof rack", ELECTRONICS, 100);
+        Product product4 = new Product("2200", "Roof racksrfs", "pack of 2 car roof racklkmfvm", ELECTRONICS, 100);
+        Product product5 = new Product("3000", "Roof racks1", "pack of 2 car roof racksac,m", ELECTRONICS, 200);
+        Product product6 = new Product("3576", "Roof racks2", "pack of 2 car roof rackkmvkl", ELECTRONICS, 130);
+        Product product7 = new Product("3100", "Roof racks3", "pack of 2 car roof rackkvkv", ELECTRONICS, 300);
 
         Operations.addProduct(product7);
         Operations.addProduct(product6);
@@ -127,7 +127,7 @@ public class Main {
                     + "1. Create account\r\n"
                     + "2. Log-in\r\n"
                     + "3. Exit.\r\n"
-                    + "Enter your choice: ");
+                    + ENTER_CHOICE);
 
 
             int accountChoice = scanner(); // only integer input
@@ -196,6 +196,7 @@ public class Main {
                 }
 
                 case 3:loggedin=false;
+                break;
 
                 default:
                     // Handle unexpected value, log an error, or take appropriate action
@@ -458,13 +459,11 @@ public class Main {
 
         boolean running = true;
         while (running) {
-            logger.info("\n Welcome Installer "+ Installer.getInstallerList().get(getY()).getName() +" , to the Car accessories company.\r\n"
-                    +"------------------------------------------------------------.\r\n"
-                    +"Select an option:.\r\n"//add update delete view customers
+            logger.info("\n Welcome Installer "+ Installer.getInstallerList().get(getY()).getName() +WELCOME//add update delete view customers
                     +"1.  View installation requests.\r\n"
                     +"2.  Schedule appointments.\r\n"
                     +"3.  Logout.\r\n"
-                    +"Enter your choice : ");
+                    +ENTER_CHOICE);
             int choice = Main.scanner();
 
             switch (choice) {
@@ -485,7 +484,7 @@ public class Main {
                 }
 
                 default:{
-                    logger.info("Invalid choice. Please try again.");
+                    logger.info(INVALID_CHOICE);
                     input.nextLine();
                     break;
                 }
@@ -533,9 +532,7 @@ public class Main {
 
         boolean running = true;
         while (running) {
-            logger.info("\n Welcome "+Customer.getCustomerList().get(getY()).getUsername()+ " , to the Car accessories company.\r\n"
-                            + "------------------------------------------------------------.\r\n"
-                            + "Select an option:.\r\n"
+            logger.info("\n Welcome "+Customer.getCustomerList().get(getY()).getUsername()+ WELCOME
                             + "1.  Profile.\r\n"//done
                             + "2.  Show all products.\r\n"//done
                             + "3.  Filter by category.\r\n"//done
@@ -544,7 +541,7 @@ public class Main {
                             + "6.  Show cart.\r\n"//done
                             + "7.  Search a product.\r\n"//done
                             + "8. Logout.\r\n"//done
-                            + "Enter your choice\r"
+                            + ENTER_CHOICE
                     //view order history
             );
             int choice = Main.scanner();
@@ -568,7 +565,7 @@ public class Main {
                             "2. Exterior accessories.\r\n"+
                             "3. Electronics.\r\n"+
                             "4. Back\r\n"+
-                            "Enter your choice : \r"
+                            ENTER_CHOICE
                     );
                     int filterChoice = Main.scanner();
                     Customer.filterProducts(filterChoice);
@@ -584,7 +581,7 @@ public class Main {
                             " 2. medium priced accessories (70-150)NIS.\n"+
                             " 3. high priced accessories (higher than 150) NIS.\n"+
                             " 4.Back\n"+
-                            "Enter your choice:\r ");
+                            ENTER_CHOICE);
                     int filterChoicebuPrice = Main.scanner();
                     Customer.filterProductsbyPrice(filterChoicebuPrice);
                     break;
@@ -610,7 +607,7 @@ public class Main {
                                         logger.info("Would you lik to make an installation request?\n"+
                                                 "1- Yes.\n" +
                                                 "2- No.\n"
-                                                +"Enter your choice : ");
+                                                +ENTER_CHOICE);
 
                                         String choicee= input.next();
                                         if(choicee.equals("yes")||choicee.equals("Yes")||choicee.equals("1")){
@@ -707,7 +704,7 @@ public class Main {
                 + "5. View order history.\r\n"//done
                 + "6. View your installation requests status.\r\n"// done
                 + "7. Back.\r\n"//done
-                + "Enter your choice: \r"
+                + ENTER_CHOICE
         );
         int p= Main.scanner();
         switch(p){
