@@ -798,7 +798,7 @@ public class Main {
         }
     }
 
-    private void processInstallationRequest(Scanner input, String pid){
+    private static void processInstallationRequest(Scanner input, String pid){
         logger.info("Enter your car model\r");
         String carModel = input.nextLine();
         logger.info("Enter your preferred date (DD/MM/YYYY)\r");
