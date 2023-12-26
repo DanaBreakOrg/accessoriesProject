@@ -76,14 +76,14 @@ public class adminControl {
 
         Customer.makeRequest("2024-01-01","uno",product,"nablus");
 
-        for (Map.Entry<Request, Installer> entry : informInstallerr.entrySet()) {
+        for (Map.Entry<Request, Installer> entry : InformInstallerMethod().entrySet()) {
 
             installerAnswer=Installer.installerAnswer("yes", entry.getKey(),0);
             break;
         }
 
 
-        for (Request key : Installer.getKeys(informInstallerr, Installer.getInstaller().get(1))) {
+        for (Request key : Installer.getKeys(InformInstallerMethod(), Installer.getInstaller().get(1))) {
 
             Admin.toString(key);
         }
@@ -103,7 +103,7 @@ public class adminControl {
 
         Customer.makeRequest("2024-01-01","uno",product,"nablus");
 
-        for (Map.Entry<Request, Installer> entry : informInstallerr.entrySet()) {
+        for (Map.Entry<Request, Installer> entry : InformInstallerMethod().entrySet()) {
 
             installerAnswer=Installer.installerAnswer("no", entry.getKey(),0);
             break;

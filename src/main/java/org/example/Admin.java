@@ -17,9 +17,9 @@ public class Admin {
 
 
     protected static final List<Admin> adminList = new ArrayList<>() ;
-    protected static HashMap<Request,Customer> cusReq= new HashMap<>();//for admin usage,each customer with his requests,make an installation request (customer fills it)
-    public static HashMap<Request,Installer> informInstallerr= new HashMap<>();
-    final static Logger logger = Logger.getLogger(Admin.class.getName());
+    protected static Map<Request,Customer> cusReq= new HashMap<>();//for admin usage,each customer with his requests,make an installation request (customer fills it)
+    protected static Map<Request,Installer> informInstallerr= new HashMap<>();
+    protected final static Logger logger = Logger.getLogger(Admin.class.getName());
 
     static {
 
@@ -40,7 +40,6 @@ public class Admin {
     public Admin() {logState=false;}
 
     public Admin(String email, String name,String password, int type) {
-        // super();
         this.password= password;
         this.type = type;
         this.username = name;
@@ -70,7 +69,7 @@ public class Admin {
                             //successful finding installer
                             //send to installer
                             key.setStatus("Waiting for Installer response.");
-                            Admin.InformInstallerr().put(key, Installer.getInstaller().get(i));//list from admin to installer waiting
+                            Admin.InformInstallerMethod().put(key, Installer.getInstaller().get(i));//list from admin to installer waiting
                             EmailSender.sendEmail(Installer.getInstaller().get(i).getEmail(), "New installation request", "New installation request was submitted and waiting for your response :\n"
                                     + "Customer Info   : " + "\n" +
                                     "Name           : " + Customer.getCustomerList().get(k).getUsername() + "\n" +
@@ -121,7 +120,6 @@ public class Admin {
 
     private static boolean searchAvailable(Installer installer,Customer customer,String date) {
         installer.available=true;
-        // printAllDates(installer);
         if(!installer.getReservaeddates().containsValue(date)){
             installer.available=false;
             installer.getReservaeddates().put(customer,date);
@@ -171,8 +169,8 @@ public class Admin {
 
 
 
-    public static HashMap<Request,Installer> InformInstallerr() {return informInstallerr;}
-    public static HashMap<Request,Customer> getCusReq() {return cusReq;}
+    public static Map<Request,Installer> InformInstallerMethod() {return informInstallerr;}
+    public static Map<Request,Customer> getCusReq() {return cusReq;}
     public static List<Admin> getAdminList() {return adminList;}
     public String getPassword() {return password;}
     public void logging(boolean t) { logState=t; }

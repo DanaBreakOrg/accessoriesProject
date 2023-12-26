@@ -51,7 +51,7 @@ public class orderHistory {
         Operations.addProduct(product7);
         c.getCard().add(product7);
         order  =new Order(c,c.getCard(),formattedDateTime);
-        c.customerOrders.add(order);
+        c.getCustomerOrders().add(order);
 
     }
 }

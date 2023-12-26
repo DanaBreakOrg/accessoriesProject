@@ -5,16 +5,13 @@ import java.util.List;
 import java.util.Map;
 import java.util.Scanner;
 import java.util.logging.*;
-
 import static org.example.Admin.getCusReq;
-import static org.example.Admin.toString;
 import static org.example.Logging.y;
 
-import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
 public class Customer {
-
-
+    public static final String constName = "Name: ";
+    public static final String constDescription = "Description: ";
+    public static final String constPrice= "Price: ";
     private String username;
     private String address;
     private String phone;
@@ -34,11 +31,11 @@ public class Customer {
     private List<Product> card = new ArrayList<>() ;
     protected static final List<Customer> C = new ArrayList<>() ;//the used list that contains all customers,getC
     protected List<Request> customerRequestsHistory = new ArrayList<>() ;
-    public List<Order> customerOrders = new ArrayList<>() ;
+    protected List<Order> customerOrders = new ArrayList<>() ;
 
-    //Order order=new Order();
     protected static Scanner input = new Scanner (System.in);
-    final static Logger logger = Logger.getLogger(Customer.class.getName());
+    static final Logger logger = Logger.getLogger(Customer.class.getName());
+
 
     static {
 
@@ -57,7 +54,6 @@ public class Customer {
 
     public Customer() {
         logState=false;
-        //pass="worker123";
 
     }
 
@@ -66,7 +62,7 @@ public class Customer {
 
 
 
-    public static boolean SearchAProduct(String searchP) {
+    public static boolean searchAProduct(String searchP) {
         boolean found =false;
         for (int i = 0; i < Product.getP().size(); i++) {
 
@@ -89,9 +85,9 @@ public class Customer {
             String format =String.format(DEC, i + 1);
             logger.info(format +
                     "ID: "+Customer.getCustomerList().get(y).getCard().get(i).getId()+"\t"
-                    +"Name: "+Customer.getCustomerList().get(y).getCard().get(i).getName()+"\t"
-                    +"Description: "+Customer.getCustomerList().get(y).getCard().get(i).getDescription()+"\t"
-                    +"Price: "+ Customer.getCustomerList().get(y).getCard().get(i).getPrice()+ "\n");
+                    +constName+Customer.getCustomerList().get(y).getCard().get(i).getName()+"\t"
+                    + constDescription +Customer.getCustomerList().get(y).getCard().get(i).getDescription()+"\t"
+                    +constPrice+ Customer.getCustomerList().get(y).getCard().get(i).getPrice()+ "\n");
         }
         String totalCost=String.format("Total cost : %f",Customer.getCustomerList().get(y).getCost());
         logger.info(totalCost);
@@ -111,8 +107,7 @@ public class Customer {
             case 3: showElectronicsAccessories(); break;
             case 4: break;
             default:logger.info("Invalid input, enter your choice again\r");
-                //input.nextLine();
-                break;
+            break;
         }
 
     }
@@ -124,9 +119,9 @@ public class Customer {
             if (Product.getP().get(i).getCategory().equals("electronics")) {
                 logger.info(
                         "ID: "+Product.getP().get(i).getId()+"\t"
-                                +"Name: "+Product.getP().get(i).getName()+"\t"
-                                +"Description: "+Product.getP().get(i).getDescription()+"\t"
-                                +"Price: "+ Product.getP().get(i).getPrice()+ "\n");            }
+                                +constName+Product.getP().get(i).getName()+"\t"
+                                +constDescription +Product.getP().get(i).getDescription()+"\t"
+                                +constPrice+ Product.getP().get(i).getPrice()+ "\n");            }
         }
 
     }
@@ -138,9 +133,9 @@ public class Customer {
             if (Product.getP().get(i).getCategory().equals("interior")) {
                 logger.info(
                         "ID: "+Product.getP().get(i).getId()+"\t"
-                                +"Name: "+Product.getP().get(i).getName()+"\t"
-                                +"Description: "+Product.getP().get(i).getDescription()+"\t"
-                                +"Price: "+ Product.getP().get(i).getPrice()+ "\n");            }
+                                +constName+Product.getP().get(i).getName()+"\t"
+                                +constDescription +Product.getP().get(i).getDescription()+"\t"
+                                +constPrice+ Product.getP().get(i).getPrice()+ "\n");            }
         }
     }
 
@@ -153,9 +148,9 @@ public class Customer {
 
                 logger.info(
                         "ID: "+Product.getP().get(i).getId()+"\t"
-                                +"Name: "+Product.getP().get(i).getName()+"\t"
-                                +"Description: "+Product.getP().get(i).getDescription()+"\t"
-                                +"Price: "+ Product.getP().get(i).getPrice()+ "\n");
+                                +constName+Product.getP().get(i).getName()+"\t"
+                                +constDescription +Product.getP().get(i).getDescription()+"\t"
+                                +constPrice+ Product.getP().get(i).getPrice()+ "\n");
                 productsCounter++;
             }
         }
@@ -184,8 +179,8 @@ public class Customer {
     }
 
     public static void viewOrderHistory() {
-        for(int i=0; i<Customer.getCustomerList().get(y).customerOrders.size();i++){
-            Customer.getCustomerList().get(y).printOrderProducts(Customer.getCustomerList().get(y).customerOrders.get(i));
+        for(int i=0; i<Customer.getCustomerList().get(y).getCustomerOrders().size();i++){
+            Customer.getCustomerList().get(y).printOrderProducts(Customer.getCustomerList().get(y).getCustomerOrders().get(i));
 
         }
     }
@@ -219,16 +214,6 @@ public class Customer {
             logger.info("Request Info   :\n"+Admin.toString(entry.getKey()) + " \n " + "Customer Info   :\n"+Admin.toString(entry.getValue()));//////////////
         }
     }
-
-    /*
-    public static void printAllRequestsOfaCustomer(String cusmail) {
-        for (Map.Entry< Request,Customer> entry : cusReq.entrySet()) {//do we need to know the product?
-            if(cusReq.get(entry.getKey()).getEmail().equals(cusmail)) {
-                logger.info("Request Info   :\n" + Admin.toString(entry.getKey()) + " \n " );//////////////
-            }
-        }
-    }*/
-
 
 
     public static void viewInstallationRequests() {
@@ -265,9 +250,9 @@ public class Customer {
                 if ((Product.getP().get(i).getPrice() > 0) && (Product.getP().get(i).getPrice() <= 70)) {
                     logger.info(
                             "ID: " + Product.getP().get(i).getId() + "\t"
-                                    + "Name: " + Product.getP().get(i).getName() + "\t"
-                                    + "Description: " + Product.getP().get(i).getDescription() + "\t"
-                                    + "Price: " + Product.getP().get(i).getPrice() + "\n");
+                                    + constName + Product.getP().get(i).getName() + "\t"
+                                    + constDescription + Product.getP().get(i).getDescription() + "\t"
+                                    + constPrice + Product.getP().get(i).getPrice() + "\n");
                 }
             }
         }
@@ -276,9 +261,9 @@ public class Customer {
                 if ((Product.getP().get(i).getPrice() > 70) && (Product.getP().get(i).getPrice() <= 150)) {
                     logger.info(
                             "ID: " + Product.getP().get(i).getId() + "\t"
-                                    + "Name: " + Product.getP().get(i).getName() + "\t"
-                                    + "Description: " + Product.getP().get(i).getDescription() + "\t"
-                                    + "Price: " + Product.getP().get(i).getPrice() + "\n");
+                                    + constName + Product.getP().get(i).getName() + "\t"
+                                    + constDescription + Product.getP().get(i).getDescription() + "\t"
+                                    + constPrice + Product.getP().get(i).getPrice() + "\n");
                 }
             }
         }
@@ -287,9 +272,9 @@ public class Customer {
                 if ((Product.getP().get(i).getPrice() > 150)) {
                     logger.info(
                             "ID: " + Product.getP().get(i).getId() + "\t"
-                                    + "Name: " + Product.getP().get(i).getName() + "\t"
-                                    + "Description: " + Product.getP().get(i).getDescription() + "\t"
-                                    + "Price: " + Product.getP().get(i).getPrice() + "\n");
+                                    + constName + Product.getP().get(i).getName() + "\t"
+                                    + constDescription + Product.getP().get(i).getDescription() + "\t"
+                                    + constPrice + Product.getP().get(i).getPrice() + "\n");
                 }
             }
         }
@@ -299,23 +284,7 @@ public class Customer {
 
         }
     }
-    /*private static List<Product> products1;
-    public static void submitOrder(Customer customer, List<Product> card) {
-        products1=card;
-        LocalDateTime currentDateTime = LocalDateTime.now();
 
-        // Define the date and time format
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
-
-        // Format the current date and time
-        String formattedDateTime = currentDateTime.format(formatter);
-
-        Order order=new Order(customer,products1,formattedDateTime);
-        Order.getOrderList().add(order);
-        //card.clear();
-        //order.makeOrder(customer,card,formattedDateTime);
-
-    }*/
 
     public void logging(boolean t) {
         logState=t;
@@ -413,7 +382,7 @@ public class Customer {
     }
 
 
-    public List<Request> getReqArry() {
-        return this.customerRequestsHistory ;
-    }
+    public List<Request> getReqArry() {return this.customerRequestsHistory ;}
+    public List<Order> getCustomerOrders() {return this.customerOrders ;}
+
 }

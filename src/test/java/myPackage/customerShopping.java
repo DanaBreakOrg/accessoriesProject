@@ -4,7 +4,6 @@ import io.cucumber.java.en.Given;
 import io.cucumber.java.en.When;
 import io.cucumber.java.en.Then;
 
-import static org.example.Admin.getCusReq;
 import static org.junit.Assert.*;
 import org.example.Customer;
 import org.example.Operations;
@@ -108,7 +107,7 @@ public class customerShopping {
 
     @When("the customer want to search a product with the name {string} to the cart")
     public void theCustomerWantToSearchAProductWithTheNameToTheCart(String arg0) {
-        prductExist=Customer.SearchAProduct(arg0);
+        prductExist=Customer.searchAProduct(arg0);
     }
 
 

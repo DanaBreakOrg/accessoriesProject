@@ -461,7 +461,7 @@ public class Main {
                 }
 
                 case 2:{
-                    HandleRequestsFromAdmin(informInstallerr,Installer.getInstaller().get(y).getEmail());
+                    HandleRequestsFromAdmin(InformInstallerMethod(),Installer.getInstaller().get(y).getEmail());
                     break;
                 }
 
@@ -480,7 +480,7 @@ public class Main {
         }
 
     }
-    public static void HandleRequestsFromAdmin(HashMap<Request, Installer> h, String email){
+    public static void HandleRequestsFromAdmin(Map<Request, Installer> h, String email){
 
         Scanner choice = new Scanner(System.in);
 
@@ -657,7 +657,7 @@ public class Main {
                     String formattedDateTime = currentDateTime.format(formatter);
                     Order order=new Order(Customer.getCustomerList().get(y),Customer.getCustomerList().get(y).getCard(),formattedDateTime);
 
-                    Customer.getCustomerList().get(y).customerOrders.add(order);
+                    Customer.getCustomerList().get(y).getCustomerOrders().add(order);
                     Customer.getCustomerList().get(y).getCard().clear();
                     //not working properly
 
@@ -674,7 +674,7 @@ public class Main {
                     Scanner search = new Scanner(System.in);
                     logger.info("Enter a product name\r");
                     String searchP= search.nextLine();
-                    Customer.SearchAProduct(searchP);
+                    Customer.searchAProduct(searchP);
                     break;
 
                 case 8://costumer logout done

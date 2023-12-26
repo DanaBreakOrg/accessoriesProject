@@ -52,7 +52,7 @@ public class Installer {
     }
 
     public static void viewInsReq() {
-        for (Request key : getKeys(Admin.InformInstallerr(), getInstaller().get(y))) {
+        for (Request key : getKeys(Admin.InformInstallerMethod(), getInstaller().get(y))) {
             logger.info(toString(key));
         }
     }
@@ -86,7 +86,7 @@ public static boolean installerAnswer(String x , Request key, int k)
         EmailSender.sendEmail(getCusReq().get(key).getEmail(),"Installation request approval","Your installation request was approved by the installer :)");
 
         getCusReq().remove(key);
-        Admin.InformInstallerr().remove(key);
+        Admin.InformInstallerMethod().remove(key);
         getReservedDone().put(key, Installer.getInstaller().get(k));
         //inform customer that the installation was approved
 
@@ -95,7 +95,7 @@ public static boolean installerAnswer(String x , Request key, int k)
     else if(x.equals("No")||x.equals("no")||x.equals("2")){
 
         key.setStatus("Waiting for Installer response.");
-        Admin.InformInstallerr().remove(key);
+        Admin.InformInstallerMethod().remove(key);
         flag=false;
         return flag;
     }
