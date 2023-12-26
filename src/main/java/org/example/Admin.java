@@ -19,7 +19,7 @@ public class Admin {
     protected static final List<Admin> adminList = new ArrayList<>() ;
     protected static Map<Request,Customer> cusReq= new HashMap<>();//for admin usage,each customer with his requests,make an installation request (customer fills it)
     protected static Map<Request,Installer> informInstallerr= new HashMap<>();
-    protected final static Logger logger = Logger.getLogger(Admin.class.getName());
+    protected static final Logger logger = Logger.getLogger(Admin.class.getName());
 
     static {
 
@@ -55,10 +55,14 @@ public class Admin {
 
             if (Customer.getCustomerList().get(k).getEmail().equals(customerEmail) && getCusReq().containsValue(Customer.getCustomerList().get(k))) {//customer found
 
+
                 //all his requests
+
                 for (Request key : getKeys(getCusReq(), Customer.getCustomerList().get(k))) {
-                    logger.info("Request Info   :\n" + toString(key));
+                    String logMessage = String.format("Request Info:\n%s", toString(key));
+                    logger.info(logMessage);
                 }
+
 
                 for (Request key : getKeys(getCusReq(), Customer.getCustomerList().get(k))) {
                     for (int i = 0; i < Installer.getInstaller().size(); i++) {
@@ -69,8 +73,8 @@ public class Admin {
                             //successful finding installer
                             //send to installer
                             key.setStatus("Waiting for Installer response.");
-                            Admin.InformInstallerMethod().put(key, Installer.getInstaller().get(i));//list from admin to installer waiting
-                            EmailSender.sendEmail(Installer.getInstaller().get(i).getEmail(), "New installation request", "New installation request was submitted and waiting for your response :\n"
+                            Admin.informInstallerMethod().put(key, Installer.getInstaller().get(i));//list from admin to installer waiting
+                            sendEmailToInstaller(Installer.getInstaller().get(i).getEmail(),"New installation request","New installation request was submitted and waiting for your response :\n"
                                     + "Customer Info   : " + "\n" +
                                     "Name           : " + Customer.getCustomerList().get(k).getUsername() + "\n" +
                                     "Email          : " + Customer.getCustomerList().get(k).getEmail() + "\n" +
@@ -84,7 +88,6 @@ public class Admin {
                                     "----------------------------------------------------\n"
                                     + "Product Info     : " + "\n" +
                                     toString(key.product));
-
 
                             logger.info("Waiting for Installer response.");
                             break;
@@ -169,7 +172,7 @@ public class Admin {
 
 
 
-    public static Map<Request,Installer> InformInstallerMethod() {return informInstallerr;}
+    public static Map<Request,Installer> informInstallerMethod() {return informInstallerr;}
     public static Map<Request,Customer> getCusReq() {return cusReq;}
     public static List<Admin> getAdminList() {return adminList;}
     public String getPassword() {return password;}
@@ -178,6 +181,11 @@ public class Admin {
     public String getName() {return username;}
     public String getEmail(){return email;}
 
+
+    public static void sendEmailToInstaller(String installerEmail, String subject, String body){
+        EmailSender.sendEmail(installerEmail, subject, body);
+
+    }
 
 
 }

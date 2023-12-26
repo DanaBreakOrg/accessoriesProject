@@ -461,7 +461,7 @@ public class Main {
                 }
 
                 case 2:{
-                    HandleRequestsFromAdmin(InformInstallerMethod(),Installer.getInstaller().get(y).getEmail());
+                    HandleRequestsFromAdmin(informInstallerMethod(),Installer.getInstaller().get(y).getEmail());
                     break;
                 }
 
@@ -805,7 +805,7 @@ public class Main {
         String password = input.nextLine();
 
         Customer r = new Customer(username, password, address, phnum, email, gen,0.0,1);
-        boolean create = Operations.createCustomer(r);
+        boolean create = Operations.addCustomer(r);
         if (create) {
             logger.info("A new account was created successfully");
             Logging.q.put(email, password);

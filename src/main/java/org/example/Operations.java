@@ -1,8 +1,10 @@
 package org.example;
 
-public class Operations {
-// line 190 + 171 need to be checked
+import java.util.logging.Logger;
 
+public class Operations {
+
+    protected final static Logger logger = Logger.getLogger(Admin.class.getName());
 
     private Operations() {
 
@@ -11,34 +13,19 @@ public class Operations {
     public static void errorMsg(String errorMessage)
     {
         if(errorMessage.equals("1")) {
-            System.out.println("Username can't be empty");
+            logger.info("Username can't be empty");
         }
         else if(errorMessage.equals("2")) {
-            System.out.println("Password can't be empty");
+            logger.info("Password can't be empty");
         }
         else if(errorMessage.equals("3")) {
-            System.out.println("this user already exists");
+            logger.info("this user already exists");
         }
     }
 
 
     //customer operations
 
-    public static boolean createCustomer(Customer c) {
-        boolean add=true;
-        for(int i = 0; i< Customer.getCustomerList().size() ; i++) {
-            if((Customer.getCustomerList().get(i).getEmail().equals(c.getEmail()))||((Customer.getCustomerList().get(i).getEmail().equals(c.getEmail())) && (Customer.getCustomerList().get(i).getUsername().equals(c.getUsername())) && (Customer.getCustomerList().get(i).getAddress().equals(c.getAddress()))&& (Customer.getCustomerList().get(i).getPhone().equals(c.getPhone()))))
-            {
-                add = false;//exists
-                break;
-            }
-        }
-        if(add) {
-            Customer.getCustomerList().add(c);
-            //Statistics.totalw();
-        }
-        return add;
-    }
 
     public static boolean deleteCustomer(Customer c) {
         boolean delete =true;
@@ -54,7 +41,6 @@ public class Operations {
         }
         if(!delete) {
             Customer.getCustomerList().remove(index);
-            //Statistics.totalwo();
         }
         return delete;
     }
@@ -70,7 +56,6 @@ public class Operations {
         }
         if(add) {
             Customer.getCustomerList().add(c);
-            // Statistics.totalw();///////////////////
         }
         return add;
     }
@@ -159,7 +144,6 @@ public class Operations {
         }
         if(add) {
             Product.getP().add(p);
-            //Statistics.totalpr();///////////////////////////////////////////////////////////////////
         }
         return add;
     }
@@ -178,7 +162,6 @@ public class Operations {
         }
         if(!delete) {
             Product.getP().remove(index); //delete index
-            //Statistics.totalpro();////////////////////////////////////////////////////////////////
         }
         return delete;
     }
@@ -194,7 +177,7 @@ public class Operations {
         return index;
     }
 
-    public static boolean updateP(String idupdate,String id,String name,String description,double price,String Category) {
+    public static boolean updateP(String idupdate,String id,String name,String description,double price,String category) {
         boolean update=true;
         int index=-1;
         for(int i=0; i< Product.getP().size() ; i++) {
@@ -210,7 +193,7 @@ public class Operations {
             Product.getP().get(index).setName(name);
             Product.getP().get(index).setDescription(description);
             Product.getP().get(index).setPrice(price);
-            Product.getP().get(index).setCategory(Category);
+            Product.getP().get(index).setCategory(category);
 
         }
 
