@@ -505,8 +505,9 @@ public class Main {
 
 
                 for (Request key : Installer.getKeys(h, Installer.getInstallerList().get(k))) {
-                    logger.info(Installer.toString(key));
-
+                    if (logger.isLoggable(Level.INFO)) {
+                        logger.info(Installer.toString(key));
+                    }
 
                     String x = acceptReq(choice);
                     if(!Installer.installerAnswer( x ,  key, k)){
