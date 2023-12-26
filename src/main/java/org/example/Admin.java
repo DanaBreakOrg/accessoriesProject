@@ -61,16 +61,16 @@ public class Admin {
 
 
                 for (Request key : getKeys(getCusReq(), Customer.getCustomerList().get(k))) {
-                    for (int i = 0; i < Installer.getInstaller().size(); i++) {
+                    for (int i = 0; i < Installer.getInstallerList().size(); i++) {
 
-                        done = searchAvailable(Installer.getInstaller().get(i), Customer.getCustomerList().get(k), key.preferredDate);
+                        done = searchAvailable(Installer.getInstallerList().get(i), Customer.getCustomerList().get(k), key.preferredDate);
 
                         if (!done) {
                             //successful finding installer
                             //send to installer
                             key.setStatus("Waiting for Installer response.");
-                            Admin.informInstallerMethod().put(key, Installer.getInstaller().get(i));//list from admin to installer waiting
-                            sendEmailToInstaller(Installer.getInstaller().get(i).getEmail(),"New installation request","New installation request was submitted and waiting for your response :\n"
+                            Admin.informInstallerMethod().put(key, Installer.getInstallerList().get(i));//list from admin to installer waiting
+                            sendEmailToInstaller(Installer.getInstallerList().get(i).getEmail(),"New installation request","New installation request was submitted and waiting for your response :\n"
                                     + "Customer Info   : " + "\n" +
                                     "Name           : " + Customer.getCustomerList().get(k).getUsername() + "\n" +
                                     "Email          : " + Customer.getCustomerList().get(k).getEmail() + "\n" +
@@ -153,7 +153,7 @@ public class Admin {
 
 
     public static String toString(Installer i) {
-        return "Installer :     "+i.getEmail()+" \t "+i.getName()+" \t "+i.getPhone()+"\n" ;
+        return "Installer :     "+i.getEmail()+" \t "+i.getName()+" \t "+i.getPhone()+"\n"+i.getIdd()+"\n" ;
 
     }
     public static String toString(Request r) {

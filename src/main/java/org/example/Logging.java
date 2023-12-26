@@ -2,7 +2,6 @@ package org.example;
 
 import java.util.HashMap;
 import java.util.Map;
-import java.util.Scanner;
 import java.util.logging.Logger;
 
 public class Logging {
@@ -54,8 +53,8 @@ public class Logging {
 
     public boolean isInstaller(boolean flag) {
 
-        for (int k = 0; k < Installer.getInstaller().size(); k++) {
-            if (email.equals(Installer.getInstaller().get(k).getEmail())) {
+        for (int k = 0; k < Installer.getInstallerList().size(); k++) {
+            if (email.equals(Installer.getInstallerList().get(k).getEmail())) {
                 flag = false;
                 successfulusername=true;
                 type = 2;
