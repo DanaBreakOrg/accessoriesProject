@@ -30,8 +30,8 @@ public class adminControl {
         product = new Product("P001", "name1", "desc1", "interior", 50.0);
         Operations.addCustomer(customer);
         Operations.addProduct(product);
-        Installer.getInstaller().add(installer);
-        Installer.getInstaller().add(installer2);
+        Installer.getInstallerList().add(installer);
+        Installer.getInstallerList().add(installer2);
         Customer.makeRequest("2024-01-01","uno",product,"nablus");
         Customer.makeRequest("2024-01-01","uno",product,"nablus");
 
@@ -83,7 +83,7 @@ public class adminControl {
         }
 
 
-        for (Request key : Installer.getKeys(informInstallerMethod(), Installer.getInstaller().get(1))) {
+        for (Request key : Installer.getKeys(informInstallerMethod(), Installer.getInstallerList().get(1))) {
 
             Admin.toString(key);
         }

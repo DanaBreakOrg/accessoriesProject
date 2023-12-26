@@ -73,9 +73,9 @@ public class Main {
         Installer n = new Installer("jelenab798@vkr1.com", "woroud", "123123", "RAM", "0568725598", "122", true);
         Installer n1 = new Installer("l,mfvjelenab798@vkr1.com", "ahmad", "123", "nablus", "0568665598", "123", true);
         Installer n2 = new Installer("leen@gmail.com", "leen", "321", "SAM", "0568722198", "124", false);
-        Installer.getInstaller().add(n);
-        Installer.getInstaller().add(n1);
-        Installer.getInstaller().add(n2);
+        Installer.getInstallerList().add(n);
+        Installer.getInstallerList().add(n1);
+        Installer.getInstallerList().add(n2);
 
 
         n.getReservaeddates().put(c2, "24/10/2002");
@@ -444,7 +444,7 @@ public class Main {
 
         boolean running = true;
         while (running) {
-            logger.info("\n Welcome Installer "+ Installer.getInstaller().get(y).getName() +" , to the Car accessories company.\r\n"
+            logger.info("\n Welcome Installer "+ Installer.getInstallerList().get(y).getName() +" , to the Car accessories company.\r\n"
                     +"------------------------------------------------------------.\r\n"
                     +"Select an option:.\r\n"//add update delete view customers
                     +"1.  View installation requests.\r\n"
@@ -461,7 +461,7 @@ public class Main {
                 }
 
                 case 2:{
-                    HandleRequestsFromAdmin(informInstallerMethod(),Installer.getInstaller().get(y).getEmail());
+                    HandleRequestsFromAdmin(informInstallerMethod(),Installer.getInstallerList().get(y).getEmail());
                     break;
                 }
 
@@ -484,12 +484,12 @@ public class Main {
 
         Scanner choice = new Scanner(System.in);
 
-        for (int k = 0; k < Installer.getInstaller().size(); k++) {
+        for (int k = 0; k < Installer.getInstallerList().size(); k++) {
 
-            if(Installer.getInstaller().get(k).getEmail().equals(email)) {
+            if(Installer.getInstallerList().get(k).getEmail().equals(email)) {
 
 
-                for (Request key : Installer.getKeys(h, Installer.getInstaller().get(k))) {
+                for (Request key : Installer.getKeys(h, Installer.getInstallerList().get(k))) {
                     logger.info(Installer.toString(key));
 /*
                     logger.info("Do you want to accept this request ?\n"

@@ -85,7 +85,7 @@ public class Customer {
 
     public static void showCart() {
         for(int i = 0; i<Customer.getCustomerList().get(y).getCard().size(); i++) {
-         String cardInfo = String.format("%sID: %s\t%s%s\t%s%s\t%s%.2f\n",
+         String cardInfo = String.format("%sID: %s\t%s%s\t%s%s\t%s%.2f%n",
                  ID, Customer.getCustomerList().get(y).getCard().get(i).getId(),
                  NAME ,Customer.getCustomerList().get(y).getCard().get(i).getName(),
                 DESCRIPTION,Customer.getCustomerList().get(y).getCard().get(i).getDescription(),
@@ -198,31 +198,16 @@ public static void showCart(int customerId) {
             logger.info("Order info : \n");
             double total = 0;
             for (Product product : order.products) {
-                String productInfo = String.format("Product id : %s\t\t Name : %s\t\t Price : %.2f\n",
+                String productInfo = String.format("Product id : %s\t\t Name : %s\t\t Price : %.2f%n",
                         product.getId(), product.getName(), product.getPrice());
                 logger.info(productInfo);
                 total += product.getPrice();
             }
-            logger.info(String.format("Time       :    %s\n", order.date2));
-            logger.info(String.format("Total cost :    %.2f\n\n", total));
+            logger.info(String.format("Time       :    %s%n", order.date2));
+            logger.info(String.format("Total cost :    %.2f%n%n", total));
         }
     }
-    /*
-    public void printOrderProducts(Order order) {
 
-        logger.info("Order info : \n");
-        double total=0;
-        for (Product product : order.products) {
-            logger.info("Product id : " + product.getId() + "\t\t" + " Name : " + product.getName() + "\t\t" + " Price : " + product.getPrice()+"\n");
-            total += product.getPrice();
-        }
-
-        logger.info("Time       :    "+order.date2+"\n");
-        logger.info("Total cost :    "+total+"\n\n");
-
-
-    }
-*/
     public static void viewOrderHistory() {
         for(int i=0; i<Customer.getCustomerList().get(y).getCustomerOrders().size();i++){
             Customer.getCustomerList().get(y).printOrderProducts(Customer.getCustomerList().get(y).getCustomerOrders().get(i));
@@ -282,17 +267,7 @@ public static void showCart(int customerId) {
             }
         }
     }
-    /*
 
-    public static void viewInstallationRequests() {
-        for(int i = 0; i<Customer.getCustomerList().get(y).customerRequestsHistory.size(); i++) {
-            if (Customer.getCustomerList().get(y).customerRequestsHistory.get(i).getStatus().equals("Waiting for Installer response.") || Customer.getCustomerList().get(y).customerRequestsHistory.get(i).getStatus().equals("Waiting for Admin response.")) {
-                logger.info("Your Request   :\n"+Admin.toString(Customer.getCustomerList().get(y).customerRequestsHistory.get(i)) + "          Waiting\n");
-            } else if (Customer.getCustomerList().get(y).customerRequestsHistory.get(i).getStatus().equals("Approved.")&& Installer.getReservedDone().containsKey(Customer.getCustomerList().get(y).customerRequestsHistory.get(i))) {
-                logger.info("Your Request   :\n"+Admin.toString(Customer.getCustomerList().get(y).customerRequestsHistory.get(i)) + "          Approved by    " + Admin.toString(Installer.getReservedDone().get(Customer.getCustomerList().get(y).customerRequestsHistory.get(i))));
-            }
-        }
-    }*/
 
     public static void makeRequest(String predate, String cmodel, Product p, String location) {
         Request r=Customer.getCustomerList().get(y).setRequest(predate, cmodel,p, location);
@@ -326,7 +301,6 @@ public static void showCart(int customerId) {
                 break;
             default:
                 logger.info("Invalid input, enter your choice again\r");
-                //input.nextLine();
                 break;
         }
     }
@@ -350,56 +324,14 @@ public static void showCart(int customerId) {
                 + PRICE + product.getPrice() + "\n");
     }
 
-/*
-    public static void filterProductsbyPrice(int filterChoice) {
-        if (filterChoice == 1) {
-            for (int i = 0; i < Product.getP().size(); i++) {
-                if ((Product.getP().get(i).getPrice() > 0) && (Product.getP().get(i).getPrice() <= 70)) {
-                    logger.info(
-                            "ID: " + Product.getP().get(i).getId() + "\t"
-                                    + NAME + Product.getP().get(i).getName() + "\t"
-                                    + DESCRIPTION + Product.getP().get(i).getDescription() + "\t"
-                                    + PRICE + Product.getP().get(i).getPrice() + "\n");
-                }
-            }
-        }
-        if (filterChoice == 2) {
-            for (int i = 0; i < Product.getP().size(); i++) {
-                if ((Product.getP().get(i).getPrice() > 70) && (Product.getP().get(i).getPrice() <= 150)) {
-                    logger.info(
-                            "ID: " + Product.getP().get(i).getId() + "\t"
-                                    + NAME + Product.getP().get(i).getName() + "\t"
-                                    + DESCRIPTION + Product.getP().get(i).getDescription() + "\t"
-                                    + PRICE + Product.getP().get(i).getPrice() + "\n");
-                }
-            }
-        }
-        if (filterChoice == 3) {
-            for (int i = 0; i < Product.getP().size(); i++) {
-                if ((Product.getP().get(i).getPrice() > 150)) {
-                    logger.info(
-                            "ID: " + Product.getP().get(i).getId() + "\t"
-                                    + NAME + Product.getP().get(i).getName() + "\t"
-                                    + DESCRIPTION + Product.getP().get(i).getDescription() + "\t"
-                                    + PRICE + Product.getP().get(i).getPrice() + "\n");
-                }
-            }
-        }
-        else{
-            logger.info("Invalid input, enter your choice again\r");
-            //input.nextLine();
 
-        }
-    }
-
-*/
     public void logging(boolean t) {
         logState=t;
     }
 
 
 
-    public Customer(String username,String password, String address, String phone, String email,String Gender,double cost) {
+    public Customer(String username,String password, String address, String phone, String email,String gender,double cost) {
         super();
         this.cost=cost;
         this.pass = password;
@@ -407,7 +339,7 @@ public static void showCart(int customerId) {
         this.address = address;
         this.phone = phone;
         this.email = email;
-        this.gender= Gender;
+        this.gender= gender;
 
 
     }

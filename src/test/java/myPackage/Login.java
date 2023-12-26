@@ -55,7 +55,7 @@ public class Login {
         installer=new Installer("testInstaller@gmail.com","Installer1","Appleiphone5","nablus","0543","1313",true);
         customer = new Customer("ss","1234567","nablus","0599874562","nkjc@gmail.com","female",0.0);
         Customer.getCustomerList().add(customer);
-        Installer.getInstaller().add(installer);
+        Installer.getInstallerList().add(installer);
 
         username = string;
         password = string2;
