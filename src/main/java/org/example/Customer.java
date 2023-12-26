@@ -229,8 +229,6 @@ public class Customer {
 
 
     public static void viewInstallationRequests() {
-
-
         Customer currentCustomer = Customer.getCustomerList().get(getY());
         for (Request request : currentCustomer.customerRequestsHistory) {
             String status = request.getStatus();
@@ -262,6 +260,8 @@ public class Customer {
         Customer.getCustomerList().get(getY()).setCost(total);
         logger.info("added to cart successfully !");
     }
+
+
 
     public static void filterProductsbyPrice(int filterChoice) {
         switch (filterChoice) {
@@ -298,6 +298,8 @@ public class Customer {
                 + DESCRIPTION + product.getDescription() + "\t"
                 + PRICE + product.getPrice() + "\n");
     }
+
+
 
 
     public void logging(boolean t) {
