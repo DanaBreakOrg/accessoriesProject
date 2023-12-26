@@ -49,9 +49,9 @@ public class Admin {
 
 
 
-    public static void handleCustomerRequests(String customerEmail) {
+    public static boolean handleCustomerRequests(String customerEmail) {
 
-
+        boolean done=false;
         for (int k = 0; k < Customer.getCustomerList().size(); k++) {
 
             if (Customer.getCustomerList().get(k).getEmail().equals(customerEmail) && cusReq.containsValue(Customer.getCustomerList().get(k))) {//customer found
@@ -63,7 +63,7 @@ public class Admin {
 
                 for (Request key : getKeys(cusReq, Customer.getCustomerList().get(k))) {
                     for (int i = 0; i < Installer.getInstaller().size(); i++) {
-                        boolean done;
+
                         done = searchAvailable(Installer.getInstaller().get(i), Customer.getCustomerList().get(k), key.preferredDate);
 
                         if (!done) {
@@ -96,6 +96,7 @@ public class Admin {
                 }
             }
         }
+        return done;
     }
 
 
@@ -116,16 +117,6 @@ public class Admin {
     }
 
 
-    private static String printAllDates(Installer installer) {
-        String m="Busy on : \n";
-
-        for (Map.Entry< Customer,String> entry : installer.getReservaeddates().entrySet()) {//do we need to know the product?
-            m+=  entry.getValue()+"\n";
-
-        }
-        return m;
-    }
-
 
 
     private static boolean searchAvailable(Installer installer,Customer customer,String date) {
@@ -145,10 +136,6 @@ public class Admin {
 
 
     public static String toString(Customer c) {
-        return "Customer : " +c.getEmail()+" "+c.getUsername()+" "+c.getPhone()+" "+c.getAddress() ;
-    }
-
-    public static String toString1(Customer c) {
         return "Customer Info   : " + "\n" +
                 "Name           : " + c.getUsername() + "\n" +
                 "Email          : " + c.getEmail() + "\n" +
@@ -158,14 +145,8 @@ public class Admin {
     }
 
 
-    public static String toString(Product p) {
-        return  "ID:            "+p.getId()+"\n"
-                +"Name:         "+p.getName()+"\n"
-                +"Description:  "+p.getDescription()+"\n"
-                +"Price:        "+ p.getPrice()+ "\n";
-    }
 
-    public static String toString1(Product p) {
+    public static String toString(Product p) {
         return  "ID:            "+p.getId()+"\t"
                 +"Name:         "+p.getName()+"\t"
                 +"Description:  "+p.getDescription()+"\t"
@@ -173,12 +154,7 @@ public class Admin {
     }
 
 
-    public static String toStringWithBusyDays(Installer i) {
-        return "Installer :     "+i.getEmail()+" \t "+i.getName()+" \t "+i.getPhone()+"\n" +
-                "Busy On  :     "+"\n"
-                +printAllDates(i);
 
-    }
     public static String toString(Installer i) {
         return "Installer :     "+i.getEmail()+" \t "+i.getName()+" \t "+i.getPhone()+"\n" ;
 

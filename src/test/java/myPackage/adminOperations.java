@@ -13,7 +13,7 @@ import static org.junit.Assert.assertNotNull;
 public class adminOperations {
 
     private final ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
-String cusname;
+    String cusname;
     Admin a= new Admin("nasser@gmail.com","nasser","12345",0);
 
     @Given("an admin is logged in")
