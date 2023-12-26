@@ -49,7 +49,6 @@ public class Admin {
 
 
     public static boolean handleCustomerRequests(String customerEmail) {
-
         boolean done=false;
         for (int k = 0; k < Customer.getCustomerList().size(); k++) {
 
