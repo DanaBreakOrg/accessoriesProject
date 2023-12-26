@@ -82,7 +82,7 @@
                 </executions>
                 <configuration>
                     <excludes>
-                        <exclude>com/example/main</exclude>
+                        <exclude>com/example/main/Main</exclude>
                     </excludes>
                 </configuration>
             </plugin>
