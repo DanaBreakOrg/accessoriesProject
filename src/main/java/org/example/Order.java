@@ -20,18 +20,6 @@ public class Order {
     SimpleDateFormat sdf = new SimpleDateFormat("yyyy/MM/dd");
     Calendar date1;
 
-    //  public static List<Order> getOrderList() {
-    //      return O;
-    //  }
-
-/*
-    public Order() {
-        super();
-        date1 = Calendar.getInstance();
-        date1.add(Calendar.DAY_OF_MONTH, 7);
-        date2=  sdf.format(date1.getTime());
-    }
-*/
 
 
     public Order(Customer customer, List<Product> invoice, String date2) {
@@ -46,7 +34,7 @@ public class Order {
 
     }
 
-    public void makeOrder(Customer customer, List<Product> invoice, String date2) {
+    /*public void makeOrder(Customer customer, List<Product> invoice, String date2) {
 
         this.customer = customer;
         this.date2 = date2;
@@ -55,7 +43,7 @@ public class Order {
         //Collections.copy(this.products, invoice);
 
 
-    }
+    }*/
 
 
     public Customer getCustomer() {

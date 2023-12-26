@@ -40,9 +40,11 @@ public class adminControl {
         boolean log=installer.getLogState();
         String add=installer.getAddress();
         String name=installer.getName();
+        String phone=installer.getPhone();
         installer.logging(log);
         installer.setName(name);
         installer.setAddress(add);
+        installer.setPhone(phone);
 
 
 
