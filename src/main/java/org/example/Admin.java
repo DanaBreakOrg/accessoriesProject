@@ -45,7 +45,7 @@ public class Admin {
     }
 
 
-/*
+
     public static boolean handleCustomerRequests(String customerEmail) {
         boolean done=false;
         for (int k = 0; k < Customer.getCustomerList().size(); k++) {
@@ -95,84 +95,9 @@ public class Admin {
             }
         }
         return done;
-    }*/
-
-    public static boolean handleCustomerRequests(String customerEmail) {
-        Customer customer = findCustomerByEmail(customerEmail);
-        if (customer == null || !getCusReq().containsValue(customer)) {
-            return false;
-        }
-
-        logCustomerRequests(customer);
-        return processRequestsForCustomer(customer);
     }
 
-    private static Customer findCustomerByEmail(String email) {
-        for (Customer customer : Customer.getCustomerList()) {
-            if (customer.getEmail().equals(email)) {
-                return customer;
-            }
-        }
-        return null;
-    }
 
-    private static void logCustomerRequests(Customer customer) {
-        for (Request key : getKeys(getCusReq(), customer)) {
-            String logMessage = String.format("Request Info:%n%s", toString(key));
-            logger.info(logMessage);
-        }
-    }
-
-    private static boolean processRequestsForCustomer(Customer customer) {
-        boolean done = false;
-        for (Request key : getKeys(getCusReq(), customer)) {
-            done = processSingleRequest(customer, key);
-            if (done) break;
-        }
-        return done;
-    }
-
-    private static boolean processSingleRequest(Customer customer, Request key) {
-        for (Installer installer : Installer.getInstallerList()) {
-            boolean available = searchAvailable(installer, customer, key.preferredDate);
-            if (!available) {
-                updateRequestStatus(key,installer);
-                sendRequestToInstaller(installer, customer, key);
-                logger.info("Waiting for Installer response.");
-                return true;
-            }
-        }
-        return false;
-    }
-
-    private static void updateRequestStatus(Request key,Installer installer) {
-        key.setStatus("Waiting for Installer response.");
-        Admin.informInstallerMethod().put(key, installer); // Assuming installer is accessible
-    }
-
-    private static void sendRequestToInstaller(Installer installer, Customer customer, Request key) {
-        // Construct and send email to the installer
-
-        sendEmailToInstaller(installer.getEmail(),"New installation request","New installation request was submitted and waiting for your response :\n"
-                + "Customer Info   : " + "\n" +
-                "Name           : " + customer.getUsername() + "\n" +
-                "Email          : " + customer.getEmail() + "\n" +
-                "Phone Number   : " + customer.getPhone() + "\n" +
-                "Address        : " + customer.getAddress() + "\n" +
-                "----------------------------------------------------\n"
-                + "Request Info     : " + "\n" +
-                "Car Model      : " + key.carModel + "\n" +
-                "Preferred Date : " + key.preferredDate + "\n" +
-                "Location       : " + key.location + "\n" +
-                "----------------------------------------------------\n"
-                + "Product Info     : " + "\n" +
-                toString(key.product));
-    }
-
-    private static String buildEmailContent(Customer customer, Request key) {
-        // Construct email content here
-        return "Email Content"; // Replace with actual content
-    }
 
 
     private static Set<Request> getKeys(Map<Request, Customer> map, Customer value) {
