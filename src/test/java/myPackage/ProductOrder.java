@@ -20,7 +20,7 @@ public class ProductOrder {
 
     @Given("a customer exists")
     public void givenACustomerExists() {
-        customer = new Customer("John Doe", "123456", "Address", "1234567890", "john@example.com", "Male", 0.0, 1);
+        customer = new Customer("John Doe", "123456", "Address", "1234567890", "john@example.com", "Male", 0.0);
     }
 
     @When("the customer makes an order with products")

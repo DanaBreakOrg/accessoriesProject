@@ -9,7 +9,7 @@ import org.example.Customer;
 public class customerProfile {
 
 
-    Customer customer= new Customer("username", "password", "address", "phone", "email", "gender", 0.0, 1);
+    Customer customer= new Customer("username", "password", "address", "phone", "email", "gender", 0.0);
     @Given("customer is logged in")
     public void customerIsLoggedIn() {
 

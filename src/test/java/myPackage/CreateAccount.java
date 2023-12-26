@@ -36,7 +36,7 @@ public class CreateAccount {
     }
     @Then("a customer whose username {string} , password {string}  , Address {string} , Phone {string} , email {string}, Gender {string} was added")
     public void aCustomerWhoseUsernamePasswordAddressPhoneEmailGenderWasAdded(String string, String string2, String string3, String string4, String string5, String string6) {
-        c=new Customer(username,password,address,phone,email,gender,0.0,1);
+        c=new Customer(username,password,address,phone,email,gender,0.0);
         create=Operations.addCustomer(c);
         assertTrue(create);
     }

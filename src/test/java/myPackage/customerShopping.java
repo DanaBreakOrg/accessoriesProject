@@ -4,10 +4,13 @@ import io.cucumber.java.en.Given;
 import io.cucumber.java.en.When;
 import io.cucumber.java.en.Then;
 
+import static org.example.Logging.y;
 import static org.junit.Assert.*;
-import org.example.Customer;
-import org.example.Operations;
-import org.example.Product;
+
+import org.example.*;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class customerShopping {
 
@@ -21,7 +24,7 @@ public class customerShopping {
     public void a_customer_is_logged_in() {
         // Initialize a Customer instance
         customer=new Customer();
-        customer = new Customer("username", "password", "address", "phone", "email", "gender", 0.0, 1);
+        customer = new Customer("username", "password", "address", "phone", "email", "gender", 0.0);
         customer.logging(true);
 
 
@@ -40,6 +43,7 @@ public class customerShopping {
         Operations.addCustomer(customer);
         //cusReq.put(customer.setRequest("24/10/2002","kia",p1,"nabl"),customer);
         Customer.makeRequest("2024/1/1","uno",p1,"nablus");
+        Customer.makeRequest("2024/1/2","uno",p1,"nablus");
 
 
     }
@@ -62,7 +66,7 @@ public class customerShopping {
 
     @Given("a customer is logged in and on the product page")
     public void aCustomerIsLoggedInAndOnTheProductPage() {
-        customer = new Customer("username", "password", "address", "phone", "email", "gender", 0.0, 1);
+        customer = new Customer("username", "password", "address", "phone", "email", "gender", 0.0);
         customer.logging(true);
     }
 
@@ -137,9 +141,28 @@ public class customerShopping {
 
     @When("the customer requests installation requests")
     public void theCustomerRequestsInstallationRequests() {
+        Request r1=Customer.getCustomerList().get(y).setRequest("2024-01-02", "uno",p1, "nablus");
+        Request r2=Customer.getCustomerList().get(y).setRequest("2024-01-02", "uno",p1, "nablus");
+        r1.setStatus("Waiting for Admin response.");
+        r2.setStatus("Approved.");
+        customer.getCustomerRequestsHistory().add(r1);
+        customer.getCustomerRequestsHistory().add(r2);
 
+        Customer.printAllRequestsAndCustomers();
         customer.viewInstallationRequests();
+
+        List<Product> products = new ArrayList<>();
+
+        p1 = new Product("P001", "name1", "desc1", "interior", 50.0);
+        p2 = new Product("P002", "name2", "desc2", "exterior", 100.0);
+        products.add(p1);
+        products.add(p2);
+        customer.getCustomerOrders().add(new Order(customer, products, "2024-02-02"));
+        customer.printOrderProducts(customer.getCustomerOrders().get(0));
+
         Operations.deleteCustomer(customer);
+        Operations.addCustomer(customer);
+        Customer.deleteCustomerUsingUsername(customer.getUsername());
     }
 
     @Then("return a sample request from the list to prove there is requests.")

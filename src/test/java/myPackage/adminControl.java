@@ -23,8 +23,8 @@ public class adminControl {
     public void theAdminIsSignedInAndHasACollectionOfInstallersProductsAndRequests() {
         admin=new Admin("test@example.com","admoona","Appleiphone5");
         Admin admin2 =new Admin();
-        installer=new Installer("testInstaller@gmail.com","Installer1","Appleiphone5","nablus","0543","1313",true,2);
-        installer2=new Installer("testInstaller2@gmail.com","Installer2","Appleiphone56","nablus","05434","13134",true,2);
+        installer=new Installer("testInstaller@gmail.com","Installer1","Appleiphone5","nablus","0543","1313",true);
+        installer2=new Installer("testInstaller2@gmail.com","Installer2","Appleiphone56","nablus","05434","13134",true);
         tempInstaller=new Installer();
         customer = new Customer("ss","1234567","nablus","0599874562","nkjc@gmail.com","female",0.0);
         product = new Product("P001", "name1", "desc1", "interior", 50.0);

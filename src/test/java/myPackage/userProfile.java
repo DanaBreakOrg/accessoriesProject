@@ -23,7 +23,7 @@ public class userProfile {
     public userProfile(){
         log=new Logging();
         log.password="123456";
-        c = new Customer("ss","1234567","nablus","0599874562","nkjc@gmail.com","female",0.0,1);
+        c = new Customer("ss","1234567","nablus","0599874562","nkjc@gmail.com","female",0.0);
         Customer.getCustomerList().add(c);
 
     }
@@ -33,7 +33,7 @@ public class userProfile {
 
     @Given("the user is signed in and wants to update {string}")
     public void theUserIsSignedInAndWantsToUpdate(String arg0) {
-        c = new Customer("ss","1234567","nablus","0599874562","nkjc@gmail.com","female",0.0,1);
+        c = new Customer("ss","1234567","nablus","0599874562","nkjc@gmail.com","female",0.0);
         Customer.getCustomerList().add(c);
         log.logState(true);
         if(arg0.equals("password")){
