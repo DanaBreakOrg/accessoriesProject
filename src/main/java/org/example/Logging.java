@@ -7,16 +7,42 @@ import java.util.logging.Logger;
 public class Logging {
 
 
+    public boolean isSuccessfulusername() {
+        return successfulusername;
+    }
 
-    public boolean successfulusername= false;
-    public boolean successfulpassword= false;
+    private boolean successfulusername= false;
+
+    public boolean isSuccessfulpassword() {
+        return successfulpassword;
+    }
+
+    private boolean successfulpassword= false;
 
 
-    public String email;
-    public String password;
-    public boolean logState = false;
-    public static int y;
-    public static boolean flag;
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    private String email;
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
+
+    private String password;
+    private boolean logState = false;
+
+    public static int getY() {
+        return y;
+    }
+
+    public static void setY(int y) {
+        Logging.y = y;
+    }
+
+    private static int y;
     int type = -3;
 
     protected static Map<String,String> q= new HashMap<>();//how to make it protected
@@ -25,7 +51,7 @@ public class Logging {
 
     public int searchEmail(String email1){
 
-         flag = true;
+        boolean flag = true;
 
         email = email1;
 
@@ -88,8 +114,7 @@ public class Logging {
 
         if (passw.equals(value)) {
             successfulpassword = true;
-            //String f=String.format("Welcome:: %s",Customer.getC().get(y).getUsername());
-            //logger.info(f);
+
             logState = true;
             return y;
         }

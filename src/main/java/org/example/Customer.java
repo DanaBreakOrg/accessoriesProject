@@ -6,7 +6,8 @@ import java.util.Map;
 import java.util.Scanner;
 import java.util.logging.*;
 import static org.example.Admin.getCusReq;
-import static org.example.Logging.y;
+import static org.example.Logging.getY;
+
 
 public class Customer {
     public static final String NAME = "Name: ";
@@ -84,15 +85,15 @@ public class Customer {
 
 
     public static void showCart() {
-        for(int i = 0; i<Customer.getCustomerList().get(y).getCard().size(); i++) {
+        for(int i = 0; i<Customer.getCustomerList().get(getY()).getCard().size(); i++) {
          String cardInfo = String.format("%sID: %s\t%s%s\t%s%s\t%s%.2f%n",
-                 ID, Customer.getCustomerList().get(y).getCard().get(i).getId(),
-                 NAME ,Customer.getCustomerList().get(y).getCard().get(i).getName(),
-                DESCRIPTION,Customer.getCustomerList().get(y).getCard().get(i).getDescription(),
-                PRICE, Customer.getCustomerList().get(y).getCard().get(i).getPrice());
+                 ID, Customer.getCustomerList().get(getY()).getCard().get(i).getId(),
+                 NAME ,Customer.getCustomerList().get(getY()).getCard().get(i).getName(),
+                DESCRIPTION,Customer.getCustomerList().get(getY()).getCard().get(i).getDescription(),
+                PRICE, Customer.getCustomerList().get(getY()).getCard().get(i).getPrice());
         logger.info(cardInfo);
    }
-        String totalCost=String.format("Total cost : %f",Customer.getCustomerList().get(y).getCost());
+        String totalCost=String.format("Total cost : %f",Customer.getCustomerList().get(getY()).getCost());
         logger.info(totalCost);
     }
 
@@ -183,8 +184,8 @@ public class Customer {
     }
 
     public static void viewOrderHistory() {
-        for(int i=0; i<Customer.getCustomerList().get(y).getCustomerOrders().size();i++){
-            Customer.getCustomerList().get(y).printOrderProducts(Customer.getCustomerList().get(y).getCustomerOrders().get(i));
+        for(int i=0; i<Customer.getCustomerList().get(getY()).getCustomerOrders().size();i++){
+            Customer.getCustomerList().get(getY()).printOrderProducts(Customer.getCustomerList().get(getY()).getCustomerOrders().get(i));
 
         }
     }
@@ -227,10 +228,10 @@ public class Customer {
 
     public static void viewInstallationRequests() {
 
-        for(int i = 0; i<Customer.getCustomerList().get(y).customerRequestsHistory.size(); i++) {
+        for(int i = 0; i<Customer.getCustomerList().get(getY()).customerRequestsHistory.size(); i++) {
 
-            String status = Customer.getCustomerList().get(y).customerRequestsHistory.get(i).getStatus();
-            Request request = Customer.getCustomerList().get(y).customerRequestsHistory.get(i);
+            String status = Customer.getCustomerList().get(getY()).customerRequestsHistory.get(i).getStatus();
+            Request request = Customer.getCustomerList().get(getY()).customerRequestsHistory.get(i);
             String requestInfo = Admin.toString(request);
 
             if ("Waiting for Installer response.".equals(status) || "Waiting for Admin response.".equals(status)) {
@@ -244,21 +245,21 @@ public class Customer {
 
 
     public static void makeRequest(String predate, String cmodel, Product p, String location) {
-        Request r=Customer.getCustomerList().get(y).setRequest(predate, cmodel,p, location);
+        Request r=Customer.getCustomerList().get(getY()).setRequest(predate, cmodel,p, location);
         r.setStatus("Waiting for Admin response.");
-        getCusReq().put(r,Customer.getCustomerList().get(y));
+        getCusReq().put(r,Customer.getCustomerList().get(getY()));
 
-        Customer.getCustomerList().get(y).customerRequestsHistory.add(r);
+        Customer.getCustomerList().get(getY()).customerRequestsHistory.add(r);
         logger.info("Your installation request is submitted and waiting for the admin to schedule it. \r");
-        EmailSender.sendEmail(Customer.getCustomerList().get(y).getEmail(),"Installation request submission","Your installation request was submitted and on waiting status :)");
+        EmailSender.sendEmail(Customer.getCustomerList().get(getY()).getEmail(),"Installation request submission","Your installation request was submitted and on waiting status :)");
     }
 
     public static void pFound(int i) {
         double total;
-        Customer.getCustomerList().get(y).getCard().add(Product.getP().get(i));
-        total = Customer.getCustomerList().get(y).getCost();
+        Customer.getCustomerList().get(getY()).getCard().add(Product.getP().get(i));
+        total = Customer.getCustomerList().get(getY()).getCost();
         total += Product.getP().get(i).getPrice();
-        Customer.getCustomerList().get(y).setCost(total);
+        Customer.getCustomerList().get(getY()).setCost(total);
         logger.info("added to cart successfully !");
     }
 
@@ -420,9 +421,9 @@ public class Customer {
 
 
     }
-*/
 
-/*
+
+
 
     public static void viewInstallationRequests() {
         for(int i = 0; i<Customer.getCustomerList().get(y).customerRequestsHistory.size(); i++) {
@@ -432,10 +433,10 @@ public class Customer {
                 logger.info("Your Request   :\n"+Admin.toString(Customer.getCustomerList().get(y).customerRequestsHistory.get(i)) + "          Approved by    " + Admin.toString(Installer.getReservedDone().get(Customer.getCustomerList().get(y).customerRequestsHistory.get(i))));
             }
         }
-    }*/
+    }
 
-/*
-    public static void filterProductsbyPrice(int filterChoice) {
+
+   public static void filterProductsbyPrice(int filterChoice) {
         if (filterChoice == 1) {
             for (int i = 0; i < Product.getP().size(); i++) {
                 if ((Product.getP().get(i).getPrice() > 0) && (Product.getP().get(i).getPrice() <= 70)) {
@@ -476,9 +477,9 @@ public class Customer {
         }
     }
 
-*/
 
-/*
+
+
 public static void showCart(int customerId) {
     List<Customer> customerList = Customer.getCustomerList();
     if (customerId < 0 || customerId >= customerList.size()) {

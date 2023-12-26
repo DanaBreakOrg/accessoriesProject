@@ -22,7 +22,7 @@ public class userProfile {
 
     public userProfile(){
         log=new Logging();
-        log.password="123456";
+        log.setPassword("123456");
         c = new Customer("ss","1234567","nablus","0599874562","nkjc@gmail.com","female",0.0);
         Customer.getCustomerList().add(c);
 

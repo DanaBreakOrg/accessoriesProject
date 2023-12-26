@@ -7,7 +7,8 @@ import java.util.*;
 import java.util.logging.*;
 
 import static org.example.Admin.*;
-import static org.example.Logging.y;
+import static org.example.Logging.getY;
+
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
@@ -198,7 +199,7 @@ public class Main {
     public static void adminActivities() {
         boolean running = true;
         while (running) {
-            logger.info("\n Welcome Admin "+ Admin.getAdminList().get(y).getName() +" , to the Car accessories company.\r\n"
+            logger.info("\n Welcome Admin "+ Admin.getAdminList().get(getY()).getName() +" , to the Car accessories company.\r\n"
                     +"------------------------------------------------------------.\r\n"
                     +"Select an option:.\r\n"
                     +"1.  Show all customers.\r\n"
@@ -444,7 +445,7 @@ public class Main {
 
         boolean running = true;
         while (running) {
-            logger.info("\n Welcome Installer "+ Installer.getInstallerList().get(y).getName() +" , to the Car accessories company.\r\n"
+            logger.info("\n Welcome Installer "+ Installer.getInstallerList().get(getY()).getName() +" , to the Car accessories company.\r\n"
                     +"------------------------------------------------------------.\r\n"
                     +"Select an option:.\r\n"//add update delete view customers
                     +"1.  View installation requests.\r\n"
@@ -461,7 +462,7 @@ public class Main {
                 }
 
                 case 2:{
-                    HandleRequestsFromAdmin(informInstallerMethod(),Installer.getInstallerList().get(y).getEmail());
+                    HandleRequestsFromAdmin(informInstallerMethod(),Installer.getInstallerList().get(getY()).getEmail());
                     break;
                 }
 
@@ -524,7 +525,7 @@ public class Main {
 
         boolean running = true;
         while (running) {
-            logger.info("\n Welcome "+Customer.getCustomerList().get(y).getUsername()+ " , to the Car accessories company.\r\n"
+            logger.info("\n Welcome "+Customer.getCustomerList().get(getY()).getUsername()+ " , to the Car accessories company.\r\n"
                             + "------------------------------------------------------------.\r\n"
                             + "Select an option:.\r\n"
                             + "1.  Profile.\r\n"//done
@@ -620,10 +621,10 @@ public class Main {
                                             //boolean flag=false;
 
 
-                                            for(int k = 0; k<Customer.getCustomerList().get(y).getCard().size(); k++) {
-                                                if(pid.equals(Customer.getCustomerList().get(y).getCard().get(k).getId())){
+                                            for(int k = 0; k<Customer.getCustomerList().get(getY()).getCard().size(); k++) {
+                                                if(pid.equals(Customer.getCustomerList().get(getY()).getCard().get(k).getId())){
                                                     //make a request
-                                                    Customer.makeRequest(predate, cmodel, Customer.getCustomerList().get(y).getCard().get(k), location);
+                                                    Customer.makeRequest(predate, cmodel, Customer.getCustomerList().get(getY()).getCard().get(k), location);
                                                     //flag=true;
                                                     break;
                                                 }
@@ -655,10 +656,10 @@ public class Main {
                     DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
 
                     String formattedDateTime = currentDateTime.format(formatter);
-                    Order order=new Order(Customer.getCustomerList().get(y),Customer.getCustomerList().get(y).getCard(),formattedDateTime);
+                    Order order=new Order(Customer.getCustomerList().get(getY()),Customer.getCustomerList().get(getY()).getCard(),formattedDateTime);
 
-                    Customer.getCustomerList().get(y).getCustomerOrders().add(order);
-                    Customer.getCustomerList().get(y).getCard().clear();
+                    Customer.getCustomerList().get(getY()).getCustomerOrders().add(order);
+                    Customer.getCustomerList().get(getY()).getCard().clear();
                     //not working properly
 
                    // Customer.submitOrder(Customer.getCustomerList().get(y),Customer.getCustomerList().get(y).getCard());
@@ -694,10 +695,10 @@ public class Main {
 
 
     private static void CustomerProfile() {
-        logger.info("\n Hi , "+Customer.getCustomerList().get(y).getUsername()+"\r\n"
+        logger.info("\n Hi , "+Customer.getCustomerList().get(getY()).getUsername()+"\r\n"
                 + "------------------------------------------------------------.\r\n"
-                +" Username : "+ Customer.getCustomerList().get(y).getUsername() + "\n" + " Address : "+ Customer.getCustomerList().get(y).getAddress() + "\n"
-                + " Phone : "+ Customer.getCustomerList().get(y).getPhone() + "\n" + " Email : " + Customer.getCustomerList().get(y).getEmail() +"\n\n"
+                +" Username : "+ Customer.getCustomerList().get(getY()).getUsername() + "\n" + " Address : "+ Customer.getCustomerList().get(getY()).getAddress() + "\n"
+                + " Phone : "+ Customer.getCustomerList().get(getY()).getPhone() + "\n" + " Email : " + Customer.getCustomerList().get(getY()).getEmail() +"\n\n"
                 + "Select an option:.\r\n"
                 + "1. Change address.\r\n"
                 + "2. Change phone number.\r\n"
@@ -714,7 +715,7 @@ public class Main {
                 Scanner newad1 = new Scanner(System.in);
                 logger.info("Enter your new address\r");
                 String newaddress= newad1.nextLine();
-                Customer.getCustomerList().get(y).setAddress(newaddress);
+                Customer.getCustomerList().get(getY()).setAddress(newaddress);
                 logger.info("Your address's updated :)");
                 break;
 
@@ -722,7 +723,7 @@ public class Main {
                 Scanner newph1 = new Scanner(System.in);
                 logger.info("Enter your new phone number\r");
                 String newph= newph1.nextLine();
-                Customer.getCustomerList().get(y).setPhone(newph);
+                Customer.getCustomerList().get(getY()).setPhone(newph);
                 logger.info("Your phone number's' updated :)");
                 break;
 
@@ -731,18 +732,18 @@ public class Main {
 
                 logger.info("Enter your new Email\r");
                 String newmail= newemail.nextLine();
-                Customer.getCustomerList().get(y).setEmail(newmail);
+                Customer.getCustomerList().get(getY()).setEmail(newmail);
                 logger.info("Your Email's updated :)");
                 break;
             case 4:
                 Scanner newpass1 = new Scanner(System.in);
                 logger.info("Enter your old password\r");
                 String oldpass= newpass1.next();
-                if(Customer.getCustomerList().get(y).getPassword().equals(oldpass))
+                if(Customer.getCustomerList().get(getY()).getPassword().equals(oldpass))
                 {
                     logger.info("Enter your new password (no spaces allowed)\r");
                     String newpass = newpass1.next();
-                    Customer.getCustomerList().get(y).setPassword(newpass);
+                    Customer.getCustomerList().get(getY()).setPassword(newpass);
                     logger.info("Your password's updated :)");
                 }else{
                     logger.info("Password is incorrect\r");
