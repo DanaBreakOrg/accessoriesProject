@@ -46,16 +46,13 @@ public class Main {
         logger = Logger.getLogger(Main.class.getName());
 
 
-        Admin a = new Admin("nasser@gmail.com", "nasser", "12345");
-        Admin t = new Admin("talah@gmail.com", "talah", "123456");
+        Admin a = new Admin("rayabreak02@gmail.com", "raya", "12345");
         Admin.getAdminList().add(a);
-        Admin.getAdminList().add(t);
-
         Logging.getQ().put(a.getEmail(), a.getPassword());
-        Logging.getQ().put(t.getEmail(), t.getPassword());
 
-        Customer c = new Customer("shahd", "111", "QAM", "02872228", "jixag36030@usoplay.com", "Male", 0.0);
-        Customer c2 = new Customer("dana", "222", "DAM", "028725323", "dana@gmail.com", "Male", 0.0);
+        Customer c = new Customer("shahd", "111", "QAM", "02872228", "jixag36030@usoplay.com", "Female", 0.0);
+        Customer c2 = new Customer("dana", "222", "DAM", "02872532", "danabutterfly4@gmail.com", "Female", 0.0);
+
         Customer.getCustomerList().add(c);
         Customer.getCustomerList().add(c2);
 
@@ -80,9 +77,10 @@ public class Main {
         Operations.addProduct(product1);
 
 
-        Installer n = new Installer("jelenab798@vkr1.com", "woroud", "123123", "RAM", "0568725598", "122", true);
-        Installer n1 = new Installer("l,mfvjelenab798@vkr1.com", "ahmad", "123", "nablus", "0568665598", "123", true);
-        Installer n2 = new Installer("leen@gmail.com", "leen", "321", "SAM", "0568722198", "124", false);
+        Installer n = new Installer("mehip82381@taobudao.com", "woroud", "123123", "RAM", "0568725598", "122", true);
+        Installer n1 = new Installer("ahmad@gmail.com", "ahmad", "123", "nablus", "0568665598", "123", true);
+        Installer n2 = new Installer("leen@gmail.com", "leen", "123", "SAM", "0568722198", "124", false);
+
         Installer.getInstallerList().add(n);
         Installer.getInstallerList().add(n1);
         Installer.getInstallerList().add(n2);
@@ -94,8 +92,8 @@ public class Main {
         Logging.getQ().put(n2.getEmail(), n2.getPass());
         Logging.getQ().put(n1.getEmail(), n2.getPass());
 
-        getCusReq().put(c.setRequest("24/10/2002", "kia", product1, "nabl"), c);
-        getCusReq().put(c.setRequest("25/10/2002", "kia", product1, "jenin"), c);
+        getCusReq().put(c.setRequest("24/10/2024", "kia", product1, "nablus"), c);
+        getCusReq().put(c.setRequest("25/10/2024", "kia", product1, "jenin"), c);
 
 
 
@@ -543,7 +541,7 @@ public class Main {
                             + "5.  Buy a product.\r\n"//done
                             + "6.  Show cart.\r\n"//done
                             + "7.  Search a product.\r\n"//done
-                            + "8. Logout.\r\n"//done
+                            + "8.  Logout.\r\n"//done
                             + ENTER_CHOICE
                     //view order history
             );
@@ -583,7 +581,7 @@ public class Main {
                             " 1. low priced accessories (0-70)NIS.\n"+
                             " 2. medium priced accessories (70-150)NIS.\n"+
                             " 3. high priced accessories (higher than 150) NIS.\n"+
-                            " 4.Back\n"+
+                            " 4. Back\n"+
                             ENTER_CHOICE);
                     int filterChoicebuPrice = Main.scanner();
                     Customer.filterProductsbyPrice(filterChoicebuPrice);
@@ -596,13 +594,14 @@ public class Main {
 
                     boolean found=false;
                     while (!done) {
-                        logger.info("Enter the accessory id you want to purchase :)\r\n Press 0 when you're done shopping");
+                        logger.info("Enter the accessory id you want to purchase :)\r\nPress 0 when you're done shopping");
                         String pid = input.next();
                         if (pid.equals("0")) done = true;
                         else {
 
 
 
+                            found = false;
                             for(int i = 0; i < Product.getP().size() && !found; i++) {///////
                                 if(pid.equals(Product.getP().get(i).getId())) {
                                     Customer.pFound(i);
@@ -672,8 +671,10 @@ public class Main {
     private static void customerProfile() {
         logger.info("\n Hi , "+Customer.getCustomerList().get(getY()).getUsername()+"\r\n"
                 +SEPERATOR
-                +" Username : "+ Customer.getCustomerList().get(getY()).getUsername() + "\n" + " Address : "+ Customer.getCustomerList().get(getY()).getAddress() + "\n"
-                + " Phone : "+ Customer.getCustomerList().get(getY()).getPhone() + "\n" + " Email : " + Customer.getCustomerList().get(getY()).getEmail() +"\n\n"
+                +" Username  : "+ Customer.getCustomerList().get(getY()).getUsername() + "\n" +
+                 " Address   : "+ Customer.getCustomerList().get(getY()).getAddress() + "\n"
+                +" Phone     : "+ Customer.getCustomerList().get(getY()).getPhone() + "\n" +
+                 " Email     : " + Customer.getCustomerList().get(getY()).getEmail() +"\n\n"
                 + OPTION
                 + "1. Change address.\r\n"
                 + "2. Change phone number.\r\n"
@@ -783,7 +784,10 @@ public class Main {
 
     private static boolean isProductIdInRange(String pid) {
         int productId = Integer.parseInt(pid);
-        return productId < 2000 && productId > 1000;
+        if(productId<2000 && productId>1000)
+        return true;
+
+        else return false;
     }
 
     private static void handleUserChoice(Scanner input, String pid) {
@@ -800,7 +804,7 @@ public class Main {
 
     private static void processInstallationRequest(Scanner input, String pid){
         logger.info("Enter your car model\r");
-        String carModel = input.nextLine();
+        String carModel = input.next();
         logger.info("Enter your preferred date (DD/MM/YYYY)\r");
         String preferredDate = input.next();
         logger.info("Enter your location\r");

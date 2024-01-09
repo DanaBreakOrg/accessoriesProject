@@ -221,7 +221,7 @@ public class Customer {
                 // Constructing log message only if INFO level is enabled
                 String requestInfo = Admin.toString(entry.getKey());
                 String customerInfo = Admin.toString(entry.getValue());
-                String logMessage = "Request Info   :%n" + requestInfo + " %n Customer Info   :%n" + customerInfo;
+                String logMessage = "Request Info   :\n" + requestInfo + "\nCustomer Info  :\n" + customerInfo+"\n-------------------------------------------------------\n";
                 logger.info(logMessage);
             }
         }
@@ -234,7 +234,7 @@ public class Customer {
             String status = request.getStatus();
             String requestInfo = Admin.toString(request);
             if ("Waiting for Installer response.".equals(status) || "Waiting for Admin response.".equals(status)&&logger.isLoggable(Level.INFO)) {
-                logger.info(String.format("Your Request   :%n%s          Waiting%n", requestInfo));
+                logger.info(String.format("Your Request   :%n%s             ", requestInfo));
             } else if ("Approved.".equals(status) && Installer.getReservedDone().containsKey(request)&&logger.isLoggable(Level.INFO)) {
                 String installerInfo = Admin.toString(Installer.getReservedDone().get(request));
                 logger.info(String.format("Your Request   :%n%s          by    %s", requestInfo, installerInfo));

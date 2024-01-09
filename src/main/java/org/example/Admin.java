@@ -83,7 +83,7 @@ public class Admin {
                                     + "Product Info     : " + "\n" +
                                     toString(key.product));
 
-                            logger.info("Waiting for Installer response.");
+                            logger.info("Waiting for Installer "+Installer.getInstallerList().get(i).getName()+" response.");
                             break;
 
 
@@ -129,8 +129,7 @@ public class Admin {
 
 
     public static String toString(Customer c) {
-        return "Customer Info   : " + "\n" +
-                "Name           : " + c.getUsername() + "\n" +
+        return  "Name           : " + c.getUsername() + "\n" +
                 "Email          : " + c.getEmail() + "\n" +
                 "Phone Number   : " + c.getPhone() + "\n" +
                 "Address        : " + c.getAddress() + "\n" ;
@@ -149,7 +148,7 @@ public class Admin {
 
 
     public static String toString(Installer i) {
-        return "Installer :     "+i.getEmail()+" \t "+i.getName()+" \t "+i.getPhone()+"\n"+i.getIdd()+"\n" ;
+        return "Installer :\n"+i.getIdd()+"        "+i.getName()+"        "+i.getPhone()+"           "+i.getEmail()+"\n" ;
 
     }
     public static String toString(Request r) {
@@ -158,7 +157,7 @@ public class Admin {
         return  "Car Model      : "+r.carModel+"\n" +
                 "Preferred Date : "+r.preferredDate+"\n"+
                 "Location       : "+r.location+"\n"+
-                "Status         : "+r.getStatus();
+                "Status         : "+r.getStatus()+"\n";
     }
 
 
